@@ -1,15 +1,16 @@
 # 📜 Project description
 
 In this project, we make use of the present face recognition and voice technologies to access our personal information on the web. We will build a profile app where we can see our profiles, modify them. But the login to our profile can be done using
+
 * Username and Password
 * Face recognition
 * Trigger word detection
 
 ## 🔑 Login page
 
-The user will be given three options to login. 
+The user will be given three options to login.
 
-### ⌨️ Username and Password 
+### ⌨️ Username and Password
 
 The user will get to access his account be entering the right credentials.
 
@@ -24,5 +25,8 @@ The profile should contain the user's image, basic information. Once we complete
 ## 💾 Update profile
 
 The user gets to update their profile. But we need a password authorization to access the edit form.
-If the user logged in using Face or Voice, he can fake the data as picture or voice recording. So we need password confirmation to edit the profile form. 
+If the user logged in using Face or Voice, he can fake the data as picture or voice recording. So we need password confirmation to edit the profile form.
 
+## 🛠 Model
+
+The model uses FaceNet algorithm which inputs an image retrieved from the webcam and calculates the difference between all the images in the database. It uses a k-NN algorithm later to find the recognize the face.
