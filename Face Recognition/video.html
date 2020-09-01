@@ -75,7 +75,7 @@
                             const fullFaceDescription = faceapi.resizeResults(fullFaceDescriptions, displaySize)
                             // faceapi.draw.drawDetections(canvas, fullFaceDescriptions)
 
-                            const labels = ["img/nitin"]
+                            const labels = ["img/nitin", "img/yasaswini"]
 
                             const labeledFaceDescriptors = await Promise.all(
                                 labels.map(async label => {
@@ -95,7 +95,7 @@
                                 })
                             );
 
-                            const maxDescriptorDistance = 0.6
+                            const maxDescriptorDistance = 0.8
                             const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, maxDescriptorDistance)
 
                             const results = fullFaceDescriptions.map(fd => faceMatcher.findBestMatch(fd.descriptor))
