@@ -14,15 +14,18 @@ var con = mysql.createConnection({
 });
 
 
-
+app.use(express.urlencoded({
+	extended: true
+}))
+app.use(express.json({ limit: '1mb' }))
 app.use(bodyParser.json({ extended: true, limit: "50mb" }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 app.get("/", (req, res) => {
-	res.sendfile("index.html");
+	res.sendFile("index.html");
 });
 
 const printTable = () => {
-	con.query('SELECT * FROM People', (err, result) => {
+	con.query('SELECT * FROM Student_Info', (err, result, fields) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -30,37 +33,109 @@ const printTable = () => {
 		}
 	})
 }
-app.post('/register', (req, res) => {
-	const { email, password } = req.body;
+
+// printTable();
+// let email_val = "";
+app.post('/basic_registration', (req, res) => {
+	const { firstName, lastName, email, password } = req.body;
 	const saltRounds = 10;
+	// console.log("Got password is " + email);
 	const hash = bcrypt.hashSync(password, saltRounds);
-	var sql = `INSERT INTO People (email, password) VALUES (?, ?)`;
-	con.query(sql, [email, hash], function (err, result) {
+	const decrypt = bcrypt.compareSync(password, hash);
+	console.log(decrypt);
+	var command = `INSERT INTO Users_login_Credentials (Firstname, Lastname, Email, Passwrd) VALUES (?, ?, ?, ?)`;
+	con.query(command, [firstName, lastName, email, hash], (err, results, fields) => {
 		if (err) {
 			console.log(err);
 		} else {
+			// console.log(results);
 			console.log("1 record inserted");
-			printTable();
 		}
-
 	});
-	res.send("Register Route");
+	var id_query = `SELECT ID from Users_login_Credentials where Email = ?`;
+	let id;
+	con.query(id_query, [email], (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			id = result[0].ID;
+			res.redirect('/info?id=' + id);
+			// var id = encodeURIComponent(id);
+			// res.redirect('/info/?id=' + id);
+			// res.send("hai");
+			// res.send("Byee");
+			// res.json({ id });
+		}
+	})
+
 });
+app.get('/info', (req, res) => {
+	console.log(req.query.id);
+	res.sendFile(__dirname + '/public/info.html');
+});
+app.get('/sample', (req, res) => {
+	// res.send("Sample world");
+	res.redirect('/hello');
+})
+app.get('/hello', (req, res) => {
+	res.send('hello world');
+})
+
+app.post('/info_registration', (req, res) => {
+	// const { gender, school, department, year, semester, dob, phonenumber } = req.body;
+	const { id, gender } = req.body;
+	var command = `INSERT INTO Student_Info (ID, gender) VALUES (?,?)`;
+	con.query(command, [id, gender], (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			printTable();
+			res.send("HUraayy!!");
+		}
+	})
+	// var id_query = `SELECT ID from Users_login_Credentials where Email = ?`;
+	// let id = 0;
+	// try {
+	// 	const result = await con.query(id_query, [email_val]);
+	// 	console.log(result);
+	// } catch (error) {
+	// 	console.log(error);
+	// }
+
+	// id = await result[0].ID;
+	// console.log("ID is " + id);
+	// console.log("Outer id is " + id);
+	// var sql = `INSERT INTO Student_Info (ID, Gender, School, Department, Year_of_joining, Semester, DOB, PhoneNumber) VALUES (?,?, ?, ?, ?, ?, ?, ?)`;
+	// con.query(sql, [12, gender, school, department, year, semester, dob, phonenumber], function (err, results) {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log("1 record inserted");
+	// 		console.log(results);
+	// 	}
+	// });
+
+	// res.send("Info route");
+
+})
+
 app.post('/login', (req, res) => {
 	const { email, password } = req.body;
-
+	console.log(email);
+	console.log(password);
 	var validate = `SELECT * FROM People WHERE email = ?`
 	con.query(validate, [email], (err, result) => {
 		if (err) {
 			console.log(err);
 		} else {
+			console.log(result);
 			const hash = result[0].password;
 			const isTrue = bcrypt.compareSync(password, hash);
 			console.log(isTrue);
 		}
 	});
 
-	res.send("Login Route");
+	res.send("login route");
 });
 
 app.listen(5000, () => {
