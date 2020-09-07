@@ -19,11 +19,13 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-
-<form onsubmit="onButton(event)">
-    <input type="text" id="gender" />
-    <input type="submit" />
+<!-- onsubmit="onButton(event) -->
+<form action="/info_registration" method="POST">
+    <input type="hidden" name="id" id="ID" value="" />
+    <input type="text" value="Male" name="gender" id="gender" />
+    <input type="submit" onclick="return getID();" />
 </form>
 <script src="./script.js"></script>
 
