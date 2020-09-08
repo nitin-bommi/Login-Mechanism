@@ -6,27 +6,32 @@ In this project, we make use of the present face recognition and voice technolog
 * Face recognition
 * Trigger word detection
 
-## 🔑 Login page
+## LBPHFaceRecognizer
 
-The user will be given three options to login.
+### Folder Structure
 
-### ⌨️ Username and Password
+* data
+    * haarcascade_frontalface_default.xml
 
-The user will get to access his account be entering the right credentials.
+* TrainingImage
+    * 60 Images captured for training
 
-### 👦👧 Face recognition
+* Training Image Label
+    * trainner.yml (model)
 
-Once the user selects this, we should access the webcam and display a square segment which will be used as input to recognize the face. After he is in a good position, he should be able to tap `capture` which will capture an image within the square and send it as an input to the model. The model returns the name of the user and the profile should be shown.
+* UserDetails
+    * UserDetails.csv (ID, Name)
 
-## 📄 Profile
+* Sample.py (program)
 
-The profile should contain the user's image, basic information. Once we complete the login part successfully, we can allow the users to send messages to classmates and view their profile.
+### How it works?
 
-## 💾 Update profile
+1. We have to give id and name, and click sample, which takes approximatle 60 imgs and stores in `TrainingImage` directory.
 
-The user gets to update their profile. But we need a password authorization to access the edit form.
-If the user logged in using Face or Voice, he can fake the data as picture or voice recording. So we need password confirmation to edit the profile form.
+2. Train the model by clicking `train`.
 
-## 🛠 Model
+3. It trains the model if new samples were added.
 
-The model uses FaceNet algorithm which inputs an image retrieved from the webcam and calculates the difference between all the images in the database. It uses a k-NN algorithm later to find the recognize the face.
+4. Click on `test` to test if it is working properly or not
+
+Please try it out and inform me the results. I already added my face images and trained it.
