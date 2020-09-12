@@ -1,8 +1,12 @@
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const { requireAuth } = require('./authToken');
+const jwt = require("jsonwebtoken");
+const cookieParser = require('cookie-parser');
 const app = express();
 
 var con = mysql.createConnection({
@@ -17,6 +21,7 @@ var con = mysql.createConnection({
 app.use(express.urlencoded({
 	extended: true
 }))
+app.use(cookieParser());
 app.use(express.json({ limit: '1mb' }))
 app.use(bodyParser.json({ extended: true, limit: "50mb" }));
 app.use(express.static("public"));
@@ -32,6 +37,7 @@ const printTable = () => {
 // Basic Info form page and  Home Page
 
 app.get("/", (req, res) => {
+	// console.log(process.env.JWT_SECRET);
 	res.sendFile("index.html");
 });
 
@@ -43,9 +49,18 @@ app.get('/info', (req, res) => {
 
 // Get student details after successful login
 
-app.get('/getDetails', (req, res) => {
-	res.send(req.query.email);
+app.get('/getDetails', requireAuth, (req, res) => {
+	const email = req.decoded.email;
+	con.query(`SELECT * FROM Users_login_Credentials WHERE email=?`, [email], (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(result);
+			res.json({ result })
+		}
+	})
 })
+
 app.post('/basic_registration', (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 	const saltRounds = 10;
@@ -95,18 +110,28 @@ app.post('/login', (req, res) => {
 	const { email, password } = req.body;
 	console.log(email);
 	console.log(password);
-	var validate = `SELECT * FROM People WHERE email = ?`
+	var validate = `SELECT * FROM Users_login_Credentials WHERE Email = ?`
 	con.query(validate, [email], (err, result) => {
 		if (err) {
 			console.log(err);
 		} else {
 			console.log(result);
-			const hash = result[0].password;
-			const isTrue = bcrypt.compareSync(password, hash);
-			if (isTrue) {
-				res.redirect('/getDetails?email=' + email);
+			if (result.length < 1) {
+				res.redirect('/');
 			} else {
-				res.send("Invalid Credentials");
+
+				const hash = result[0].Passwrd;
+				const isTrue = bcrypt.compareSync(password, hash);
+				console.log(isTrue);
+				if (isTrue) {
+					// console.log("ENV is " + process.env.JWT_SECRET);
+					const token = jwt.sign({ email }, process.env.JWT_SECRET);
+					// console.log(jwt.decode(token));
+					res.cookie('jwt', token, { httpOnly: true });
+					res.redirect('/getDetails?email=' + email);
+				} else {
+					res.send("Invalid Credentials");
+				}
 			}
 		}
 	});
