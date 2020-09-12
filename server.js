@@ -60,6 +60,8 @@ app.post('/basic_registration', (req, res) => {
 			console.log("1 record inserted");
 		}
 	});
+
+	// Gets ID from database based on email input.
 	var id_query = `SELECT ID from Users_login_Credentials where Email = ?`;
 	let id;
 	con.query(id_query, [email], (err, result) => {
@@ -67,7 +69,7 @@ app.post('/basic_registration', (req, res) => {
 			console.log(err);
 		} else {
 			id = result[0].ID;
-			res.redirect('/info?id=' + id);
+			res.redirect('/info?id=' + id); // redirects to info.html with the new ID in the query string.
 
 		}
 	})
