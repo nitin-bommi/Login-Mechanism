@@ -75,10 +75,10 @@ def StoreEncodings(Id):
     # Storing all the encodings of 15 faces captured for a user in a list
     face_encodings= []
 
-    for filename in os.listdir('Images/'+Id):
+    for filename in os.listdir('images/'+Id):
 
         # Getting the image
-        image = face_recognition.load_image_file('Images/'+Id+'/'+filename)
+        image = face_recognition.load_image_file('images/'+Id+'/'+filename)
         # Finding the encodings
         encoding = face_recognition.face_encodings(image)[0]
         face_encodings.append(encoding)
