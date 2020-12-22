@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path:'./config/config.env'});
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -51,7 +51,7 @@ app.get('/info', (req, res) => {
 
 app.get('/getDetails', requireAuth, (req, res) => {
 	const email = req.decoded.email;
-	con.query(`SELECT * FROM Users_login_Credentials WHERE email=?`, [email], (err, result) => {
+	con.query(`SELECT * FROM Users_login_Credentials WHERE ID=?`, [email], (err, result) => {
 		if (err) {
 			console.log(err);
 		} else {
