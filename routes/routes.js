@@ -83,9 +83,9 @@ router.post('/checkid',async (req, res)=>{
 })
 
 // If ID is present, login with password.
-router.post('/passwordlogin',async (req, res)=>{
+router.post('/passwordlogin',requireAuth, async (req, res)=>{
     try{
-        const id= await req.body.id;
+        const id= await req.decoded.id;
         //Gets password from body
         const password=await req.body.password;
         connection.connect(function(err) {
@@ -113,7 +113,7 @@ router.post('/passwordlogin',async (req, res)=>{
                         // console.log(jwt.decode(token));
                         res.status(200).json({ result })
                         //res.cookie('jwt', token, { httpOnly: true });
-                        res.redirect('/userdetails');
+                        //res.redirect('/userdetails');
                     } else {
                         res.send("Invalid Password");
                     }
@@ -127,9 +127,10 @@ router.post('/passwordlogin',async (req, res)=>{
 })
 
 //If ID is not present, then register basic details.
-router.post('/basic_registration', async (req, res) => {
+router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
-        const { id, firstName, lastName, email, password } = await req.body;
+        const id=req.decoded.id;
+        const { firstName, lastName, email, password } = await req.body;
 
         //Encrypting the password.  
         const saltRounds = 10;
@@ -159,9 +160,10 @@ router.post('/basic_registration', async (req, res) => {
 });
 
 //Register more details.
-router.post('/info_registration', async (req, res) => {
+router.post('/info_registration',requireAuth, async (req, res) => {
     try{
-        const { id, gender, school, department, year, semester, dob, phonenumber } = await req.body;
+        const id=req.decoded.id;
+        const { gender, school, department, year, semester, dob, phonenumber } = await req.body;
 
         var command = `INSERT INTO Student_Info (ID, gender, school, department, year, semester, dob, phonenumber) VALUES (?,?,?,?,?,?,?,?)`;
         connection.query(command, [id, gender, school, department, year, semester, dob, phonenumber], (err, result) => {
@@ -170,8 +172,12 @@ router.post('/info_registration', async (req, res) => {
                     error: err
                 })
             } else {
-                res.status(200).json({ result })
-                res.redirect("/checkid");
+                res.status(200).json({ 
+                    success: true,
+                    results: result,
+                    message: "Insertion success"
+                })
+                //res.redirect("/checkid");
             }
         })
     }catch(error){
