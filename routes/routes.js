@@ -3,7 +3,6 @@ const router = express.Router();
 const connection= require('../db/connection');
 const bcrypt = require('bcrypt');
 require('dotenv').config({path:'./config/config.env'});
-//const bodyParser = require("body-parser");
 const { requireAuth } = require('./middlewares/authToken');
 
 router.get('/', (req, res)=>{
