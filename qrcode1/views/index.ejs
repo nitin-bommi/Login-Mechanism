@@ -1,0 +1,14 @@
+
+<h1> Scan this QR code:  </h1>
+<img src="<%= src %>">
+
+<form action="/validateQR" method="POST">
+    
+    <input type="hidden" name="ascii" value="<%= ascii %>">
+    
+    <label for="otp">Enter OTP: </label>
+    <input type="text" name="otp" id="otp" placeholder="Enter OTP after scanning">
+    <br><br>
+    <button type="submit">Submit</button>
+    
+</form>
