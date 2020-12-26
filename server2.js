@@ -5,7 +5,9 @@ const routes= require('./routes/routes');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-
+const connection= require('./db/connection');
+//Connect to Database 
+connection();
 
 app.use(express.urlencoded({
 	extended: true
