@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection= require('../db/connection');
-const bcrypt = require('bcrypt');
+const User = require('./db/schema');
 require('dotenv').config({path:'./config/config.env'});
 const { requireAuth } = require('./middlewares/authToken');
 
@@ -13,37 +12,14 @@ router.get('/', (req, res)=>{
 router.get('/userdetails', requireAuth, async (req, res)=>{
     try{
         const id = req.decoded.id;
-        let query1=`SELECT * FROM Users_login_Credentials where id = ?`
-        let query2=`SELECT * FROM Student_Info where id = ? `
-        let userDetails= new Object();
-        connection.query(query1, [id], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-                userDetails.id=result[0].id;
-                userDetails.firstName=result[0].Firstname;
-                userDetails.lastName = result[0].Lastname;
-                userDetails.email = result[0].Email;
-            }
-        })
-        connection.query(query2, [id], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-                userDetails.gender=result[0].Gender;
-                userDetails.school= result[0].School;
-                userDetails.department=result[0].Department;
-                userDetails.year=result[0].Year_of_joining;
-                userDetails.semester=result[0].Semester;
-                userDetails.dob=result[0].dob; 
-                userDetails.phonenumber=result[0].phonenumber;
-            }
-        })
+        let userDetails= await User.findOne({id: id}).exec(); 
         res.status(200).json({ userDetails });
     }catch(error){
-        console.log(error);
+        res.json({
+            success: false,
+            error: error,
+            message: "Couldn't retrieve details"
+        })
     }
 })
 
@@ -52,30 +28,22 @@ router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
         const id= await req.body.id;
+        let userDetails= await User.findOne({id: id}).exec();
 
-        //Connects to database.
-        connection.connect(function(err) {
-            if (err) throw err;
-
-                let query=`SELECT id FROM Users_login_Credentials where id = ?`
-                // if connection is successful
-                connection.query(query,[id], (err, result, fields) => {
-                    // if any error while executing above query, throw error
-                    if (err) {
-                        res.status(400).json({
-                            error: err,
-                            message: "ID not found, please register."
-                        })
-                    };
-                
-                    // if there is no error, you have the result
-                    const token = jwt.sign({ id }, process.env.JWT_SECRET);
-                    res.status(200).json({ 
-                        result: result,
-                        message: "ID is found."
-                    })                
-                });
-        });
+        // if any error while executing above query, throw error
+        if (!userDetails) {
+            res.status(400).json({
+                message: "ID not found, please register."
+            })
+        };
+    
+        // if there is no error, you have the result
+        const token = jwt.sign({ id }, process.env.JWT_SECRET);
+        res.status(200).json({ 
+            result: userDetails,
+            message: "ID is found."
+        })                
+            
     }catch(error){
         console.log(error);
     }
@@ -88,37 +56,28 @@ router.post('/passwordlogin',requireAuth, async (req, res)=>{
         const id= await req.decoded.id;
         //Gets password from body
         const password=await req.body.password;
-        connection.connect(function(err) {
-            if (err) throw err;
-
-                let query=`SELECT * FROM Users_login_Credentials where id = ?`
-                // if connection is successful
-                connection.query(query,[id], (err, result, fields) => {
-                    // if any error while executing above query, throw error
-                    if (err) {
-                        res.status(400).json({
-                            error: err,
-                            message: "ID not found, please register."
-                        })
-                    };
-                
-                    // if there is no error, you have the result
-                    const hash = result[0].Passwrd;
-                    //Comparing input and encrypted password from database. 
-                    const isTrue = bcrypt.compareSync(password, hash);
-                    if (isTrue) {
-                        // console.log("ENV is " + process.env.JWT_SECRET);
-                        //create token to store ID.
-                        const token = jwt.sign({ id }, process.env.JWT_SECRET);
-                        // console.log(jwt.decode(token));
-                        res.status(200).json({ result })
-                        //res.cookie('jwt', token, { httpOnly: true });
-                        //res.redirect('/userdetails');
-                    } else {
-                        res.send("Invalid Password");
-                    }
-                    
-                });
+        let userDetails=await User.findOne({id:id}).exec();      
+        // if any error while executing above query, throw error
+        if (!userDetails) {
+            res.status(400).json({
+                message: "ID not found, please register."
+            })
+        };
+        user.comparePassword(password, (error, match) => {
+            if(error) throw error;
+            if(!match) {
+              res.json({message: "Incorrect password"});
+            }else{
+                // console.log("ENV is " + process.env.JWT_SECRET);
+                //create token to store ID.
+                const token = jwt.sign({ id }, process.env.JWT_SECRET);
+                // console.log(jwt.decode(token));
+                res.status(200).json({ 
+                    result: userDetails, 
+                    token: token 
+                })
+                //res.cookie('jwt', token, { httpOnly: true });
+            }
         });
     }catch(error){
         console.log(error);
@@ -131,31 +90,30 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
         const id=req.decoded.id;
         const { firstName, lastName, email, password } = await req.body;
-
-        //Encrypting the password.  
-        const saltRounds = 10;
-        const hash = bcrypt.hashSync(password, saltRounds);
-        const decrypt = bcrypt.compareSync(password, hash);
-        //console.log(decrypt);
-        var command = `INSERT INTO Users_login_Credentials (ID, Firstname, Lastname, Email, Passwrd) VALUES (?, ?, ?, ?, ?)`;
-        connection.query(command, [id, firstName, lastName, email, hash], (err, result, fields) => {
-            if (err) {
-                res.status(400).json({
-                    error: err,
-                    message: "Insertion failed"
-                })
-            } else {
-                const token = jwt.sign({ id }, process.env.JWT_SECRET);
-                res.status(200).json({
-                    success: true,
-                    results: result,
-                    message: "Insertion success"
-                })
-                
-            }
-        });
+        const userDetails=new User({
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password
+        })
+        
+        if (err) {
+            throw err;
+        } else {
+            await userDetails.save();
+            res.status(200).json({
+                success: true,
+                results: result,
+                message: "Insertion success"
+            })
+        }
     }catch(err){
         console.log(err);
+        res.status(400).json({
+            error: err,
+            message: "Insertion failed"
+        })
     }
 });
 
@@ -164,26 +122,28 @@ router.post('/info_registration',requireAuth, async (req, res) => {
     try{
         const id=req.decoded.id;
         const { gender, school, department, year, semester, dob, phonenumber } = await req.body;
-
-        var command = `INSERT INTO Student_Info (ID, gender, school, department, year, semester, dob, phonenumber) VALUES (?,?,?,?,?,?,?,?)`;
-        connection.query(command, [id, gender, school, department, year, semester, dob, phonenumber], (err, result) => {
-            if (err) {
-                res.status(400).json({
-                    error: err
-                })
-            } else {
-                res.status(200).json({ 
-                    success: true,
-                    results: result,
-                    message: "Insertion success"
-                })
-                //res.redirect("/checkid");
-            }
+        const userDetails=User.findOne({id: id}).exec();
+        userDetails.gender=gender;
+        userDetails.school=school;
+        userDetails.department=department;
+        userDetails.yearOfJoin=year;
+        userDetails.semester=semester;
+        userDetails.dateOfBirth=dob;
+        userDetails.phone=phonenumber;
+            
+        await userDetails.save();
+        res.status(200).json({ 
+            success: true,
+            results: result,
+            message: "Insertion success"
         })
+        //res.redirect("/checkid");
     }catch(error){
         console.log(error);
+        res.status(400).json({
+            error: error,
+            message: "Insertion failed"
+        })
     }
-
-
 })
 module.exports = router;

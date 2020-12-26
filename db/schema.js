@@ -14,7 +14,7 @@ var schemaOptions = {
 var userSchema = new mongoose.Schema({
     id: {
         type: String,
-        match: [,'ID must be valid']
+        match: [/\d{2}[a-zA-Z]{4}\d{2}/,'ID must be valid']
     },
     firstName: {
         type: String,
@@ -41,7 +41,6 @@ var userSchema = new mongoose.Schema({
             },
             message: props => `${props.value} is not a valid phone number!`
         },
-        required: [true, 'User phone number required']
     }, 
     email: { 
         type: String, 
@@ -99,5 +98,5 @@ var userSchema = new mongoose.Schema({
     userSchema.methods.comparePassword = function(plaintext, callback) {
         return callback(null, bcrypt.compareSync(plaintext, this.password));
     };
-var Users = mongoose.model('Users', userSchema);
-module.exports = Users;
+var User = mongoose.model('User', userSchema);
+module.exports = User;
