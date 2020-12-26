@@ -10,28 +10,23 @@ In this project, we make use of the present face recognition and voice technolog
 
 ### Folder Structure
 
-* data
+* cascade
     * haarcascade_frontalface_default.xml
 
-* TrainingImage
-    * 60 Images captured for training
+* encodings
+    * username.yml - face encodings of the user
 
-* Training Image Label
-    * trainner.yml (model)
-
-* UserDetails
-    * UserDetails.csv (ID, Name)
-
-* Sample.py (program)
+* face_rec.py (program)
 
 ### How it works?
 
-1. We have to give id and name, and click sample, which takes approximatle 60 imgs and stores in `TrainingImage` directory.
+1. We will be given 3 options:
+    * Register
+    * Login 
+    * Quit
 
-2. Train the model by clicking `train`.
+2. We have to give ID, and it will start collecting your images and store it's encodings directly in `encodings/username.yml` file.
 
-3. It trains the model if new samples were added.
-
-4. Click on `test` to test if it is working properly or not
+3. When we try to login, the encodings of the given ID is taken and verified.
 
 Please try it out and inform me the results. I already added my face images and trained it.
