@@ -20,7 +20,6 @@ const connection = async()=>{
     console.log(`MongoDB Connected: ${conn.connection.host}`);
 }
 
-module.exports=connectDB;
 
 
 module.exports=connection;

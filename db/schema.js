@@ -12,9 +12,11 @@ var schemaOptions = {
 
 // Schema stores username, password, email, phone, profile picture path, and messages sent to admin
 var userSchema = new mongoose.Schema({
-    id: {
+    studentid: {
         type: String,
-        match: [/\d{2}[a-zA-Z]{4}\d{2}/,'ID must be valid']
+        match: [/\d{2}[a-zA-Z]{4}\d{2}/,'ID must be valid'],
+        unique: true,
+        required: true
     },
     firstName: {
         type: String,
@@ -71,7 +73,9 @@ var userSchema = new mongoose.Schema({
         
     }, 
     yearOfJoin: {
-        //type: Date.getFullYear()
+        type: Number,
+        min: 2001,
+        max: 2019
     },
     semester:{
         type: Number,

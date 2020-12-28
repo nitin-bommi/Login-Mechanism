@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./db/schema');
-require('dotenv').config({path:'./config/config.env'});
-const { requireAuth } = require('./middlewares/authToken');
+const jwt = require("jsonwebtoken");
+const User = require('../db/schema');
+const { requireAuth } = require('../middlewares/authToken');
 
 router.get('/', (req, res)=>{
     res.send("Hi, it works");
@@ -27,23 +27,23 @@ router.get('/userdetails', requireAuth, async (req, res)=>{
 router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
-        const id= await req.body.id;
-        let userDetails= await User.findOne({id: id}).exec();
-
+        const studentid= await req.body.studentid;
+        let userDetails= await User.findOne({studentid: studentid}).exec();
+        const token = jwt.sign({ id: studentid }, process.env.JWT_SECRET);
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.status(400).json({
-                message: "ID not found, please register."
+                message: "ID not found, please register.",
+                token: token
             })
-        };
-    
-        // if there is no error, you have the result
-        const token = jwt.sign({ id }, process.env.JWT_SECRET);
-        res.status(200).json({ 
-            result: userDetails,
-            message: "ID is found."
-        })                
-            
+        }else{
+            // if there is no error, you have the result
+            res.status(200).json({ 
+                result: userDetails,
+                message: "ID is found.",
+                token: token
+            }) 
+        }                          
     }catch(error){
         console.log(error);
     }
@@ -88,26 +88,25 @@ router.post('/passwordlogin',requireAuth, async (req, res)=>{
 //If ID is not present, then register basic details.
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
-        const id=req.decoded.id;
+        const id= await req.decoded.studentid;
+        console.log(id);
         const { firstName, lastName, email, password } = await req.body;
         const userDetails=new User({
-            id: id,
+            studentid: id,
             firstName: firstName,
             lastName: lastName,
             email: email,
             password: password
         })
         
-        if (err) {
-            throw err;
-        } else {
-            await userDetails.save();
-            res.status(200).json({
-                success: true,
-                results: result,
-                message: "Insertion success"
-            })
-        }
+        
+        await userDetails.save();
+        res.status(200).json({
+            success: true,
+            results: userDetails,
+            message: "Insertion success"
+        })
+        
     }catch(err){
         console.log(err);
         res.status(400).json({

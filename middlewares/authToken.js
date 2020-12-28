@@ -1,24 +1,25 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const requireAuth = (req, res, next) => {
-    const token = req.cookies.jwt;
+    const token=req.headers['x-access-token'];
+    //const token = req.cookies.jwt;
 
     // check json web token exists & is verified
     if (token) {
-        console.log(process.env.JWT_SECRET);
+        //console.log(process.env.JWT_SECRET);
         jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
-                res.redirect('/login');
+                res.redirect('/api/checkid');
             } else {
                 // res.json({ decoded });
+                console.log(decodedToken);
                 req.decoded = decodedToken;
                 next();
             }
         });
     } else {
-        res.redirect('/login');
+        res.redirect('/api/checkid');
     }
 };
 
