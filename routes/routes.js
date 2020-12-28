@@ -11,8 +11,8 @@ router.get('/', (req, res)=>{
 //Gets all user details to be displayed from database based on ID.
 router.get('/userdetails', requireAuth, async (req, res)=>{
     try{
-        const id = req.decoded.id;
-        let userDetails= await User.findOne({id: id}).exec(); 
+        const studentid = req.decoded.studentid;
+        let userDetails= await User.findOne({studentid: studentid}, { password:0 }).exec(); 
         res.status(200).json({ userDetails });
     }catch(error){
         res.json({
@@ -29,7 +29,8 @@ router.post('/checkid',async (req, res)=>{
         //ID is input in the body.
         const studentid= await req.body.studentid;
         let userDetails= await User.findOne({studentid: studentid}).exec();
-        const token = jwt.sign({ id: studentid }, process.env.JWT_SECRET);
+        console.log(studentid);
+        const token = jwt.sign({ studentid: studentid }, process.env.JWT_SECRET);
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.status(400).json({
@@ -39,7 +40,7 @@ router.post('/checkid',async (req, res)=>{
         }else{
             // if there is no error, you have the result
             res.status(200).json({ 
-                result: userDetails,
+                result: userDetails.studentid,
                 message: "ID is found.",
                 token: token
             }) 
@@ -53,10 +54,10 @@ router.post('/checkid',async (req, res)=>{
 // If ID is present, login with password.
 router.post('/passwordlogin',requireAuth, async (req, res)=>{
     try{
-        const id= await req.decoded.id;
+        const studentid= await req.decoded.studentid;
         //Gets password from body
         const password=await req.body.password;
-        let userDetails=await User.findOne({id:id}).exec();      
+        let userDetails=await User.findOne({studentid: studentid}).exec();      
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.status(400).json({
@@ -70,10 +71,10 @@ router.post('/passwordlogin',requireAuth, async (req, res)=>{
             }else{
                 // console.log("ENV is " + process.env.JWT_SECRET);
                 //create token to store ID.
-                const token = jwt.sign({ id }, process.env.JWT_SECRET);
+                const token = jwt.sign({ studentid }, process.env.JWT_SECRET);
                 // console.log(jwt.decode(token));
                 res.status(200).json({ 
-                    result: userDetails, 
+                    result: userDetails.studentid, 
                     token: token 
                 })
                 //res.cookie('jwt', token, { httpOnly: true });
@@ -88,11 +89,11 @@ router.post('/passwordlogin',requireAuth, async (req, res)=>{
 //If ID is not present, then register basic details.
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
-        const id= await req.decoded.studentid;
-        console.log(id);
+        const studentid= await req.decoded.studentid;
+        console.log(studentid);
         const { firstName, lastName, email, password } = await req.body;
         const userDetails=new User({
-            studentid: id,
+            studentid: studentid,
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -119,9 +120,9 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
 //Register more details.
 router.post('/info_registration',requireAuth, async (req, res) => {
     try{
-        const id=req.decoded.id;
+        const studentid=req.decoded.studentid;
         const { gender, school, department, year, semester, dob, phonenumber } = await req.body;
-        const userDetails=User.findOne({id: id}).exec();
+        const userDetails= await User.findOne({studentid: studentid}).exec();
         userDetails.gender=gender;
         userDetails.school=school;
         userDetails.department=department;
@@ -133,7 +134,7 @@ router.post('/info_registration',requireAuth, async (req, res) => {
         await userDetails.save();
         res.status(200).json({ 
             success: true,
-            results: result,
+            results: userDetails,
             message: "Insertion success"
         })
         //res.redirect("/checkid");
