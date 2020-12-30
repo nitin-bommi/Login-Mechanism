@@ -4,18 +4,18 @@ class NextRegister extends Component {
   render() {
     return (
         <div>
-          <input type="tel" id="phone" name="phonenumber"></input>
+          <input type="tel" id="phone" name="phonenumber" placeholder="Phone number"></input><br/>
           <select id="gender" name="gender">
               <option>Male</option>
               <option>Female</option>
               <option>Other</option>
-          </select>
+          </select><br/>
           <select id="school" name="school">
               <option>School of Computer and Information Sciences</option>
-          </select>
+          </select><br/>
           <select id="department" name="department">
               <option>Computer Science</option>
-          </select>
+          </select><br/>
           <select id="semester" name="semester">
               <option>1</option>
               <option>2</option>
@@ -27,13 +27,13 @@ class NextRegister extends Component {
               <option>8</option>
               <option>9</option>
               <option>10</option>
-          </select>
+          </select><br/>
           <select id="yearofjoin" name="yearOfJoin">
               <option>2001</option>
               <option>2012</option>
               <option>2018</option>
-          </select>
-          <input type="date" id="dateOfBirth" name="dob"></input>
+          </select><br/>
+          <input type="date" id="dateOfBirth" name="dob"></input><br/>
           
           <button type="submit">Submit</button>
         </div>
