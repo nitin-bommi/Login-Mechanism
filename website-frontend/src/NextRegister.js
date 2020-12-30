@@ -1,6 +1,20 @@
 import { Component} from 'react';
 
 class NextRegister extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      studentid: "",
+      phonenumber: "",
+      gender: "",
+      school:"",
+      department: "",
+      semester: null,
+      yearOfJoin: null,
+      dob: null,
+      years: []
+    }
+  }
   render() {
     return (
         <div>

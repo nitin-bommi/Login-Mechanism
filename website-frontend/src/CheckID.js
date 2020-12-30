@@ -2,6 +2,12 @@ import { Component} from 'react';
 import {Link} from 'react-router-dom';
 
 class CheckID extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      studentid: ""
+    }
+  }
   render() {
     return (
         <div>

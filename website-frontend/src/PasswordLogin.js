@@ -1,7 +1,14 @@
 import { Component} from 'react';
 
 class PasswordLogin extends Component {
-  render() {
+  constructor(props){
+    super(props);
+    this.state={
+      studentid: "",
+      password: ""
+    }
+  }
+  render() {  
     return (
         <div>
           <input type="password" id="password" name="password"></input>

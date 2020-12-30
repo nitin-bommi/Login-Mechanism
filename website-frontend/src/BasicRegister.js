@@ -2,6 +2,17 @@ import { Component} from 'react';
 import {Link} from 'react-router-dom';
 
 class BasicRegister extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      studentid: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      confirmPassword: "",
+      email: ""
+    }
+  }
   render() {
     return (
         <div>
