@@ -68,16 +68,10 @@ router.post('/passwordlogin',requireAuth, async (req, res)=>{
             if(error) throw error;
             if(!match) {
               res.json({message: "Incorrect password"});
-            }else{
-                // console.log("ENV is " + process.env.JWT_SECRET);
-                //create token to store ID.
-                const token = jwt.sign({ studentid }, process.env.JWT_SECRET);
-                // console.log(jwt.decode(token));
+            }else{        
                 res.status(200).json({ 
-                    result: userDetails.studentid, 
-                    token: token 
+                    result: userDetails.studentid,  
                 })
-                //res.cookie('jwt', token, { httpOnly: true });
             }
         });
     }catch(error){
