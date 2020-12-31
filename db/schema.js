@@ -75,7 +75,7 @@ var userSchema = new mongoose.Schema({
     yearOfJoin: {
         type: Number,
         min: 2001,
-        max: Number(Date.now().getFullYear())
+        max: 2020
     },
     semester:{
         type: Number,

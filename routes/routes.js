@@ -33,7 +33,7 @@ router.post('/checkid',async (req, res)=>{
         const token = jwt.sign({ studentid: studentid }, process.env.JWT_SECRET);
         // if any error while executing above query, throw error
         if (!userDetails) {
-            res.status(400).json({
+            res.status(401).json({
                 message: "ID not found, please register.",
                 token: token
             })
