@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const routes= require('./routes/routes');
 const cookieParser = require('cookie-parser');
 const app = express();
+const cors= require('cors');
+const logger= require('morgan');
 
 const connection= require('./db/connection');
 //Connect to Database 
@@ -12,9 +14,11 @@ connection();
 app.use(express.urlencoded({
 	extended: true
 }))
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json({ limit: '1mb' }))
 app.use(bodyParser.json({ extended: true, limit: "50mb" }));
+app.use(logger('dev'));
 //app.use(express.static("public"));
 app.use('/api',routes);
 

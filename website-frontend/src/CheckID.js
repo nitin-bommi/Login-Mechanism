@@ -19,9 +19,9 @@ class CheckID extends Component {
     let details={
       studentid: this.state.studentid
     }
-    axios.post('http://localhost:5000/checkid',details)
+    axios.post('http://localhost:5000/api/checkid',details)
       .then(function (res){
-        localStorage.setItem("studentid", res.token)
+        localStorage.setItem("studentid", res.data.token)
         if(res.status===200){
           window.location.replace("/passwordlogin")
         }else if(res.status===401){
