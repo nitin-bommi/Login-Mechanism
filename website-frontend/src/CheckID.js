@@ -6,7 +6,8 @@ class CheckID extends Component {
   constructor(props){
     super(props);
     this.state={
-      studentid: ""
+      studentid: "",
+      NotLoggedIn: null
     };
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -40,20 +41,28 @@ class CheckID extends Component {
   componentDidMount(){
     if(localStorage.getItem("studentid")){
       window.location.replace('/passwordlogin');
+    }else{
+      this.setState({ NotLoggedIn: true })
     }
   }
   
 
   render() {
-    
+    let notLoggedIn=this.state.NotLoggedIn;
     return (
-        <div>
-          <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
-          <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
-          <Link to="/passwordlogin">CheckPassword</Link><br/>
-          <Link to="/basicregister"><button>Register</button></Link>
-        </div>
-      );
+      <div>
+      { notLoggedIn ?
+          <div>
+            <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
+            <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
+            <Link to="/passwordlogin">CheckPassword</Link><br/>
+            <Link to="/basicregister"><button>Register</button></Link>
+          </div>
+        : 
+          <div>Loading ...</div>
+      }
+      </div>
+    );
   }
     
 }
