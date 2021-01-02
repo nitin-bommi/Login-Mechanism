@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import axios from 'axios';
-=======
->>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
 import { Component} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -16,7 +13,6 @@ class BasicRegister extends Component {
       confirmPassword: "",
       email: ""
     }
-<<<<<<< HEAD
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
@@ -47,13 +43,10 @@ class BasicRegister extends Component {
   }catch(error){
     console.log(error);
   }
-=======
->>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
   }
   render() {
     return (
         <div>
-<<<<<<< HEAD
          <form onSubmit={this.handleSubmit}>
          <input type="text" id="firstname" name="firstName" placeholder="First Name" onChange={this.handleChange}></input><br/>
           <input type="text" id="lastname" name="lastName" placeholder="Last name" onChange={this.handleChange}></input><br/>
@@ -65,14 +58,6 @@ class BasicRegister extends Component {
           
           <Link to="/nextregister"><button type="submit">Next</button></Link>
          </form>
-=======
-          <input type="text" id="firstname" name="firstName" placeholder="First Name"></input><br/>
-          <input type="text" id="lastname" name="lastName" placeholder="Last name"></input><br/>
-          <input type="password" id="password" name="password" placeholder="Password"></input><br/>
-          <input type="password" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password"></input><br/>
-          <input type="email" id="email" name="email" placeholder="Email"></input><br/>
-          <Link to="/nextregister"><button type="submit">Next</button></Link>
->>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
         </div>
       );
   }
