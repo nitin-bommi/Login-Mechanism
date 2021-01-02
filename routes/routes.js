@@ -33,15 +33,23 @@ router.post('/checkid',async (req, res)=>{
         const token = jwt.sign({ studentid: studentid }, process.env.JWT_SECRET);
         // if any error while executing above query, throw error
         if (!userDetails) {
+<<<<<<< HEAD
             res.json({
                 success: false,
+=======
+            res.status(401).json({
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
                 message: "ID not found, please register.",
                 token: token
             })
         }else{
             // if there is no error, you have the result
+<<<<<<< HEAD
             res.json({ 
                 success: true,
+=======
+            res.status(200).json({ 
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
                 result: userDetails.studentid,
                 message: "ID is found.",
                 token: token
@@ -54,7 +62,11 @@ router.post('/checkid',async (req, res)=>{
 })
 
 // If ID is present, login with password.
+<<<<<<< HEAD
 router.post('/passwordlogin', requireAuth, async (req, res)=>{
+=======
+router.post('/passwordlogin',requireAuth, async (req, res)=>{
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
     try{
         const studentid= await req.decoded.studentid;
         //Gets password from body
@@ -66,6 +78,7 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
                 message: "ID not found, please register."
             })
         };
+<<<<<<< HEAD
         userDetails.comparePassword(password, (error, match) => {
             if(error) throw error;
             if(!match) {
@@ -73,6 +86,14 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
             }else{        
                 res.status(200).json({ 
                     success: true,
+=======
+        user.comparePassword(password, (error, match) => {
+            if(error) throw error;
+            if(!match) {
+              res.json({message: "Incorrect password"});
+            }else{        
+                res.status(200).json({ 
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
                     result: userDetails.studentid,  
                 })
             }
@@ -107,7 +128,11 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
         
     }catch(err){
         console.log(err);
+<<<<<<< HEAD
         res.status(200).json({
+=======
+        res.status(400).json({
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
             error: err,
             message: "Insertion failed"
         })
@@ -118,15 +143,27 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
 router.post('/info_registration',requireAuth, async (req, res) => {
     try{
         const studentid=req.decoded.studentid;
+<<<<<<< HEAD
         const { gender, school, department, semester, dob, phonenumber,yearOfJoin } = await req.body;
+=======
+        const { gender, school, department, year, semester, dob, phonenumber } = await req.body;
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
         const userDetails= await User.findOne({studentid: studentid}).exec();
         userDetails.gender=gender;
         userDetails.school=school;
         userDetails.department=department;
+<<<<<<< HEAD
         userDetails.semester=semester;
         userDetails.dateOfBirth=dob;
         userDetails.phone=phonenumber;
         userDetails.yearOfJoin = yearOfJoin;
+=======
+        userDetails.yearOfJoin=year;
+        userDetails.semester=semester;
+        userDetails.dateOfBirth=dob;
+        userDetails.phone=phonenumber;
+            
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
         await userDetails.save();
         res.status(200).json({ 
             success: true,

@@ -7,7 +7,11 @@
 // 	port: "3306",
 // 	database: "personalcards"
 // });
+<<<<<<< HEAD
 // require('dotenv').config({path:'./config/config.env'});
+=======
+
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
 const mongoose = require('mongoose');
 
 const connection = async()=>{

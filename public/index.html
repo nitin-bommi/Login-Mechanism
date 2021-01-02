@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -46,4 +47,54 @@
   <button id="capture">Capture</button>
   <img id="photo" src="./group_photo.JPG" width="400px" height="400px" />
   <canvas id="canvas" width="300px" height="300px" absolute></canvas>
+=======
+<!DOCTYPE html>
+
+<html class="no-js">
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>YouTube</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+    integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"
+    integrity="sha512-nqIFZC8560+CqHgXKez61MI0f9XSTKLkm0zFVm/99Wt0jSTZ7yeeYwbzyl0SGn/s8Mulbdw+ScCG41hmO2+FKw=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<h1>Hello</h1>
+<!-- onsubmit="return onSubmit(event); -->
+<form action="/basic_registration" method="POST" onsubmit="return getID();">
+  <input type="text" name="firstName" id="firstName" value="Hello" />
+  <input type="text" name="lastName" id="lastName" value="hai" />
+  <input type="email" name="email" id="email" value="sunny3@gmail.com" />
+  <input type="text" name="password" id="password" value="my_password" />
+  <input type="submit" />
+</form>
+<form action="/login" method="POST">
+  <input type="email" name="email" value="sunny3@gmail.com" />
+  <input type="password" name="password" value="my_password" />
+  <input type="submit" />
+</form>
+<button onclick="onButton()">Show</button>
+<script src="./script.js"></script>
+
+<body>
+
+
+
+  <!-- <video id="player" controls autoplay width="300px" height="300px"></video>
+  <button id="capture">Capture</button>
+  <img id="photo" src="./group_photo.JPG" width="400px" height="400px" />
+  <canvas id="canvas" width="300px" height="300px" absolute></canvas>
+>>>>>>> 68a4504e63352868459e6f7b16a9607f5be09b46
   <button id="axios">Axios</button> -->
