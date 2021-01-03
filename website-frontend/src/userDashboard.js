@@ -30,22 +30,23 @@ class userDashboard extends React.Component {
         }
       }
        axios.get("http://localhost:5000/api/userdetails/", config)
-       .then(function(res){
+       .then((res)=>{
             console.log(res.data);
             console.log(res.data.userDetails.studentid);
-            //this.setState({ studentid: "18mcme03" });
-            this.setState({ studentid: res.data.userDetails.studentid });
-            this.setState({ firstName: res.data.userDetails.firstName });
-            this.setState({ lastName: res.data.userDetails.lastName });
-            this.setState({ phone: res.data.userDetails.phone });
-            this.setState({ email: res.data.userDetails.email });
-            this.setState({ gender: res.data.userDetails.gender });
-            this.setState({ school: res.data.userDetails.school });
-            this.setState({ department: res.data.userDetails.department });
-            this.setState({ semester: res.data.userDetails.semester });
-            this.setState({ dateOfBirth: res.data.userDetails.dateOfBirth });
-            this.setState({ yearOfJoin: res.data.userDetails.yearOfJoin.getFullYear() });
-       }).catch(function(error){
+            const {studentid, firstName, lastName, phone, email, gender, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
+            this.setState({ studentid: studentid, 
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                email: email,
+                gender: gender,
+                school: school,
+                department: department, 
+                semester: semester,
+                dateOfBirth: dateOfBirth.slice(0,10),
+                yearOfJoin: yearOfJoin 
+            });
+       }).catch((error)=>{
             console.log(error);
        })
     }

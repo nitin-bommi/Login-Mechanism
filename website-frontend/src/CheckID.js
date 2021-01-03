@@ -7,7 +7,7 @@ class CheckID extends Component {
     super(props);
     this.state={
       studentid: "",
-      NotLoggedIn: null
+      notLoggedIn: false
     };
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -42,13 +42,13 @@ class CheckID extends Component {
     if(localStorage.getItem("studentid")){
       window.location.replace('/passwordlogin');
     }else{
-      this.setState({ NotLoggedIn: true })
+      this.setState({ notLoggedIn: true })
     }
   }
   
 
   render() {
-    let notLoggedIn=this.state.NotLoggedIn;
+    let notLoggedIn=this.state.notLoggedIn;
     return (
       <div>
       { notLoggedIn ?
@@ -59,7 +59,8 @@ class CheckID extends Component {
             <Link to="/basicregister"><button>Register</button></Link>
           </div>
         : 
-          <div>Loading ...</div>
+          null
+          //<div>Loading ...</div>
       }
       </div>
     );
