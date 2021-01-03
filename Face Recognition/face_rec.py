@@ -29,8 +29,7 @@ def TakeImages(Id):
         # number of times scaling happens 
         faces = detector.detectMultiScale(img, 1.3, 5)
 
-        print(faces)
-        if faces==[]:
+        if len(faces) == 0:
             print("No face detected") 
             
         else:
@@ -60,6 +59,9 @@ def TakeImages(Id):
         elif sampleNum>19: 
             break
 
+    if not os.path.exists('encodings'):
+        os.makedirs('encodings')
+
     # Saving th encodings as .npy files using numpy
     np.save(f'encodings/{Id}', np.array(face_encodings))
     # Displaying message for the user
@@ -77,8 +79,11 @@ def Verification(Id):
     process_this_frame = True
 
     # Getting the encodings for the given user.
-    face_encodings_for_id = np.load('encodings/'+Id+'.npy',allow_pickle=True)
-    print(face_encodings_for_id.shape)
+    try:
+        face_encodings_for_id = np.load('encodings/'+Id+'.npy',allow_pickle=True)
+    except:
+        print('No user with that id')
+        main()
 
     # Maintaining a cnt for verifying few number of times.
     cnt = 0
@@ -102,7 +107,6 @@ def Verification(Id):
                 # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(face_encodings_for_id, face_encoding)
 
-                print(matches)
                 # If cnt is equal to 15 then we give authentication.
                 if(np.count_nonzero(matches)>10):
                     print("Login Successful")
@@ -117,22 +121,26 @@ def Verification(Id):
             if face_encodings==[]:
                 print("No face recognized")
         
-    
-
-print("Welcome")
-while(True):
-    print("1. Register\n2. Login\n3. Quit")
-    n = int(input("Enter the option : "))
-    # Validation code must be written
-    
-    if(n==1):
-        Id = input("Enter your Id : ")
-        TakeImages(Id)
-    elif(n==2):
-        Id = input("Enter your Id : ")
-        Verification(Id)
-    elif(n==3):
-        break
-    else:
-        print("Invalid input")
+def main():
     print("---------------------------------------------")
+    print("Welcome")
+    print("---------------------------------------------")
+    while(True):
+        print("1. Register\n2. Login\n3. Quit")
+        n = int(input("Enter the option : "))
+        # Validation code must be written
+        
+        if(n==1):
+            Id = input("Enter your Id : ")
+            TakeImages(Id)
+        elif(n==2):
+            Id = input("Enter your Id : ")
+            Verification(Id)
+        elif(n==3):
+            break
+        else:
+            print("Invalid input")
+        print("---------------------------------------------")
+
+if __name__ == '__main__':
+    main()
