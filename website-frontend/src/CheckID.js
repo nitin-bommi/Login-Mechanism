@@ -52,7 +52,7 @@ class CheckID extends Component {
     return (
       <div>
       { notLoggedIn ?
-          <div>
+          <div className="center">
             <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
             <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
             <Link to="/passwordlogin">CheckPassword</Link><br/>
