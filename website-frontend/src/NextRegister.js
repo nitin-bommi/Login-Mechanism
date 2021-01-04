@@ -40,6 +40,7 @@ class NextRegister extends Component {
     console.log(res.data);
     if(res.data.success){
       this.setState({alert: true});
+      window.location.replace("/passwordlogin");
       setTimeout(() => {
         this.setState({alert: false});
       }, 3000);
