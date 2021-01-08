@@ -84,7 +84,8 @@ var userSchema = new mongoose.Schema({
     },
     dateOfBirth:{
         type: Date
-    }
+    },
+    faceRecognitionImage: String
 
     },schemaOptions);
 
