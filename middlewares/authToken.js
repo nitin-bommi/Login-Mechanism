@@ -12,7 +12,6 @@ const requireAuth = async(req, res, next) => {
                 if (err) {
                     console.log(err);
                     console.log(err.message);
-                    res.redirect('/api/checkid');
                 } else {
                     // res.json({ decoded });
                     console.log(decodedToken);
@@ -21,7 +20,8 @@ const requireAuth = async(req, res, next) => {
                 }
             });
         } else {
-            res.redirect('/api/checkid');
+            console.log('Token not found');
+
         }
     } catch(err) {
         console.error(err.message)
