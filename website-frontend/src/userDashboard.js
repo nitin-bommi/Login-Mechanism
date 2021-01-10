@@ -54,7 +54,7 @@ class userDashboard extends React.Component {
         const logout = ()=>{
             if(localStorage.getItem("studentid")){
                 localStorage.removeItem('studentid');
-                window.location = "/";
+                window.location.replace("/");
             }
         }
       return (

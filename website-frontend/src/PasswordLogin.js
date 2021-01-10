@@ -24,7 +24,7 @@ class PasswordLogin extends Component {
     }
     const res = await axios.post("http://localhost:5000/api/passwordlogin/", {password: this.state.password}, config);
     if(res.data.success){
-      window.location = "/userDashboard";
+      window.location.replace("/userDashboard");
     }else{
       this.setState({alert: true});
       setTimeout(() => {

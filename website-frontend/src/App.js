@@ -5,6 +5,8 @@ import BasicRegister from './BasicRegister';
 import PasswordLogin from './PasswordLogin';
 import NextRegister from './NextRegister';
 import userDashboard from './userDashboard';
+import FaceRecognition from './FaceRecognition';
+import Options from './Options';
 function App() {
   return (
     <Router>
@@ -14,6 +16,9 @@ function App() {
         <Route exact path="/basicregister" component={BasicRegister} />
         <Route exact path="/nextregister" component={NextRegister} />
         <Route exact path="/userDashboard" component={userDashboard} />
+        <Route exact path="/faceLogin" render={props => <FaceRecognition verify={true} {...props} />} />
+        <Route exact path="/faceSignUp"render={props => <FaceRecognition verify={false} {...props} />} />
+        <Route exact path="/options" component={Options} />
       </Switch>
     </Router>
   );

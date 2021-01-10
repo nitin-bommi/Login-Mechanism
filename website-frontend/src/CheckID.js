@@ -25,10 +25,10 @@ class CheckID extends Component {
       const data = res.data;
       localStorage.setItem("studentid", data.token)
       if(data.success){
-        window.location.replace("/passwordlogin")
+        window.location.replace("/options")
         // console.log("TRUE");
       }else{
-        window.location="/basicregister"
+        window.location.replace("/faceSignUp");
         // console.log("FALSE");
       }
       // console.log(res);
@@ -40,7 +40,7 @@ class CheckID extends Component {
   }
   componentDidMount(){
     if(localStorage.getItem("studentid")){
-      window.location.replace('/passwordlogin');
+      window.location.replace('/options');
     }else{
       this.setState({ notLoggedIn: true })
     }
@@ -70,7 +70,7 @@ class CheckID extends Component {
             <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
             <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
             <Link to="/passwordlogin">CheckPassword</Link><br/>
-            <Link to="/basicregister"><button>Register</button></Link>
+            <Link to="/faceSignUp"><button>Register</button></Link>
           </div>
         : 
           null

@@ -8,9 +8,9 @@ export class FaceRecognition extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = {
-			verify : false,
-		};
+        this.state={
+
+        }
 	}
 
 	setup(p5='') {
@@ -31,6 +31,7 @@ export class FaceRecognition extends Component {
         video.loadPixels();
         console.log(video.canvas);
         const image64 = video.canvas.toDataURL();
+        console.log(image64);
         const token = localStorage.getItem("studentid");
         const config = {
             headers:{
@@ -38,16 +39,17 @@ export class FaceRecognition extends Component {
             }
         }
         let url="http://localhost:5000/face_auth/";
-        if(this.state.verify){
+        if(this.props.verify){
             url=url+'face_sign_in'
         }else{
             url=url+'face_sign_up'
         }
         const response = await axios.post(url,config, {'image64':image64});
         console.log(response.data.success);
-        if(this.state.verify){
+        if(this.props.verify){
             if(response.data.success){
                 this.stop();
+                alert('Face recognition successful, you are logged in')
                 window.location.replace('/userDashboard')
             } else {
                 this.stop();
@@ -61,7 +63,7 @@ export class FaceRecognition extends Component {
             } else {
                 this.stop();
                 alert("Registration failed!")
-                //window.location.replace('')
+                //window.location.reload();
             }
         }  
     }
@@ -73,15 +75,18 @@ export class FaceRecognition extends Component {
                     Sign In
                 </button>
             </div>
-        )
-        if(!this.state.verify){
-            <div>
-                <button id="submit" onClick={this.handleSubmit} >
-                    Sign Up
-                </button>
-            </div>
             
+        )
+        if(!this.props.verify){
+            buttonname=(
+                <div>
+                    <button id="submit" onClick={this.handleSubmit} >
+                        Sign Up
+                    </button>
+                </div>
+            )    
         }
+        
 
 		let verify = (
             <div>
