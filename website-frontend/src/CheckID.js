@@ -28,7 +28,7 @@ class CheckID extends Component {
         window.location.replace("/options")
         // console.log("TRUE");
       }else{
-        window.location.replace("/faceSignUp");
+        window.location.replace("/basicregister");
         // console.log("FALSE");
       }
       // console.log(res);
@@ -70,7 +70,8 @@ class CheckID extends Component {
             <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
             <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
             <Link to="/passwordlogin">CheckPassword</Link><br/>
-            <Link to="/faceSignUp"><button>Register</button></Link>
+            <Link to="/basicregister"><button>Register</button></Link><br/>
+            <Link to="/faceSignUp"> Sign Up with face</Link><br/>
           </div>
         : 
           null

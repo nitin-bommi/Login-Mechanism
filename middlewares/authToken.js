@@ -21,7 +21,6 @@ const requireAuth = async(req, res, next) => {
             });
         } else {
             console.log('Token not found');
-
         }
     } catch(err) {
         console.error(err.message)

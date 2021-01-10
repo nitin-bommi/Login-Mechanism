@@ -44,11 +44,13 @@ export class FaceRecognition extends Component {
         }else{
             url=url+'face_sign_up'
         }
-        const response = await axios.post(url,config, {'image64':image64});
+        const response = await axios.post(url, {'image64':image64}, config);
         console.log(response.data.success);
         if(this.props.verify){
             if(response.data.success){
                 this.stop();
+                console.log(response.data.image);
+                console.log(response.data.imagebody);
                 alert('Face recognition successful, you are logged in')
                 window.location.replace('/userDashboard')
             } else {
@@ -59,7 +61,9 @@ export class FaceRecognition extends Component {
         }else{
             if(response.data.success){
                 this.stop();
-                window.location.replace('/basicregister')
+                console.log(response.data.image);
+                alert('Face has been registered')
+                window.location.replace('/options')
             } else {
                 this.stop();
                 alert("Registration failed!")
