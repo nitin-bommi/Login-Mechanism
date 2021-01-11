@@ -4,7 +4,7 @@ const axios = require('axios');
 
 let video;
 
-export class FaceRecognition extends Component {
+class FaceRecognition extends Component {
 
 	constructor(props){
 		super(props);

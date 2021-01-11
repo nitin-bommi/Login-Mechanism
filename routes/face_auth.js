@@ -27,7 +27,7 @@ router.post('/face_sign_up', requireAuth, async(req,res)=>{
         const image64 = await req.body.image64;
         
         const userDetails = await User.findOne({studentid: studentid}).exec();
-        userDetails.faceRecognitionImage = image64;
+        userDetails.faceRecognitionImage.push(image64);
         console.log('Image is saved in database');
         
         await userDetails.save();
