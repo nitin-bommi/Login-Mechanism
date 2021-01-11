@@ -64,28 +64,16 @@ class FaceSignUp extends Component {
     }
 
 	render(){
-        let buttonname=(
-            <div>
-                <button id="submit" onClick={this.handleSubmit} >
-                    Sign Up
-                </button>
-            </div>
-            
-        )
         
-        
-
 		let verify = (
             <div>
                 <Sketch setup={this.setup} draw={this.draw}/> 
                 <p>We need ten images</p>
                 <h1>{this.state.counter}</h1>
-                <button id="capture" onClick={this.handleCapture}> Capture Image</button>
-                {buttonname}
+                <button id="capture" disabled={this.state.counter >= 10 ? true : false} onClick={this.handleCapture}> Capture Image</button>
+                <button id="submit" disabled={this.state.counter === 10 ? false : true} onClick={this.handleSubmit}> Sign Up</button>
             </div>
 		)
-
-
     	return (<div>
             {verify}
     		</div>
