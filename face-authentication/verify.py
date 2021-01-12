@@ -7,13 +7,12 @@ from PIL import Image
 import sys
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
+import fileinput
 
-image = sys.argv[1]
+for line in fileinput.input():
+    x += line
 
-print("I am nitin")
+print("Processing image", x)
 
-img = mpimg(image)
-plt.show()
-
+sys.stdout.write(result)
 sys.stdout.flush()
-exit()

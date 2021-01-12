@@ -27,15 +27,13 @@ router.post('/face_sign_up', requireAuth, async(req,res)=>{
         const studentid = await req.decoded.studentid;
         const image64 = await req.body.image64;
         
-        function auth(image64) {
-            const pythonProcess = spawn("python", ["test.py", image64]);
-            pythonProcess.stdout.on("data", (data) => {
-                console.log(data.toString());
-                //if authenticated then redirect
-            });
-        }
+        const pythonProcess = spawn('python',["script.py"]);
 
-        await auth(image64);
+        await pythonProcess.stdin.write(image64);
+        await pythonProcess.stdin.end();
+        await pythonProcess.stdout.on('data', (result) => {
+            handleResult(result);
+        });
 
         const userDetails = await User.findOne({studentid: studentid}).exec();
         userDetails.faceRecognitionImage.push(image64);
