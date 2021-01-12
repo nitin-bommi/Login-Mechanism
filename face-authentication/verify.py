@@ -9,10 +9,10 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import fileinput
 
+print("Processing image", x)
+
 for line in fileinput.input():
     x += line
-
-print("Processing image", x)
 
 sys.stdout.write(result)
 sys.stdout.flush()

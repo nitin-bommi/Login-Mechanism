@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../db/schema');
 const { requireAuth } = require('../middlewares/authToken');
+const cp = require("child_process");
 const spawn = require("child_process").spawn;
 
 router.post('/face_sign_in', requireAuth, async(req,res)=>{
@@ -27,13 +28,21 @@ router.post('/face_sign_up', requireAuth, async(req,res)=>{
         const studentid = await req.decoded.studentid;
         const image64 = await req.body.image64;
         
-        const pythonProcess = spawn('python',["script.py"]);
+        // to change dir to parent
+        await cp.exec("cd ..",function(error,stdout,stderr){
+        });
+
+        // to change dir to face-authentication
+        await cp.exec("cd face-authentication",function(error,stdout,stderr){
+        });
+
+        // executing the py file
+        const pythonProcess = spawn('python',["verify.py"]);
+
+        console.log(pythonProcess);
 
         await pythonProcess.stdin.write(image64);
         await pythonProcess.stdin.end();
-        await pythonProcess.stdout.on('data', (result) => {
-            handleResult(result);
-        });
 
         const userDetails = await User.findOne({studentid: studentid}).exec();
         userDetails.faceRecognitionImage.push(image64);
