@@ -14,5 +14,6 @@ print("Processing image", x)
 for line in fileinput.input():
     x += line
 
-sys.stdout.write(result)
+print(x)
+sys.stdout.write(x)
 sys.stdout.flush()

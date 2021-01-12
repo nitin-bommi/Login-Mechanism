@@ -27,22 +27,33 @@ router.post('/face_sign_up', requireAuth, async(req,res)=>{
     try{
         const studentid = await req.decoded.studentid;
         const image64 = await req.body.image64;
+        console.log(image64.length);
         
-        // to change dir to parent
-        await cp.exec("cd ..",function(error,stdout,stderr){
-        });
+        // // to change dir to parent
+        // await cp.exec("cd ..",function(error,stdout,stderr){
+        // });
 
-        // to change dir to face-authentication
-        await cp.exec("cd face-authentication",function(error,stdout,stderr){
-        });
+        // // to change dir to face-authentication
+        // await cp.exec("cd face-authentication",function(error,stdout,stderr){
+        // });
 
         // executing the py file
-        const pythonProcess = spawn('python',["verify.py"]);
+        // async function verifyImage(image64){
+        //     try{
+        //         const pythonProcess = spawn('python',["../face-authentication/verify.py"]);
 
-        console.log(pythonProcess);
+        //         //console.log(pythonProcess);
 
-        await pythonProcess.stdin.write(image64);
-        await pythonProcess.stdin.end();
+        //         pythonProcess.stdin.write(image64);
+        //         pythonProcess.stdin.end();
+        //         pythonProcess.stdout.on('data', (data) => {
+        //             console.log(data);
+        //         });
+        //     }catch(err){
+        //         console.log(err);
+        //     }
+        // }
+        // await verifyImage(image64);
 
         const userDetails = await User.findOne({studentid: studentid}).exec();
         userDetails.faceRecognitionImage.push(image64);
