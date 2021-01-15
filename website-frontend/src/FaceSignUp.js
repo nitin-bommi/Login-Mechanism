@@ -13,8 +13,8 @@ class FaceSignUp extends Component {
         }
 	}
 
-	setup(p5='',canvasParentRef=' ') {
-        //let mycanvas=p5.createCanvas(300, 230);
+	setup(p5='',) {
+        p5.noCanvas();
         video = p5.createCapture(p5.VIDEO);
         video.size(300, 230);        
     }
