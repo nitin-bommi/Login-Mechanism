@@ -15,7 +15,8 @@ class FaceLogin extends Component {
 
 	setup(p5='') {
         p5.noCanvas();
-        video = p5.createCapture(p5.VIDEO);        
+        video = p5.createCapture(p5.VIDEO); 
+        video.size(300,230);       
     }
 
     stop(){
