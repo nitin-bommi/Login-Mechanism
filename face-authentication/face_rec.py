@@ -31,7 +31,6 @@ def TakeImages(Id):
 
         if len(faces) == 0:
             print("No face detected") 
-            return False
             
         else:
             # For creating a rectangle around the image 
@@ -71,8 +70,6 @@ def TakeImages(Id):
     cam.release()  
     # closing all the windows 
     cv2.destroyAllWindows()
-
-    return True
 
 # For verifying user by giving Id.
 def Verification(Id):
