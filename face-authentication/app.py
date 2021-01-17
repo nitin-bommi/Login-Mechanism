@@ -16,6 +16,9 @@ def hello_world():
 def signupget():
     return render_template("signup.html")
 
+@app.route('/face-authentication/app/hello', methods=["GET"])
+def hello():
+    print("Hello world")
 
 @app.route("/signin", methods=['POST'])
 def signin():
@@ -33,4 +36,4 @@ def signup():
     return res
     
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
