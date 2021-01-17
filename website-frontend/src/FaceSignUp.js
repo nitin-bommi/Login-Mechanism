@@ -40,6 +40,7 @@ class FaceSignUp extends Component {
             }
         }
         let url="http://localhost:5000/face_auth/face_sign_up";
+        //let url="http://localhost:5000/signup";
 
         const response = await axios.post(url, {'image64':image64}, config);
         console.log(response.data.success);

@@ -31,7 +31,7 @@ def TakeImages(Id):
 
         if len(faces) == 0:
             print("No face detected") 
-            # return False
+            return False
             
         else:
             # For creating a rectangle around the image 
@@ -56,8 +56,8 @@ def TakeImages(Id):
         # wait for 100 miliseconds  
         if cv2.waitKey(100) & 0xFF == ord('q'): 
             break
-        # break if the sample number is more than 15
-        elif sampleNum>19: 
+        # break if the sample number is more than 9
+        elif sampleNum>9: 
             break
 
     if not os.path.exists('encodings'):
@@ -72,6 +72,7 @@ def TakeImages(Id):
     # closing all the windows 
     cv2.destroyAllWindows()
 
+    return True
 
 # For verifying user by giving Id.
 def Verification(Id):
@@ -84,7 +85,8 @@ def Verification(Id):
         face_encodings_for_id = np.load('encodings/'+Id+'.npy',allow_pickle=True)
     except:
         print('No user with that id')
-        main()
+        #main()
+        return False
 
     # Maintaining a cnt for verifying few number of times.
     cnt = 0
@@ -111,16 +113,18 @@ def Verification(Id):
                 # If cnt is equal to 15 then we give authentication.
                 if(np.count_nonzero(matches)>10):
                     print("Login Successful")
+                    return True
                 else:
                     print("Wrong face")
+                    return false
                 process_this_frame = False
                 # Release handle to the webcam
                 capture.release()
                 cv2.destroyAllWindows()
-                return 
 
             if face_encodings==[]:
                 print("No face recognized")
+                return False
         
 def main():
     print("---------------------------------------------")

@@ -21,17 +21,16 @@ def signupget():
 def signin():
     img = request.args["image"]
     res = face_rec.Verification(img)
-    if (res):
-        return render_template("home.html")
-    else:
-        return render_template("login_error.html")
-
+    print(res)
+    return res
 
 @app.route('/signup', methods=["POST"])
 def signup():
     id = request.args["id"]
+    print(id)
     res = face_rec.TakeImages(id)
-    if (res):
-        return render_template("login.html")
-    else:
-        return render_template("signup_erro.html")
+    print(res)
+    return res
+    
+if __name__ == '__main__':
+    app.run()
