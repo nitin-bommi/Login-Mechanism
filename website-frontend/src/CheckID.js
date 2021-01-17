@@ -1,6 +1,7 @@
 import { Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 class CheckID extends Component {
   constructor(props){
@@ -52,27 +53,29 @@ class CheckID extends Component {
     return (
       <div>
       { notLoggedIn ?
-          // <div className="form-form">
-          //   <div className="form">
-          //     <div className="form-group">
-          //         <input type="text" className="item" name="username" id="username" placeholder="Username" required></input>
-          //     </div>
-          //     <span className="help-block" id="txtHint"></span>
-          //     <div className="form-group">
-          //         <input type="password" className="item" name="password" id="password" placeholder="Password" required></input>
-          //     </div>
-          //     <div className="form-group">
-          //         <input type="submit" name="login" value="Login" className="create-account"></input>
-          //     </div>
-          //   </div>
-          // </div>
-          <div className="center">
-            <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
-            <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
-            <Link to="/passwordlogin">CheckPassword</Link><br/>
-            <Link to="/basicregister"><button>Register</button></Link><br/>
-            <Link to="/faceSignUp"> Sign Up with face</Link><br/>
+          <div className="form-form">
+            <div className="form">
+              <div className="form-group">
+                <input type="text" className="item" id="studentid" placeholder="Student ID" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
+              </div>
+              <span className="help-block" id="txtHint"></span>
+              <div className="form-group">
+                  <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
+              </div>
+            </div>
+            <div className="others">
+              <h4><Link to="/passwordlogin">CheckPassword</Link></h4>
+              <h4><Link to="/basicregister">Basic Register</Link></h4>
+              <h4><Link to="/faceSignUp">Sign Up with face</Link></h4>
+            </div>
           </div>
+          // <div className="center">
+          //   <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
+          //   <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
+          //   <Link to="/passwordlogin">CheckPassword</Link><br/>
+          //   <Link to="/basicregister"><button>Register</button></Link><br/>
+          //   <Link to="/faceSignUp"> Sign Up with face</Link><br/>
+          // </div>
         : 
           null
           //<div>Loading ...</div>

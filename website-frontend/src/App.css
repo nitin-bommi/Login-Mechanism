@@ -1,20 +1,38 @@
 body {
-  background: #C1E8F9;
+  height: 100%;
+  background-image: url("./images/05.png");
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .form-form {
   padding: 50px 0;
 }
 
-.form {
-  background-color: #0B4B75;
-  color:  #C1E8F9;
+.form-form .form {
+  background-color: #222831;
+  color:  #bdc9cf;
   max-width: 30%;
   margin: auto;
-  padding: 50px 70px;
-  border-radius: 25px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-  box-shadow: 10px 10px #538fb8;
+  padding: 50px 70px;  
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  box-shadow: 10px 10px #6f7579;
+}
+
+.form-form .others {
+  max-width: 30%;
+  background-color: #222831;
+  margin: auto;
+  padding: 10px 70px;
+  text-align: center;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  color: #bdc9cf;
+  /* border-top: 1px solid #dee9ff; */
+  box-shadow: 10px 10px #6f7579;
 }
 
 input{
@@ -22,7 +40,7 @@ input{
   height: 25px;
   border-radius: 10px;
   border-width: 5px;
-  border-color: #C1E8F9;
+  border-color: #bdc9cf;
 }
 
 .form .item{
@@ -34,14 +52,16 @@ input{
   padding: 30px;
 }
 
+
+
 .form-form .create-account{
-  width: 90%;
-  height: 25px;
+  align-items: center;
+  width: 100%;
   border-radius: 10px;
   padding: 10px 20px;
   font-size: 18px;
   font-weight: bold;
-  background-color: #C1E8F9;
+  background-color: #bdc9cf;
   border: none;
   margin-top: 20px;
 }
