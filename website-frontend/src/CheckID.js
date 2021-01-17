@@ -58,7 +58,6 @@ class CheckID extends Component {
               <div className="form-group">
                 <input type="text" className="item" id="studentid" placeholder="Student ID" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
               </div>
-              <span className="help-block" id="txtHint"></span>
               <div className="form-group">
                   <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
               </div>
