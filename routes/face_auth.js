@@ -11,15 +11,16 @@ router.post('/face_sign_in', requireAuth, async(req,res)=>{
         const studentid = await req.decoded.studentid;
         const image64 = await req.body.image64;
         console.log(image64.length);
-        const res = await axios.post("http://localhost:5000/verify", {'id': studentid, 'image64':image64});
-        console.log(res.data);
-        if(res.data.success){
+        const response = await axios.post("http://localhost:5000/verify", {'id': studentid, 'image64':image64});
+        console.log(response.data);
+        console.log(response.data.success);
+        console.log(response.data.message);
+        if(response.data.success){
             res.status(200).json({
                 message: "Face has been verified, user is valid",
                 success: true,
             })
         }else{
-            
             res.status(200).json({
                 message: "Face not detected or face not registered in database.",
                 success: false,
@@ -34,11 +35,13 @@ router.post('/face_sign_up', requireAuth, async(req,res)=>{
     try{
         const studentid = await req.decoded.studentid;
         const image64 = await req.body.image64;
-        const counter = await re.body.counter;
+        const counter = await req.body.counter;
         console.log(image64.length);
-        const res = await axios.post("http://localhost:5000/signup", {'id': studentid, 'image64':image64, 'counter': counter})
-        console.log(res.data);
-        if(res.data.success){
+        const response = await axios.post("http://localhost:5000/register", {'id': studentid, 'image64':image64, 'counter': counter})
+        console.log(response.data);
+        console.log(response.data.success);
+        console.log(response.data.message);
+        if(response.data.success){
             res.status(200).json({
                 message: "Image saved successfully",
                 success: true,

@@ -16,6 +16,7 @@ def register():
         counter = request.get_json()['counter']
         img_data = base64.b64decode(img_data[22:])
         res = face_rec.TakeImages(id, img_data, counter)
+        print(res)
         if res:
             return json.dumps({
                 "status": 200,
@@ -37,6 +38,7 @@ def verify():
     img_data = request.get_json()['image64']
     img_data = base64.b64decode(img_data[22:])
     res = face_rec.TakeImages(id, img_data)
+    print(res)
     if res:
         return json.dumps({
             "status": 200,
