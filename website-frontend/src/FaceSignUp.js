@@ -39,17 +39,17 @@ class FaceSignUp extends Component {
                 "x-access-token":  token
             }
         }
-        let url="http://localhost:5000/face_auth/face_sign_up";
+        let url="http://localhost:8080/face_auth/face_sign_up";
         //let url="http://localhost:5000/signup";
 
-        const response = await axios.post(url, {'image64':image64}, config);
+        const response = await axios.post(url, {'image64':image64,'counter':this.state.counter}, config);
         console.log(response.data.success);
         
         if(response.data.success){
             console.log(response.data.image);
             this.setState({counter: this.state.counter + 1});
         } else {
-            alert("Face Registration failed! Try Again!");
+            alert("Face not detected! Registration failed! Try Again!");
             //window.location.reload();
         }
     }

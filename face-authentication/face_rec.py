@@ -46,7 +46,7 @@ def Verification(id, img):
                 return True
             else:
                 print("Wrong face")
-                return false
+                return False
         if face_encodings==[]:
             print("No face recognized")
             return False
