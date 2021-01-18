@@ -22,7 +22,7 @@ class CheckID extends Component {
       studentid: this.state.studentid
     }
     try {
-      const res = await axios.post('http://localhost:5000/api/checkid',details);
+      const res = await axios.post('http://localhost:8080/api/checkid',details);
       const data = res.data;
       localStorage.setItem("studentid", data.token)
       if(data.success){

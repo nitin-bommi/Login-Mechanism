@@ -37,7 +37,7 @@ class BasicRegister extends Component {
       }
     }
     try {
-     const res = await axios.post("http://localhost:5000/api/basic_registration/", data,config);
+     const res = await axios.post("http://localhost:8080/api/basic_registration/", data,config);
       console.log(res.data);
     
   }catch(error){
