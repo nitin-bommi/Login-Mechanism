@@ -24,6 +24,6 @@ app.use(logger('dev'));
 app.use('/api',routes);
 app.use('/face_auth',face_auth);
 
-app.listen(5000, () => {
-	console.log("Server started on port 5000");
+app.listen(8080, () => {
+	console.log("Server started on port 8080");
 });

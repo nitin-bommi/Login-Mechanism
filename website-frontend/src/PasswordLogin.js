@@ -22,7 +22,7 @@ class PasswordLogin extends Component {
         "x-access-token":  token
       }
     }
-    const res = await axios.post("http://localhost:5000/api/passwordlogin/", {password: this.state.password}, config);
+    const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password}, config);
     if(res.data.success){
       window.location.replace("/userDashboard");
     }else{

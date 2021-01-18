@@ -29,7 +29,7 @@ class userDashboard extends React.Component {
           "x-access-token":  token
         }
       }
-       axios.get("http://localhost:5000/api/userdetails/", config)
+       axios.get("http://localhost:8080/api/userdetails/", config)
        .then((res)=>{
             console.log(res.data);
             console.log(res.data.userDetails.studentid);

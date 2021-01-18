@@ -38,7 +38,7 @@ class FaceLogin extends Component {
                 "x-access-token":  token
             }
         }
-        let url="http://localhost:5000/face_auth/face_sign_in";        
+        let url="http://localhost:8080/face_auth/face_sign_in";        
         
         const response = await axios.post(url, {'image64':image64}, config);
         console.log(response.data.success);
