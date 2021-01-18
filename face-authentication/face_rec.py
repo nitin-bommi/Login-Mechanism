@@ -24,6 +24,7 @@ def TakeImages(id, img, counter):
             if encoding!=[]:
                 face_encodings.append(encoding)
                 return True
+            print("Encodings is empty")
             return False
 
 def Verification(id, img):
@@ -37,17 +38,16 @@ def Verification(id, img):
     small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
     rgb_small_frame = small_frame[:, :, ::-1]
     process_this_frame=True
-    if process_this_frame:
-        face_locations = face_recognition.face_locations(rgb_small_frame)
-        face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
-        for face_encoding in face_encodings:
-            matches = face_recognition.compare_faces(face_encodings_for_id, face_encoding)
-            if(np.count_nonzero(matches)>6):
-                print("Login Successful")
-                return True
-            else:
-                print("Wrong face")
-                return False
-        if face_encodings==[]:
-            print("No face recognized")
+    face_locations = face_recognition.face_locations(rgb_small_frame)
+    face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+    for face_encoding in face_encodings:
+        matches = face_recognition.compare_faces(face_encodings_for_id, face_encoding)
+        if(np.count_nonzero(matches)>6):
+            print("Login Successful")
+            return True
+        else:
+            print("Wrong face")
             return False
+    if face_encodings==[]:
+        print("No face recognized")
+        return False
