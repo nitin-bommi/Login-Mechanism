@@ -106,3 +106,12 @@ tr td{
   font-size: 16px;
   font-weight: bold;
 }
+
+.cards{
+  width: 20%;
+  text-align: center;
+  background-color: #6f7579;
+  color: azure;
+  padding: 20px;
+  margin: 30px;
+}
