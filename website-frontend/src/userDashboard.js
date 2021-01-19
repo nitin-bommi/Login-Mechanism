@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 class userDashboard extends React.Component {
     constructor(props){
@@ -57,47 +58,66 @@ class userDashboard extends React.Component {
                 window.location.replace("/");
             }
         }
-      return (
-          <div>
-              <h1>Welcome to User Dashboard</h1>
-              <div>
-                    {this.state.studentid}
-              </div>
-              <div>
-                  {this.state.firstName}
-              </div>
-              <div>
-                  {this.state.lastName}
-              </div>
-              <div>
-                  {this.state.phone}
-              </div>
-              <div>
-                  {this.state.email}
-              </div>
-              <div>
-                  {this.state.gender}
-              </div>
-              <div>
-                  {this.state.school}
-              </div>
-              <div>
-                  {this.state.department}
-              </div>
-              <div>
-                  {this.state.semester}
-              </div>
-              <div>
-                  {this.state.yearOfJoin}
-              </div>
-              <div>
-                  {this.state.dateOfBirth}
-              </div>
-               <button onClick={logout}>Logout</button>           
-          </div>
+        return (
+            <div>
+                <div className="heading"><h1>Welcome to User Dashboard</h1>
+                    <div className="center">
+                        <Button variant="secondary" onClick={logout}>Logout</Button>  
+                    </div>
+                </div>
+                
+                <div className="studentdetails center">
+                    <h2 className="center-text">Details</h2>
+                    <table className="center">
+                        <tr>
+                            <td>Student ID:</td>
+                            <td>{this.state.studentid}</td>
+                        </tr>
+                        <tr>
+                            <td>Name:</td>
+                            <td>{this.state.firstName} {this.state.lastName}</td>
+                        </tr>
+                        <tr>
+                            <td>Phone:</td>
+                            <td>{this.state.phone}</td>
+                        </tr>
+                        <tr>
+                            <td>Phone:</td>
+                            <td>{this.state.phone}</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>{this.state.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td>{this.state.gender}</td>
+                        </tr>
+                        <tr>
+                            <td>School:</td>
+                            <td>{this.state.school}</td>
+                        </tr>
+                        <tr>
+                            <td>Department:</td>
+                            <td>{this.state.department}</td>
+                        </tr>
+                        <tr>
+                            <td>Semester:</td>
+                            <td>{this.state.semester}</td>
+                        </tr>
+                        <tr>
+                            <td>Year of Joining:</td>
+                            <td>{this.state.yearOfJoin}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth:</td>
+                            <td>{this.state.dateOfBirth}</td>
+                        </tr>
+                    </table>    
+                </div>         
+            </div>
         );
     }
-      
-  }
+}
 
 export default userDashboard

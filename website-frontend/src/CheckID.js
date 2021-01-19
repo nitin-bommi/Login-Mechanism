@@ -68,13 +68,6 @@ class CheckID extends Component {
               <h4><Link to="/faceSignUp">Sign Up with face</Link></h4>
             </div>
           </div>
-          // <div className="center">
-          //   <input type="text" id="studentid" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
-          //   <button type="submit" onClick={this.handleSubmit}>Check ID</button><br/>
-          //   <Link to="/passwordlogin">CheckPassword</Link><br/>
-          //   <Link to="/basicregister"><button>Register</button></Link><br/>
-          //   <Link to="/faceSignUp"> Sign Up with face</Link><br/>
-          // </div>
         : 
           null
           //<div>Loading ...</div>
