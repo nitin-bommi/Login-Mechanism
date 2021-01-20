@@ -9,7 +9,7 @@ class FaceLogin extends Component {
 	constructor(props){
 		super(props);
         this.state={
-
+            tries: 0
         }
 	}
 
@@ -49,10 +49,13 @@ class FaceLogin extends Component {
             console.log(response.data.imagebody);
             alert('Face recognition successful, you are logged in')
             window.location.replace('/userDashboard')
-        } else {
-            this.stop();
-            alert("Not a registered user!")
-            //window.location.replace('')
+        } else {    
+            alert("Face not recognised! Try Again!");
+            this.setState({tries: this.state.tries +1});
+            if(this.state.tries === 3){
+                this.stop();
+                window.location.replace('/options');
+            }
         }
         
     }
