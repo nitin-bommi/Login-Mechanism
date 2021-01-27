@@ -115,3 +115,7 @@ tr td{
   padding: 20px;
   margin: 30px;
 }
+
+.rbc-calendar{
+  min-height: 700px;
+}
