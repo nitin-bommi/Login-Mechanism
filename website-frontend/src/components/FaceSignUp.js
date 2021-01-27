@@ -33,7 +33,7 @@ class FaceSignUp extends Component {
         console.log(video.canvas);
         const image64 = video.canvas.toDataURL();
         //console.log(image64);
-        const token = localStorage.getItem("studentid");
+        const token = localStorage.getItem("userid");
         const config = {
             headers:{
                 "x-access-token":  token

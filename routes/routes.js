@@ -28,9 +28,15 @@ router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
         const userid= await req.body.userid;
+        let role;
         let userDetails= await User.findOne({userid: userid}).exec();
         console.log(userid);
-        const token = jwt.sign({ userid: userid }, process.env.JWT_SECRET);
+        if(/^\d{5}$/.test(userid)){
+            role='Professor';
+        }else{
+            role='Student';
+        }
+        const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "3d" });
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.json({
@@ -87,12 +93,8 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
         const userid= await req.decoded.userid;
-        let role;
-        if(/^\d{5}$/g.test(userid)){
-            role='Professor';
-        }else{
-            role='Student';
-        }
+        let role = await req.decoded.role;
+        
         console.log(userid);
         const { firstName, lastName, email, password } = await req.body;
         const userDetails=new User({

@@ -6,7 +6,7 @@ class userDashboard extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        studentid: "",
+        userid: "",
         firstName: "",
         lastName: "",
         school: "",
@@ -22,7 +22,7 @@ class userDashboard extends React.Component {
     }
     
     componentDidMount(){
-      const token = localStorage.getItem("studentid");
+      const token = localStorage.getItem("userid");
       console.log(this.state);
       console.log(token);
       const config = {
@@ -33,9 +33,9 @@ class userDashboard extends React.Component {
        axios.get("http://localhost:8080/api/userdetails/", config)
        .then((res)=>{
             console.log(res.data);
-            console.log(res.data.userDetails.studentid);
-            const {studentid, firstName, lastName, phone, email, gender, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
-            this.setState({ studentid: studentid, 
+            console.log(res.data.userDetails.userid);
+            const {userid, firstName, lastName, phone, email, gender, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
+            this.setState({ userid: userid, 
                 firstName: firstName,
                 lastName: lastName,
                 phone: phone,
@@ -53,8 +53,8 @@ class userDashboard extends React.Component {
     }
     render() {
         const logout = ()=>{
-            if(localStorage.getItem("studentid")){
-                localStorage.removeItem('studentid');
+            if(localStorage.getItem("userid")){
+                localStorage.removeItem('userid');
                 window.location.replace("/");
             }
         }
@@ -71,7 +71,7 @@ class userDashboard extends React.Component {
                     <table className="center">
                         <tr>
                             <td>Student ID:</td>
-                            <td>{this.state.studentid}</td>
+                            <td>{this.state.userid}</td>
                         </tr>
                         <tr>
                             <td>Name:</td>

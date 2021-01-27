@@ -1,8 +1,11 @@
 require('dotenv').config({path:'./config/config.env'});
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const routes= require('./routes/routes');
-const face_auth=require('./routes/face_auth')
+const face_auth=require('./routes/face_auth');
+const calendar= require('./routes/calendar');
+
 const cookieParser = require('cookie-parser');
 const app = express();
 const cors= require('cors');
@@ -23,6 +26,7 @@ app.use(logger('dev'));
 //app.use(express.static("public"));
 app.use('/api',routes);
 app.use('/face_auth',face_auth);
+app.use('/calendar',calendar);
 
 app.listen(8080, () => {
 	console.log("Server started on port 8080");

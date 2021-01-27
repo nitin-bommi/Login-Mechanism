@@ -7,7 +7,7 @@ class CheckID extends Component {
   constructor(props){
     super(props);
     this.state={
-      studentid: "",
+      userid: "",
       notLoggedIn: false
     };
     this.handleChange=this.handleChange.bind(this);
@@ -19,17 +19,20 @@ class CheckID extends Component {
   async handleSubmit(e){
     e.preventDefault();
     let details={
-      studentid: this.state.studentid
+      userid: this.state.userid
     }
     try {
       const res = await axios.post('http://localhost:8080/api/checkid',details);
       const data = res.data;
-      localStorage.setItem("studentid", data.token)
+      localStorage.setItem("userid", data.token)
       if(data.success){
         window.location.replace("/options")
         // console.log("TRUE");
       }else{
-        window.location.replace("/basicregister");
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){
+          window.location.replace("/basicregister");
+        }
         // console.log("FALSE");
       }
       // console.log(res);
@@ -40,7 +43,7 @@ class CheckID extends Component {
     
   }
   componentDidMount(){
-    if(localStorage.getItem("studentid")){
+    if(localStorage.getItem("userid")){
       window.location.replace('/options');
     }else{
       this.setState({ notLoggedIn: true })
@@ -56,7 +59,7 @@ class CheckID extends Component {
           <div className="form-form">
             <div className="form">
               <div className="form-group">
-                <input type="text" className="item" id="studentid" placeholder="Student ID" name="studentid" pattern="\d{2}[a-zA-Z]{4}\d{2}" onChange={this.handleChange}></input>
+                <input type="text" className="item" id="userid" placeholder="User ID" name="userid" pattern="(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)" onChange={this.handleChange}></input>
               </div>
               <div className="form-group">
                   <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>

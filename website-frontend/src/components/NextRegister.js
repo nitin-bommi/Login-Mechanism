@@ -4,7 +4,7 @@ class NextRegister extends Component {
   constructor(props){
     super(props);
     this.state={
-      studentid: "",
+      userid: "",
       phonenumber: "",
       gender: "",
       school:"",
@@ -23,7 +23,7 @@ class NextRegister extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("studentid");
+    const token = localStorage.getItem("userid");
     // console.log(this.state);
     const {phonenumber, gender, school, department, semester, yearOfJoin, dob} = this.state;
     let data={

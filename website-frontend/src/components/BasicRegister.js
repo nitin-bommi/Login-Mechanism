@@ -6,7 +6,7 @@ class BasicRegister extends Component {
   constructor(props){
     super(props);
     this.state={
-      studentid: "",
+      userid: "",
       firstName: "",
       lastName: "",
       password: "",
@@ -21,7 +21,7 @@ class BasicRegister extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("studentid");
+    const token = localStorage.getItem("userid");
     console.log(this.state);
     const {firstName, lastName, password, email} = this.state;
     let data={

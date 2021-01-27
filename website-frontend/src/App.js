@@ -1,13 +1,13 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import CheckID from './CheckID';
-import BasicRegister from './BasicRegister';
-import PasswordLogin from './PasswordLogin';
-import NextRegister from './NextRegister';
-import userDashboard from './userDashboard';
-import Options from './Options';
-import FaceLogin from './FaceLogin';
-import FaceSignUp from './FaceSignUp';
+import CheckID from './components/CheckID';
+import BasicRegister from './components/BasicRegister';
+import PasswordLogin from './components/PasswordLogin';
+import NextRegister from './components/NextRegister';
+import userDashboard from './components/userDashboard';
+import Options from './components/Options';
+import FaceLogin from './components/FaceLogin';
+import FaceSignUp from './components/FaceSignUp';
 function App() {
   return (
     <Router>

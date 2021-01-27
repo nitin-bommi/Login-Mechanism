@@ -5,7 +5,7 @@ class PasswordLogin extends Component {
   constructor(props){
     super(props);
     this.state={
-      studentid: "",
+      userid: "",
       password: "",
       alert: false
     }
@@ -17,7 +17,7 @@ class PasswordLogin extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("studentid");
+    const token = localStorage.getItem("userid");
     const config = {
       headers:{
         "x-access-token":  token
