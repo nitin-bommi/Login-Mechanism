@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const User = require('../db/schema');
+const User = require('../db/userschema');
 const { requireAuth } = require('../middlewares/authToken');
 
 router.get('/', (req, res)=>{
@@ -11,8 +11,8 @@ router.get('/', (req, res)=>{
 //Gets all user details to be displayed from database based on ID.
 router.get('/userdetails', requireAuth, async (req, res)=>{
     try{
-        const studentid = req.decoded.studentid;
-        let userDetails= await User.findOne({studentid: studentid}, { password:0 }).exec(); 
+        const userid = req.decoded.userid;
+        let userDetails= await User.findOne({userid: userid}, { password:0 }).exec(); 
         res.status(200).json({ userDetails });
     }catch(error){
         res.json({
@@ -27,10 +27,10 @@ router.get('/userdetails', requireAuth, async (req, res)=>{
 router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
-        const studentid= await req.body.studentid;
-        let userDetails= await User.findOne({studentid: studentid}).exec();
-        console.log(studentid);
-        const token = jwt.sign({ studentid: studentid }, process.env.JWT_SECRET);
+        const userid= await req.body.userid;
+        let userDetails= await User.findOne({userid: userid}).exec();
+        console.log(userid);
+        const token = jwt.sign({ userid: userid }, process.env.JWT_SECRET);
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.json({
@@ -42,7 +42,7 @@ router.post('/checkid',async (req, res)=>{
             // if there is no error, you have the result
             res.json({ 
                 success: true,
-                result: userDetails.studentid,
+                result: userDetails.userid,
                 message: "ID is found.",
                 token: token
             }) 
@@ -56,10 +56,10 @@ router.post('/checkid',async (req, res)=>{
 // If ID is present, login with password.
 router.post('/passwordlogin', requireAuth, async (req, res)=>{
     try{
-        const studentid= await req.decoded.studentid;
+        const userid= await req.decoded.userid;
         //Gets password from body
         const password=await req.body.password;
-        let userDetails=await User.findOne({studentid: studentid}).exec();      
+        let userDetails=await User.findOne({userid: userid}).exec();      
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.status(400).json({
@@ -73,7 +73,7 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
             }else{        
                 res.status(200).json({ 
                     success: true,
-                    result: userDetails.studentid,  
+                    result: userDetails.userid,  
                 })
             }
         });
@@ -86,11 +86,18 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
 //If ID is not present, then register basic details.
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
-        const studentid= await req.decoded.studentid;
-        console.log(studentid);
+        const userid= await req.decoded.userid;
+        let role;
+        if(/^\d{5}$/g.test(userid)){
+            role='Professor';
+        }else{
+            role='Student';
+        }
+        console.log(userid);
         const { firstName, lastName, email, password } = await req.body;
         const userDetails=new User({
-            studentid: studentid,
+            userid: userid,
+            role: role,
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -117,9 +124,9 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
 //Register more details.
 router.post('/info_registration',requireAuth, async (req, res) => {
     try{
-        const studentid=req.decoded.studentid;
+        const userid=req.decoded.userid;
         const { gender, school, department, semester, dob, phonenumber,yearOfJoin } = await req.body;
-        const userDetails= await User.findOne({studentid: studentid}).exec();
+        const userDetails= await User.findOne({userid: userid}).exec();
         userDetails.gender=gender;
         userDetails.school=school;
         userDetails.department=department;

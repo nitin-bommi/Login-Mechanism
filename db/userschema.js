@@ -12,10 +12,18 @@ var schemaOptions = {
 
 // Schema stores username, password, email, phone, profile picture path, and messages sent to admin
 var userSchema = new mongoose.Schema({
-    studentid: {
+    userid: {
         type: String,
-        match: [/\d{2}[a-zA-Z]{4}\d{2}/,'ID must be valid'],
+        match: [/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/g,'ID must be valid'],
         unique: true,
+        required: true
+    },
+    role:{
+        type: String,
+        enum: [
+            'Student',
+            'Professor' 
+        ], 
         required: true
     },
     firstName: {
@@ -24,12 +32,6 @@ var userSchema = new mongoose.Schema({
     lastName: {
         type: String,
     },
-    // username: { 
-    //     type: String, 
-    //     unique: true, 
-    //     required: [true, 'Username required'], 
-    //     maxlength: 50, minlength: 4 
-    // },
     password: {
         type: String, 
         required: [true, 'Password required'], 
@@ -85,7 +87,6 @@ var userSchema = new mongoose.Schema({
     dateOfBirth:{
         type: Date
     },
-    faceRecognitionImage: []
 
     },schemaOptions);
 

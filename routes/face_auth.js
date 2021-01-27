@@ -1,17 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../db/schema');
+const User = require('../db/userschema');
 const { requireAuth } = require('../middlewares/authToken');
 const axios=require('axios');
-const cp = require("child_process");
-const spawn = require("child_process").spawn;
 
 router.post('/face_sign_in', requireAuth, async(req,res)=>{
     try{
-        const studentid = await req.decoded.studentid;
+        const userid = await req.decoded.userid;
         const image64 = await req.body.image64;
         console.log(image64.length);
-        const response = await axios.post("http://localhost:5000/verify", {'id': studentid, 'image64':image64});
+        const response = await axios.post("http://localhost:5000/verify", {'id': userid, 'image64':image64});
         console.log(response.data);
         console.log(response.data.success);
         console.log(response.data.message);
@@ -33,11 +31,11 @@ router.post('/face_sign_in', requireAuth, async(req,res)=>{
 
 router.post('/face_sign_up', requireAuth, async(req,res)=>{
     try{
-        const studentid = await req.decoded.studentid;
+        const userid = await req.decoded.userid;
         const image64 = await req.body.image64;
         const counter = await req.body.counter;
         console.log(image64.length);
-        const response = await axios.post("http://localhost:5000/register", {'id': studentid, 'image64':image64, 'counter': counter})
+        const response = await axios.post("http://localhost:5000/register", {'id': userid, 'image64':image64, 'counter': counter})
         console.log(response.data);
         console.log(response.data.success);
         console.log(response.data.message);
