@@ -27,35 +27,26 @@ class MyCalendar extends Component {
        axios.get("http://localhost:8080/calendar/allevents/",config)
        .then((res)=>{
             console.log(res.data);
-            console.log(res.data.events);
-            this.setState({ eventslist: res.data.events });
+            console.log(res.data.events);      
+            res.data.events.forEach(element => {
+              element.start=new Date(element.start);
+              element.end = new Date(element.end);
+            })
+            this.setState({eventslist: res.data.events})
        }).catch((error)=>{
             console.log(error);
        })
     }
 
     render() {
-        // const dummyEvents = [
-        //     {
-        //       allDay: false,
-        //       end: new Date('January 10, 2021 11:13:00'),
-        //       start: new Date('January 09, 2021 11:13:00'),
-        //       title: 'hi',
-        //     },
-        //     {
-        //       allDay: true,
-        //       end: new Date('January 09, 2021 11:13:00'),
-        //       start: new Date('January 09, 2021 11:13:00'),
-        //       title: 'All Day Event',
-        //     },
-        //   ];
+        
         return (
             <div className="rbc-calendar">
                 <Calendar
                   localizer={localizer}
                   events={ this.state.eventslist}
-                  startAccessor="start"
-                  endAccessor="end"
+                  startAccessor="start" 
+                  endAccessor="end" 
                 />
             </div>
         );
