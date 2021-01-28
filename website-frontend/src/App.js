@@ -8,7 +8,8 @@ import userDashboard from './components/userDashboard';
 import Options from './components/Options';
 import FaceLogin from './components/FaceLogin';
 import FaceSignUp from './components/FaceSignUp';
-import MyCalendar from './components/MyCalendar';
+import StudentCalendar from './components/StudentCalendar';
+import ProfessorCalendar from './components/ProfessorCalendar';
 function App() {
   return (
     <Router>
@@ -21,7 +22,8 @@ function App() {
         <Route exact path="/faceLogin" component={FaceLogin} />
         <Route exact path="/faceSignUp" component={FaceSignUp} />
         <Route exact path="/options" component={Options} />
-        <Route exact path="/calendar" component={MyCalendar} />
+        <Route exact path="/scalendar" component={StudentCalendar} />
+        <Route exact path="/pcalendar" component={ProfessorCalendar} />
       </Switch>
     </Router>
   );

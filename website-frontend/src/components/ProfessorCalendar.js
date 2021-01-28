@@ -7,24 +7,15 @@ import axios from 'axios';
 // to the correct localizer.
 const localizer = momentLocalizer(moment); 
 
-class MyCalendar extends Component {
+class ProfessorCalendar extends Component {
     constructor(props){
         super(props);
         this.state={
           eventslist: [] 
-        };
-        
+        };       
     }
     componentDidMount(){
-      const token = localStorage.getItem("userid");
-      console.log(this.state);
-      console.log(token);
-      const config = {
-        headers:{
-          "x-access-token":  token
-        }
-      }
-       axios.get("http://localhost:8080/calendar/allevents/",config)
+       axios.get("http://localhost:8080/calendar/allevents/")
        .then((res)=>{
             console.log(res.data);
             console.log(res.data.events);      
@@ -37,23 +28,38 @@ class MyCalendar extends Component {
             console.log(error);
        })
     }
+    handleSelect = ({ start, end }) => {
+        const title = window.prompt('New Event name')
+        if (title)
+          this.setState({
+            eventslist: [
+              ...this.state.eventslist,
+              {
+                start,
+                end,
+                title,
+              },
+            ],
+          })
+      }
 
     render() {
         
         return (
             <div className="rbc-calendar">
                 <Calendar
+                  selectable
+                  popup
                   localizer={localizer}
                   events={ this.state.eventslist}
                   startAccessor="start" 
-                  endAccessor="end" 
+                  endAccessor="end"
+                  onSelectSlot={this.handleSelect} 
                 />
             </div>
         );
       }
-
-
 }
 
 
-export default MyCalendar;
+export default ProfessorCalendar;
