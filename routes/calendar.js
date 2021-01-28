@@ -16,7 +16,29 @@ router.get('/allevents', async (req, res)=>{
     }
 });
 
-router.post('/addevent', requireAuth, async(req,res)=>{
+router.post('/addevent', async(req,res)=>{
+    try{   
+        const { start, end, title } = await req.body;
+        const eventDetails=new Event({
+            start: start,
+            end: end,
+            title: title
+        })
+        
+        await eventDetails.save();
+        res.status(200).json({
+            success: true,
+            results: eventDetails,
+            message: "Insertion success"
+        })
+        
+    }catch(err){
+        console.log(err);
+        res.status(200).json({
+            error: err,
+            message: "Insertion failed"
+        })
+    }
 
 
 })

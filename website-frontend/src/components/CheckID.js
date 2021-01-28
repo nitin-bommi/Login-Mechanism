@@ -33,6 +33,11 @@ class CheckID extends Component {
         // eslint-disable-next-line no-restricted-globals
         if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){
           window.location.replace("/basicregister");
+        }else{
+          if(localStorage.getItem("userid")){
+            localStorage.removeItem('userid');
+            window.location.replace("/");
+          }
         }
         // console.log("FALSE");
       }

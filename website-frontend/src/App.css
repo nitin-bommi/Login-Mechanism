@@ -120,5 +120,8 @@ tr td{
 }
 
 .rbc-calendar{
-  min-height: 700px;
+  min-height: 700px !important;
+}
+.rbc-event {
+  z-index: 999 !important;
 }
