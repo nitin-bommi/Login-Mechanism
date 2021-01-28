@@ -2,6 +2,7 @@ import { Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class CheckID extends Component {
   constructor(props){
@@ -57,20 +58,40 @@ class CheckID extends Component {
       <div>
       { notLoggedIn ?
           <div className="form-form">
-            <div className="form">
-              <div className="form-group">
-                <input type="text" className="item" id="userid" placeholder="User ID" name="userid" pattern="(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)" onChange={this.handleChange}></input>
-              </div>
-              <div className="form-group">
+            <Form>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control type="text" className="item" id="userid" placeholder="User ID" name="userid" pattern="(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail">
                   <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
-              </div>
-            </div>
+              </Form.Group>
+            </Form>
             <div className="others">
-              <h4><Link to="/passwordlogin">CheckPassword</Link></h4>
-              <h4><Link to="/basicregister">Basic Register</Link></h4>
-              <h4><Link to="/faceSignUp">Sign Up with face</Link></h4>
+              <p><Link className='text-link' to="/passwordlogin">CheckPassword</Link></p>
+              <p><Link className='text-link' to="/basicregister">Basic Register</Link></p>
+              <p><Link className='text-link' to="/faceSignUp">Sign Up with face</Link></p>
             </div>
           </div>
+//           <Form>
+//   <Form.Group controlId="formBasicEmail">
+//     <Form.Label>Email address</Form.Label>
+//     <Form.Control type="email" placeholder="Enter email" />
+//     <Form.Text className="text-muted">
+//       We'll never share your email with anyone else.
+//     </Form.Text>
+//   </Form.Group>
+
+//   <Form.Group controlId="formBasicPassword">
+//     <Form.Label>Password</Form.Label>
+//     <Form.Control type="password" placeholder="Password" />
+//   </Form.Group>
+//   <Form.Group controlId="formBasicCheckbox">
+//     <Form.Check type="checkbox" label="Check me out" />
+//   </Form.Group>
+//   <Button variant="primary" type="submit">
+//     Submit
+//   </Button>
+// </Form>
         : 
           null
           //<div>Loading ...</div>
