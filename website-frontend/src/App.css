@@ -1,7 +1,6 @@
 body {
   height: 100%;
   background-image: url("./images/05.png");
-  height: 100%; 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10,12 +9,25 @@ body {
 .form-form {
   background-color: #222831;
   color:  #bdc9cf;
-  max-width: 40%;
+  width: 40%;
   margin: auto;
   padding: 50px 70px;  
   border-radius: 15px;
   box-shadow: 10px 10px 5px #6f7579;
-  margin-top: 100px;
+  margin-top: 120px;
+  margin-bottom: 100px;
+}
+
+@media screen and (max-width:800px) {
+  .form-form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width:400px) {
+  .form-form {
+    width: 100%;
+  }
 }
 
 .form-form .others {

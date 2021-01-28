@@ -7,8 +7,8 @@ class Options extends Component {
   render() {  
     return (
         <div className="center">
-          <div className="cards"><Link to="/passwordlogin">Login with password</Link></div>
-          <div className="cards"><Link to="/faceLogin">Login with Face</Link></div>
+          <Link className="text-link" to="/passwordlogin"><div className="cards">Login with password</div></Link>
+          <Link className="text-link" to="/faceLogin"><div className="cards">Login with Face</div></Link>
         </div>
       );
   }

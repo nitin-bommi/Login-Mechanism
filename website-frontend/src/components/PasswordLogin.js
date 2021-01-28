@@ -1,5 +1,7 @@
 import { Component} from 'react';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class PasswordLogin extends Component {
   constructor(props){
@@ -36,11 +38,17 @@ class PasswordLogin extends Component {
   render() {  
     return (
         <div>
-          {this.state.alert && <h3>Incorrect Password</h3>}
-          <form onSubmit={this.handleSubmit}>
-            <input type="password" id="password" name="password" onChange={this.handleChange}></input>
-            <button type="submit">Check Password</button>
-          </form>
+
+          <div className="form-form">
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="password">
+                <Form.Control type="password" id="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="submitbutton">
+                  <Button type="submit" className="create-account">Check Password</Button>
+              </Form.Group>
+            </Form>
+          </div>
         
         </div>
       );

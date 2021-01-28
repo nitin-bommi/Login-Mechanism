@@ -59,10 +59,10 @@ class CheckID extends Component {
       { notLoggedIn ?
           <div className="form-form">
             <Form>
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="userid">
                 <Form.Control type="text" className="item" id="userid" placeholder="User ID" name="userid" pattern="(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)" onChange={this.handleChange} />
               </Form.Group>
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="checkbutton">
                   <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
               </Form.Group>
             </Form>

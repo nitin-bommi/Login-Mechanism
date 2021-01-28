@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Component} from 'react';
 import {Link} from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class BasicRegister extends Component {
   constructor(props){
@@ -46,18 +48,32 @@ class BasicRegister extends Component {
   }
   render() {
     return (
-        <div>
-         <form onSubmit={this.handleSubmit}>
-         <input type="text" id="firstname" name="firstName" placeholder="First Name" onChange={this.handleChange}></input><br/>
-          <input type="text" id="lastname" name="lastName" placeholder="Last name" onChange={this.handleChange}></input><br/>
-          <input type="password" id="password" name="password" placeholder="Password" onChange={this.handleChange}></input><br/>
-          <input type="password" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange}></input><br/>
-          <input type="email" id="email" name="email" placeholder="Email" onChange={this.handleChange}></input><br/>
-          
-          <button type="submit" >Submit</button>
-          
-          <Link to="/nextregister"><button type="submit">Next</button></Link>
-         </form>
+        <div className="bgimage">
+          <div className="form-form">
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="fname">
+                <Form.Control type="text" id="firstname" name="firstName" placeholder="First Name" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="lname">
+                <Form.Control type="text" id="lastname" name="lastName" placeholder="Last name" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="password1">
+                <Form.Control type="password" id="password" name="password" placeholder="Password" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="password2">
+                <Form.Control type="password" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Control type="email" id="email" name="email" placeholder="Email" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="submitbutton">
+                  <Button type="submit" className="create-account">Submit</Button>
+              </Form.Group>
+              <Form.Group controlId="nextbutton">
+                <Link to="/nextregister"><Button type="submit" className="create-account">Next</Button></Link>
+              </Form.Group>
+            </Form>
+          </div>
         </div>
       );
   }
