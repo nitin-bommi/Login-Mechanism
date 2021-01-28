@@ -3,6 +3,10 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 // Setup the localizer by providing the moments Object
 // to the correct localizer.
 const localizer = momentLocalizer(moment); 
@@ -11,8 +15,13 @@ class ProfessorCalendar extends Component {
     constructor(props){
         super(props);
         this.state={
-          eventslist: [] 
+          eventslist: [],
+          show: true,
+          newevent: {}
         };       
+    }
+    handleChange(e) {
+        this.setState({[e.target.name]: e.target.value})
     }
     componentDidMount(){
        axios.get("http://localhost:8080/calendar/allevents/")
@@ -28,19 +37,41 @@ class ProfessorCalendar extends Component {
             console.log(error);
        })
     }
-    handleSelect = ({ start, end }) => {
-        const title = window.prompt('New Event name')
-        if (title)
-          this.setState({
-            eventslist: [
-              ...this.state.eventslist,
-              {
-                start,
-                end,
-                title,
-              },
-            ],
-          })
+    
+    handleSelect = ( { start, end }) => {
+        const handleClose = () => this.setState({show: false}); 
+        const handleAdd = ({start, end}) => {
+            let newevent= {
+                start: start,
+                end: end,
+                title: this.state.newevent
+            }
+            this.state.eventslist.push(newevent);
+        }   
+        return(
+            <Modal centered show={this.state.show} onHide={handleClose}> 
+                <Modal.Header closeButton>
+                    <Modal.Title>Add new Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Control type="text" id="newevent" name="newevent" placeholder="Enter new event name" onChange={this.handleChange} />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleAdd(start,end)}>
+                        Add Event
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        )
+        
+        
       }
 
     render() {
