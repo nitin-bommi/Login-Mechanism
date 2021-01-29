@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../db/eventschema');
-const { requireAuth } = require('../middlewares/authToken');
 
 router.get('/allevents', async (req, res)=>{
     try{
@@ -23,15 +22,13 @@ router.post('/addevent', async(req,res)=>{
             start: start,
             end: end,
             title: title
-        })
-        
-        await eventDetails.save();
+        })        
+        const savedEventDetails= await eventDetails.save();
         res.status(200).json({
             success: true,
-            results: eventDetails,
+            results: savedEventDetails,
             message: "Insertion success"
-        })
-        
+        })    
     }catch(err){
         console.log(err);
         res.status(200).json({
@@ -39,7 +36,49 @@ router.post('/addevent', async(req,res)=>{
             message: "Insertion failed"
         })
     }
-
-
 })
+
+router.post('/updateevent', async(req,res)=>{
+    try{   
+        const { eventid, start, end, title } = await req.body;
+        const eventDetails= await Event.findOne({_id: eventid}).exec();
+        eventDetails.start=start;
+        eventDetails.end=end;
+        eventDetails.title=title;
+        const savedEventDetails= await eventDetails.save();
+        res.status(200).json({
+            success: true,
+            results: savedEventDetails,
+            message: "Update success"
+        })
+        
+    }catch(err){
+        console.log(err);
+        res.status(200).json({
+            error: err,
+            message: "Update failed"
+        })
+    }
+})
+
+router.post('/deleteevent', async(req,res)=>{
+    try{   
+        const { eventid } = await req.body;
+        const deletedEventDetails= await Event.findByIdAndDelete({ _id: eventid}).exec();
+        res.status(200).json({
+            success: true,
+            results: deletedEventDetails,
+            message: "Delete success"
+        })
+        
+    }catch(err){
+        console.log(err);
+        res.status(200).json({
+            error: err,
+            message: "Delete failed"
+        })
+    }
+})
+
+
 module.exports = router;
