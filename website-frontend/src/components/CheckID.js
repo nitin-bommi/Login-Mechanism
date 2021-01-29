@@ -1,5 +1,5 @@
 import { Component} from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -20,7 +20,7 @@ class CheckID extends Component {
   async handleSubmit(e){
     e.preventDefault();
     let details={
-      userid: this.state.userid
+      userid: this.state.userid.toLowerCase()
     }
     try {
       const res = await axios.post('http://localhost:8080/api/checkid',details);
@@ -71,11 +71,11 @@ class CheckID extends Component {
                   <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
               </Form.Group>
             </Form>
-            <div className="others">
+            {/* <div className="others">
               <p><Link className='text-link' to="/passwordlogin">CheckPassword</Link></p>
               <p><Link className='text-link' to="/basicregister">Basic Register</Link></p>
               <p><Link className='text-link' to="/faceSignUp">Sign Up with face</Link></p>
-            </div>
+            </div> */}
           </div>
 //           <Form>
 //   <Form.Group controlId="formBasicEmail">
@@ -99,7 +99,6 @@ class CheckID extends Component {
 // </Form>
         : 
           null
-          //<div>Loading ...</div>
       }
       </div>
     );

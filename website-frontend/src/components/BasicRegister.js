@@ -42,7 +42,7 @@ class BasicRegister extends Component {
     try {
       const res = await axios.post("http://localhost:8080/api/basic_registration/", data,config);
       console.log(res.data);
-      if(res.data.userDetails.role==='Student')
+      if(res.data.results.role==='Student')
         window.location.replace('/studentregister');
       else
         window.location.replace('/professorregister');
@@ -54,7 +54,7 @@ class BasicRegister extends Component {
     return (
         <div className="bgimage">
           <div className="form-form">
-            <Form onSubmit={this.handleSubmit}>
+            <Form>
               <Form.Group controlId="fname">
                 <Form.Control type="text" id="firstname" name="firstName" placeholder="First Name" onChange={this.handleChange} />
               </Form.Group>
@@ -68,14 +68,14 @@ class BasicRegister extends Component {
                 <Form.Control type="password" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="email">
-                <Form.Control type="email" id="email" name="email" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" placeholder="Email" onChange={this.handleChange} />
+                <Form.Control type="email" id="email" name="email" placeholder="Email" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="phone">
                 <Form.Control type="tel" id="phone" name="phonenumber" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone number"  onChange={this.handleChange} />
               </Form.Group>
               
               <Form.Group controlId="submitbutton">
-                <Button type="submit" className="create-account">Next</Button>
+                <Button type="submit" onClick={this.handleSubmit} className="create-account">Next</Button>
               </Form.Group>
             </Form>
           </div>

@@ -16,7 +16,7 @@ class FaceSignUp extends Component {
 	setup(p5='',) {
         p5.noCanvas();
         video = p5.createCapture(p5.VIDEO);
-        video.size(300, 230);        
+        video.size(500, 400);        
     }
 
     stop(){
@@ -32,7 +32,7 @@ class FaceSignUp extends Component {
         video.loadPixels();
         console.log(video.canvas);
         const image64 = video.canvas.toDataURL();
-        //console.log(image64);
+        console.log(image64);
         const token = localStorage.getItem("userid");
         const config = {
             headers:{

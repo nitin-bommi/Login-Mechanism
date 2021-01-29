@@ -47,7 +47,7 @@ class StudentDashboard extends React.Component {
                 department: department, 
                 semester: semester,
                 course: course,
-                dateOfBirth: (new Date(dateOfBirth)).toLocaleDateString(),
+                dateOfBirth: (new Date(dateOfBirth)).toDateString(),
                 yearOfJoin: yearOfJoin 
             });
        }).catch((error)=>{
