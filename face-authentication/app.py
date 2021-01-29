@@ -18,7 +18,6 @@ def register():
             fh.write(base64.b64decode(img_data[22:]))
         img_path = 'images/'+id+'.jpg'
         res = face_rec.store_image(id, img_path, counter)
-        os.remove(img_path)
         if res:
             return json.dumps({
                 "status": 200,
@@ -43,7 +42,6 @@ def verify():
         fh.write(base64.b64decode(img_data[22:]))
     img_path = 'images/'+id+'.jpg'
     res = face_rec.verify_image(id, img_path)
-    os.remove(img_path)
     if res:
         return json.dumps({
             "status": 200,

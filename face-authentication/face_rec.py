@@ -66,13 +66,14 @@ def Verification(id, img_path):
 def read_img(path):
     img = cv2.imread(path)
     (h, w) = img.shape[:2]
-    width = 500
+    width = 400
     ratio = width / float(w)
     height = int(h * ratio)
     return cv2.resize(img, (width, height))
 
 def store_image(id, image_path, counter):
     img = read_img(image_path)
+    os.remove(img_path)
     img_enc = face_recognition.face_encodings(img)[0]
     if not os.path.exists('encodings'):
         os.makedirs('encodings')
@@ -85,7 +86,8 @@ def verify_image(id, image_path):
         print('No user with that id')
         return False
     img = read_img(image_path)
-    img_enc = face_recognition.face_encodings(img)[0]
+    os.remove(img_path)
+    img_enc = face_recognition.face_encodings(img)
     result = face_recognition.compare_faces(face_encodings_for_id, img_enc)
     print(result)
     return result
