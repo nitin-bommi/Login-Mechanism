@@ -61,7 +61,7 @@ class ProfessorRegister extends Component {
               <option>Female</option>
               <option>Other</option>
           </select><br/>
-          <select name="deisgnation" onChange={this.handleChange}>
+          <select name="designation" onChange={this.handleChange}>
             <option>Select Designation</option>
             <option>Assistant Professor</option>
             <option>Associate Professor</option>

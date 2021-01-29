@@ -126,7 +126,7 @@ class ProfessorCalendar extends Component {
                   startAccessor="start" 
                   endAccessor="end"
                   onSelectSlot={this.handleShowAdd}
-                  onDoubleClickEvent={this.handleShowEdit} 
+                  onSelectEvent={this.handleShowEdit} 
                 />
                 <Modal centered show={this.state.showAdd} onHide={this.handleCloseAdd}> 
                     <Modal.Header closeButton>
