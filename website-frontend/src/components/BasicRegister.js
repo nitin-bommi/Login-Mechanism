@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Component} from 'react';
-import {Link} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -39,12 +38,12 @@ class BasicRegister extends Component {
       }
     }
     try {
-     const res = await axios.post("http://localhost:8080/api/basic_registration/", data,config);
+      const res = await axios.post("http://localhost:8080/api/basic_registration/", data,config);
       console.log(res.data);
-    
-  }catch(error){
-    console.log(error);
-  }
+      window.location.replace('/nextregister');
+    }catch(error){
+      console.log(error);
+    }
   }
   render() {
     return (
@@ -66,11 +65,9 @@ class BasicRegister extends Component {
               <Form.Group controlId="email">
                 <Form.Control type="email" id="email" name="email" placeholder="Email" onChange={this.handleChange} />
               </Form.Group>
+              
               <Form.Group controlId="submitbutton">
-                  <Button type="submit" className="create-account">Submit</Button>
-              </Form.Group>
-              <Form.Group controlId="nextbutton">
-                <Link to="/nextregister"><Button type="submit" className="create-account">Next</Button></Link>
+                <Button type="submit" className="create-account">Next</Button>
               </Form.Group>
             </Form>
           </div>

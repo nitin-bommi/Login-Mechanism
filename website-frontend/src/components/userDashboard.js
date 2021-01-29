@@ -44,7 +44,7 @@ class userDashboard extends React.Component {
                 school: school,
                 department: department, 
                 semester: semester,
-                dateOfBirth: new Date(dateOfBirth),
+                dateOfBirth: (new Date(dateOfBirth)).toLocaleDateString(),
                 yearOfJoin: yearOfJoin 
             });
        }).catch((error)=>{
@@ -111,7 +111,7 @@ class userDashboard extends React.Component {
                         </tr>
                         <tr>
                             <td>Date of Birth:</td>
-                            <td>{this.state.dateOfBirth.toLocaleDateString()}</td>
+                            <td>{this.state.dateOfBirth}</td>
                         </tr>
                     </table>    
                 </div>         
