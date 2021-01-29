@@ -12,7 +12,8 @@ class BasicRegister extends Component {
       lastName: "",
       password: "",
       confirmPassword: "",
-      email: ""
+      email: "", 
+      phonenumber: ""
     }
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -24,12 +25,13 @@ class BasicRegister extends Component {
     e.preventDefault();
     const token = localStorage.getItem("userid");
     console.log(this.state);
-    const {firstName, lastName, password, email} = this.state;
+    const {firstName, lastName, password, email, phonenumber} = this.state;
     let data={
         firstName,
         lastName,
         password,
-        email
+        email,
+        phonenumber
     }
     console.log(token);
     const config = {
@@ -40,7 +42,10 @@ class BasicRegister extends Component {
     try {
       const res = await axios.post("http://localhost:8080/api/basic_registration/", data,config);
       console.log(res.data);
-      window.location.replace('/nextregister');
+      if(res.data.userDetails.role==='Student')
+        window.location.replace('/studentregister');
+      else
+        window.location.replace('/professorregister');
     }catch(error){
       console.log(error);
     }
@@ -63,7 +68,10 @@ class BasicRegister extends Component {
                 <Form.Control type="password" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="email">
-                <Form.Control type="email" id="email" name="email" placeholder="Email" onChange={this.handleChange} />
+                <Form.Control type="email" id="email" name="email" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" placeholder="Email" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="phone">
+                <Form.Control type="tel" id="phone" name="phonenumber" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone number"  onChange={this.handleChange} />
               </Form.Group>
               
               <Form.Group controlId="submitbutton">

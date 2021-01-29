@@ -79,7 +79,10 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
             }else{        
                 res.status(200).json({ 
                     success: true,
-                    result: userDetails.userid,  
+                    result: {
+                        userid: userDetails.userid,
+                        role: userDetails.role,
+                    }  
                 })
             }
         });
@@ -96,14 +99,15 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
         let role = await req.decoded.role;
         
         console.log(userid);
-        const { firstName, lastName, email, password } = await req.body;
+        const { firstName, lastName, email, password, phonenumber } = await req.body;
         const userDetails=new User({
             userid: userid,
             role: role,
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password
+            password: password,
+            phone: phonenumber
         })
         
         
@@ -124,17 +128,17 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
 });
 
 //Register more details.
-router.post('/info_registration',requireAuth, async (req, res) => {
+router.post('/student_registration',requireAuth, async (req, res) => {
     try{
         const userid=req.decoded.userid;
-        const { gender, school, department, semester, dob, phonenumber,yearOfJoin } = await req.body;
+        const { gender, school, department, course, semester, dob, yearOfJoin } = await req.body;
         const userDetails= await User.findOne({userid: userid}).exec();
         userDetails.gender=gender;
         userDetails.school=school;
         userDetails.department=department;
         userDetails.semester=semester;
         userDetails.dateOfBirth=dob;
-        userDetails.phone=phonenumber;
+        userDetails.course=course;
         userDetails.yearOfJoin = yearOfJoin;
         await userDetails.save();
         res.status(200).json({ 
@@ -142,7 +146,32 @@ router.post('/info_registration',requireAuth, async (req, res) => {
             results: userDetails,
             message: "Insertion success"
         })
-        //res.redirect("/checkid");
+    }catch(error){
+        console.log(error);
+        res.status(400).json({
+            error: error,
+            message: "Insertion failed"
+        })
+    }
+})
+
+router.post('/professor_registration', requireAuth, async (req, res) => {
+    try{
+        const userid=req.decoded.userid;
+        const { gender, school, department, designation, dob, yearOfJoin } = await req.body;
+        const userDetails= await User.findOne({userid: userid}).exec();
+        userDetails.gender=gender;
+        userDetails.school=school;
+        userDetails.department=department;
+        userDetails.designation=designation;
+        userDetails.dateOfBirth=dob;
+        userDetails.yearOfJoin=yearOfJoin;
+        await userDetails.save();
+        res.status(200).json({ 
+            success: true,
+            results: userDetails,
+            message: "Insertion success"
+        })
     }catch(error){
         console.log(error);
         res.status(400).json({

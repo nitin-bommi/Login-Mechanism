@@ -1,15 +1,14 @@
 import { Component} from 'react';
 import axios from "axios";
-class NextRegister extends Component {
+class ProfessorRegister extends Component {
   constructor(props){
     super(props);
     this.state={
       userid: "",
-      phonenumber: "",
       gender: "",
       school:"",
       department: "",
-      semester: null,
+      designation: null,
       yearOfJoin: null,
       dob: null,
       years: [],
@@ -25,9 +24,9 @@ class NextRegister extends Component {
     e.preventDefault();
     const token = localStorage.getItem("userid");
     // console.log(this.state);
-    const {phonenumber, gender, school, department, semester, yearOfJoin, dob} = this.state;
+    const { gender, school, department, designation, yearOfJoin, dob} = this.state;
     let data={
-      gender, school, department, semester, dob, phonenumber, yearOfJoin
+      gender, school, department, designation, dob,  yearOfJoin
     }
     console.log(token);
     const config = {
@@ -36,7 +35,7 @@ class NextRegister extends Component {
       }
     }
     try {
-     const res = await axios.post("http://localhost:8080/api/info_registration/", data,config);
+     const res = await axios.post("http://localhost:8080/api/professor_registration/", data,config);
     console.log(res.data);
     if(res.data.success){
       this.setState({alert: true});
@@ -56,13 +55,18 @@ class NextRegister extends Component {
         <div>
           {this.state.alert && <p>User data saved successfully</p>}
           <form onSubmit={this.handleSubmit}>
-          <input type="tel" id="phone" name="phonenumber" placeholder="Phone number"  onChange={this.handleChange}></input><br/>
           <select id="gender" name="gender" onChange={this.handleChange}>
           <option>Select Gender</option>
               <option>Male</option>
               <option>Female</option>
               <option>Other</option>
           </select><br/>
+          <select name="deisgnation" onChange={this.handleChange}>
+            <option>Select Designation</option>
+            <option>Assistant Professor</option>
+            <option>Associate Professor</option>
+            <option>Professor</option>
+          </select>
           <select id="school" name="school"  onChange={this.handleChange}>
               <option>Select school</option>
               <option>School of Computer and Information Sciences</option>
@@ -71,19 +75,7 @@ class NextRegister extends Component {
               <option>Select Department</option>
               <option>Computer Science</option>
           </select><br/>
-          <select id="semester" name="semester"  onChange={this.handleChange}>
-              <option>Select Semester</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-          </select><br/>
+          
           <select id="yearofjoin" name="yearOfJoin"  onChange={this.handleChange}>
           <option>Select Year of Join</option>
               <option>2001</option>
@@ -100,4 +92,4 @@ class NextRegister extends Component {
     
 }
 
-export default NextRegister;
+export default ProfessorRegister;
