@@ -17,7 +17,7 @@ def register():
         with open('images/'+id+'.jpg', "wb") as fh:
             fh.write(base64.b64decode(img_data[22:]))
         img_path = 'images/'+id+'.jpg'
-        res = face_rec.TakeImages(id, img_path, counter)
+        res = face_rec.store_image(id, img_path, counter)
         os.remove(img_path)
         if res:
             return json.dumps({
@@ -42,7 +42,7 @@ def verify():
     with open('images/'+id+'.jpg', "wb") as fh:
         fh.write(base64.b64decode(img_data[22:]))
     img_path = 'images/'+id+'.jpg'
-    res = face_rec.Verification(id, img_path)
+    res = face_rec.verify_image(id, img_path)
     os.remove(img_path)
     if res:
         return json.dumps({
