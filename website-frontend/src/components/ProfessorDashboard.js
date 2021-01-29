@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
 
-class userDashboard extends React.Component {
+class ProfessorDashboard extends React.Component {
     constructor(props){
       super(props);
       this.state={
@@ -14,7 +15,7 @@ class userDashboard extends React.Component {
         email: "",
         gender: "",
         department: "",
-        semester: null,
+        designation: "",
         yearOfJoin: null,
         dateOfBirth: null
       }
@@ -34,7 +35,7 @@ class userDashboard extends React.Component {
        .then((res)=>{
             console.log(res.data);
             console.log(res.data.userDetails.userid);
-            const {userid, firstName, lastName, phone, email, gender, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
+            const {userid, firstName, lastName, phone, email, gender, designation, school, department, dateOfBirth, yearOfJoin}=res.data.userDetails;
             this.setState({ userid: userid, 
                 firstName: firstName,
                 lastName: lastName,
@@ -43,8 +44,8 @@ class userDashboard extends React.Component {
                 gender: gender,
                 school: school,
                 department: department, 
-                semester: semester,
-                dateOfBirth: new Date(dateOfBirth),
+                designation: designation,
+                dateOfBirth: (new Date(dateOfBirth)).toLocaleDateString(),
                 yearOfJoin: yearOfJoin 
             });
        }).catch((error)=>{
@@ -60,9 +61,10 @@ class userDashboard extends React.Component {
         }
         return (
             <div>
-                <div className="heading"><h1>Welcome to User Dashboard</h1>
+                <div className="heading"><h1>Welcome to Student Dashboard</h1>
                     <div className="center">
-                        <Button variant="secondary" onClick={logout}>Logout</Button>  
+                        <Button variant="secondary" onClick={logout}>Logout</Button> 
+                        <Link to="/pcalendar"><Button variant="secondary">Calendar</Button></Link> 
                     </div>
                 </div>
                 
@@ -70,7 +72,7 @@ class userDashboard extends React.Component {
                     <h2 className="center-text">Details</h2>
                     <table className="center">
                         <tr>
-                            <td>Student ID:</td>
+                            <td>Professor ID:</td>
                             <td>{this.state.userid}</td>
                         </tr>
                         <tr>
@@ -94,6 +96,10 @@ class userDashboard extends React.Component {
                             <td>{this.state.gender}</td>
                         </tr>
                         <tr>
+                            <td>Designation:</td>
+                            <td>{this.state.designation}</td>
+                        </tr>
+                        <tr>
                             <td>School:</td>
                             <td>{this.state.school}</td>
                         </tr>
@@ -102,16 +108,12 @@ class userDashboard extends React.Component {
                             <td>{this.state.department}</td>
                         </tr>
                         <tr>
-                            <td>Semester:</td>
-                            <td>{this.state.semester}</td>
-                        </tr>
-                        <tr>
                             <td>Year of Joining:</td>
                             <td>{this.state.yearOfJoin}</td>
                         </tr>
                         <tr>
                             <td>Date of Birth:</td>
-                            <td>{this.state.dateOfBirth.toLocaleDateString()}</td>
+                            <td>{this.state.dateOfBirth}</td>
                         </tr>
                     </table>    
                 </div>         
@@ -120,4 +122,4 @@ class userDashboard extends React.Component {
     }
 }
 
-export default userDashboard
+export default ProfessorDashboard;

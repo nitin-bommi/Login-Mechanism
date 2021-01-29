@@ -48,7 +48,10 @@ class FaceLogin extends Component {
             console.log(response.data.image);
             console.log(response.data.imagebody);
             alert('Face recognition successful, you are logged in')
-            window.location.replace('/userDashboard')
+            if(response.data.result.role === 'Student')
+                window.location.replace('/studentDashboard')
+            else
+                window.location.replace('/professorDashboard')
         } else {    
             alert("Face not recognised! Try Again!");
             this.setState({tries: this.state.tries +1});

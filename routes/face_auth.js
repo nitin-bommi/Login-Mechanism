@@ -7,6 +7,7 @@ const axios=require('axios');
 router.post('/face_sign_in', requireAuth, async(req,res)=>{
     try{
         const userid = await req.decoded.userid;
+        const role = await req.decoded.role;
         const image64 = await req.body.image64;
         console.log(image64.length);
         const response = await axios.post("http://localhost:5000/verify", {'id': userid, 'image64':image64});
@@ -16,6 +17,7 @@ router.post('/face_sign_in', requireAuth, async(req,res)=>{
         if(response.data.success){
             res.status(200).json({
                 message: "Face has been verified, user is valid",
+                result: { role },
                 success: true,
             })
         }else{

@@ -16,10 +16,12 @@ class ProfessorCalendar extends Component {
         super(props);
         this.state={
           eventslist: [],
-          show: false,
+          showAdd: false,
+          showEdit: false,
           start: null,
           end: null,
-          newevent: ""
+          newevent: null,
+          eventid:null
         };       
     }
     handleChange=(e)=> {
@@ -39,8 +41,11 @@ class ProfessorCalendar extends Component {
             console.log(error);
        })
     }
-    handleClose = () => this.setState({show: false});
-    handleShow = ({start, end}) => this.setState({start: start, end: end, show: true});
+    handleCloseAdd = () => this.setState({showAdd: false});
+    handleCloseEdit = () => this.setState({showEdit: false});
+    handleShowAdd = ({ start, end}) => this.setState({ start: start, end: end, showAdd: true});
+    handleShowEdit = ({_id, start, end}) => this.setState({eventid: _id, start: start, end: end, showEdit: true});
+    
     handleAdd = async() => {
         if(this.state.start && this.state.end && this.state.newevent){
             let data = {
@@ -50,8 +55,55 @@ class ProfessorCalendar extends Component {
             }
             try {
                 const res = await axios.post("http://localhost:8080/calendar/addevent",  data);
-                this.state.eventslist.push(data)
-                this.handleClose(); 
+                res.data.results.start = new Date(res.data.results.start);
+                res.data.results.end = new Date(res.data.results.end);
+                this.state.eventslist.push(res.data.results)
+                this.handleCloseAdd(); 
+                console.log(res.data.results);
+               
+            }catch(error){
+                console.log(error);
+            } 
+        }else{
+            console.log("Nothing works, tee-hee!");
+        }        
+    }
+
+    handleEdit = async() => {
+        if(this.state.start && this.state.end && this.state.newevent && this.state.eventid){
+            let data = {
+                eventid: this.state.eventid,
+                start: this.state.start,
+                end: this.state.end,
+                title: this.state.newevent
+            }
+            try {
+                const res = await axios.post("http://localhost:8080/calendar/updateevent",  data);
+                res.data.results.start = new Date(res.data.results.start);
+                res.data.results.end = new Date(res.data.results.end);
+                let index = this.state.eventslist.findIndex((element)=> element._id === this.state.eventid);
+                this.state.eventslist.splice(index, 1, res.data.results)
+                this.handleCloseEdit(); 
+                
+               
+            }catch(error){
+                console.log(error);
+            } 
+        }else{
+            console.log("Nothing works, tee-hee!");
+        }        
+    }
+
+    handleDelete = async() => {
+        if(this.state.eventid){
+            let data = {
+                eventid: this.state.eventid,
+            }
+            try {
+                const res = await axios.post("http://localhost:8080/calendar/deleteevent",  data);
+                let index = this.state.eventslist.findIndex((element)=> element._id === this.state.eventid);
+                this.state.eventslist.splice(index, 1)
+                this.handleCloseEdit(); 
                 console.log(res.data);
                
             }catch(error){
@@ -59,8 +111,7 @@ class ProfessorCalendar extends Component {
             } 
         }else{
             console.log("Nothing works, tee-hee!");
-        }
-        
+        }        
     }
 
     render() {
@@ -71,31 +122,57 @@ class ProfessorCalendar extends Component {
                   selectable
                   popup
                   localizer={localizer}
-                  events={ this.state.eventslist}
+                  events={this.state.eventslist}
                   startAccessor="start" 
                   endAccessor="end"
-                  onSelectSlot={this.handleShow} 
+                  onSelectSlot={this.handleShowAdd}
+                  onDoubleClickEvent={this.handleShowEdit} 
                 />
-                <Modal centered show={this.state.show} onHide={this.handleClose}> 
-                <Modal.Header closeButton>
-                    <Modal.Title>Add new Event</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Control type="text" id="newevent" name="newevent" placeholder="Enter new event name" onChange={this.handleChange} />
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={this.handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={this.handleAdd}>
-                        Add Event
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                <Modal centered show={this.state.showAdd} onHide={this.handleCloseAdd}> 
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add new Event</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="newevent">
+                                <Form.Control type="text"  name="newevent" placeholder="Enter new event name" onChange={this.handleChange} />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseAdd}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={this.handleAdd}>
+                            Add Event
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal centered show={this.state.showEdit} onHide={this.handleCloseEdit}> 
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit Current Event</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="newevent">
+                                <Form.Control type="text"  name="newevent" placeholder="Enter new event name" onChange={this.handleChange} />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseEdit}>
+                            Close
+                        </Button>
+                        <Button variant="danger" onClick={this.handleDelete}>
+                            Delete Event
+                        </Button>
+                        <Button variant="primary" onClick={this.handleEdit}>
+                            Edit Event
+                        </Button>
+
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
       }
