@@ -96,9 +96,10 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
         const userid= await req.decoded.userid;
-        let role = await req.decoded.role;
+        const role = await req.decoded.role;
         
         console.log(userid);
+        console.log(role);
         const { firstName, lastName, email, password, phonenumber } = await req.body;
         const userDetails=new User({
             userid: userid,
