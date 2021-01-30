@@ -3,3 +3,4 @@ node_modules
 /face-authentication/encodings/
 /face-authentication/__pycache__
 /venv/
+/face-authentication/images/

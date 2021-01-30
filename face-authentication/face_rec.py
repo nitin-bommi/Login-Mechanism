@@ -73,11 +73,14 @@ def read_img(path):
 
 def store_image(id, image_path, counter):
     img = read_img(image_path)
-    os.remove(img_path)
+    os.remove(image_path)
     img_enc = face_recognition.face_encodings(img)[0]
+    if img_enc == []:
+        return False
     if not os.path.exists('encodings'):
         os.makedirs('encodings')
     np.save(f'encodings/{id}', np.array(img_enc))
+    return True
 
 def verify_image(id, image_path):
     try:
@@ -86,8 +89,9 @@ def verify_image(id, image_path):
         print('No user with that id')
         return False
     img = read_img(image_path)
-    os.remove(img_path)
+    os.remove(image_path)
     img_enc = face_recognition.face_encodings(img)
+    print(img_enc)
     result = face_recognition.compare_faces(face_encodings_for_id, img_enc)
     print(result)
     return result
