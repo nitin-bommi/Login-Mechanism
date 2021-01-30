@@ -1,5 +1,7 @@
 import { Component} from 'react';
 import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 class StudentRegister extends Component {
   constructor(props){
     super(props);
@@ -54,53 +56,70 @@ class StudentRegister extends Component {
   render() {
     return (
         <div>
-          {this.state.alert && <p>User data saved successfully</p>}
-          <form onSubmit={this.handleSubmit}>
-          <select id="gender" name="gender" onChange={this.handleChange}>
-          <option>Select Gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-          </select><br/>
-          <select name="course" onChange={this.handleChange}>
-            <option>Select Course</option>
-            <option>IMTech</option>
-            <option>MTech</option>
-            <option>MCA</option>
-            <option>MSc</option>
-            <option>IMSc</option>
-          </select>
-          <select id="school" name="school"  onChange={this.handleChange}>
-              <option>Select school</option>
-              <option>School of Computer and Information Sciences</option>
-          </select><br/>
-          <select id="department" name="department"  onChange={this.handleChange}>
-              <option>Select Department</option>
-              <option>Computer Science</option>
-          </select><br/>
-          <select id="semester" name="semester"  onChange={this.handleChange}>
-              <option>Select Semester</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-          </select><br/>
-          <select id="yearofjoin" name="yearOfJoin"  onChange={this.handleChange}>
-          <option>Select Year of Join</option>
-              <option>2001</option>
-              <option>2012</option>
-              <option>2018</option>
-          </select><br/>
-          <input type="date" id="dateOfBirth" name="dob"  onChange={this.handleChange}></input><br/>
-          
-          <button type="submit">Submit</button>
-          </form>
+          <div className="form-form">            
+            {this.state.alert && <p>User data saved successfully</p>}
+            <Form onSubmit={this.handleSubmit}>
+              <h3 className="form-heading">
+                Student Register
+              </h3>         
+              <Form.Group controlId="gender">
+                <Form.Control as="select" id="gender" className="item-2" name="gender" onChange={this.handleChange}>
+                  <option>Select Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="course">
+                <Form.Control as="select" id="course" className="item-2" name="course" onChange={this.handleChange}>
+                  <option>Select Course</option>
+                  <option>IMTech</option>
+                  <option>MTech</option>
+                  <option>MCA</option>
+                  <option>MSc</option>
+                  <option>IMSc</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="school">
+                <Form.Control as="select" id="school" className="item-2" name="school" onChange={this.handleChange}>
+                  <option>Select School</option>
+                  <option>School of Computer and Information Sciences</option>
+                </Form.Control>
+              </Form.Group>              
+              <Form.Group controlId="department">
+                <Form.Control as="select" id="department" className="item-2" name="department" onChange={this.handleChange}>
+                  <option>Select Department</option>
+                  <option>Computer Science</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="semester">
+                <Form.Control as="select" id="semester" className="item-2" name="semester" onChange={this.handleChange}>
+                  <option>Select Semester</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="yearOfJoin">
+                <Form.Control as="select" id="yearOfJoin" className="item-2" name="yearOfJoin" onChange={this.handleChange}>
+                  <option>Select Year of Join</option>
+                  <option>2001</option>
+                  <option>2012</option>
+                  <option>2018</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="submitbutton">
+                <Button type="submit" className="create-account">Submit</Button>
+              </Form.Group>
+            </Form>
+          </div>
         </div>
       );
   }

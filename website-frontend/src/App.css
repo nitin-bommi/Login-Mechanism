@@ -1,19 +1,23 @@
 body {
-  height: 100%;
+  /* height: 100%;
   background-image: url("./images/05.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  background: #ffafbd;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right,  #ffc3a0, #ffafbd);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,  #ffc3a0, #ffafbd); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .form-form {
-  background-color: #222831;
-  color:  #bdc9cf;
+  background-color: white;
+  color:  black;
   width: 40%;
   margin: auto;
   padding: 50px 70px;  
   border-radius: 15px;
-  box-shadow: 10px 10px 5px #6f7579;
+  box-shadow: 10px 10px 5px #bd6170;
   margin-top: 120px;
   margin-bottom: 100px;
 }
@@ -34,7 +38,7 @@ body {
   margin: auto;
   padding: 10px 70px;
   text-align: center;
-  color: #bdc9cf;
+  color: #bd6170;
   margin-top: 20px;
 }
 
@@ -53,6 +57,15 @@ body {
   border-radius: 5px;
   margin-top: 25px;
   padding: 10px;
+  -webkit-box-shadow: 0 0 6px #bd6170;
+  box-shadow: 0 0 6px #bd6170;
+}
+.form-form .item-2{
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 25px;
+  -webkit-box-shadow: 0 0 6px #bd6170;
+  box-shadow: 0 0 6px #bd6170;
 }
 
 .form-form .create-account{
@@ -62,7 +75,20 @@ body {
   padding: 10px;
   font-size: 18px;
   font-weight: bold;
-  background-color: #bdc9cf;
+  background-color: #bd6170;
+  border: none;
+  margin-top: 15px;
+}
+
+.form-form .create-account:hover{
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #833945;
+  color: aliceblue;
   border: none;
   margin-top: 15px;
 }
@@ -81,11 +107,14 @@ video{
 .heading{
     text-align: center;
     color: white;
-    background-color: #222831;
+    background-color: #343A40;
     box-shadow: 0px 5px 5px #6f7579;
     padding: 15px;
 }
 
+.form-heading{
+  color: #bd6170;
+}
 
 .center-text{
   text-align: center;
@@ -93,10 +122,9 @@ video{
 
 .studentdetails{
   width: 60%;
-  background-color: #5A6268;
-  color:white;
-  border: 2px solid #222831;
-  box-shadow: 0px 5px 5px #6f7579;
+  background-color: white;
+  border: 2px solid #bd6170;
+  box-shadow: 0px 5px 5px #d46e7f;
   border-radius: 5px;
   padding: 20px;
   margin: auto;

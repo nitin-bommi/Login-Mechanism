@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
 import {Link} from 'react-router-dom';
 
 class StudentDashboard extends React.Component {
@@ -63,11 +67,16 @@ class StudentDashboard extends React.Component {
         }
         return (
             <div>
-                <div className="heading"><h1>Welcome to Student Dashboard</h1>
-                    <div className="center">
-                        <Button variant="secondary" onClick={logout}>Logout</Button> 
-                        <Link to="/scalendar"><Button variant="secondary">Calendar</Button></Link> 
-                    </div>
+                <Navbar bg="dark" variant="dark">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/scalendar">Calender</Nav.Link>
+                    </Nav>
+                    <Form inline>
+                        <Button variant="secondary" onClick={logout}>Logout</Button>
+                    </Form>
+                </Navbar>
+                <div className="heading">
+                    <h1>Welcome to Student Dashboard</h1>
                 </div>
                 
                 <div className="studentdetails center">
