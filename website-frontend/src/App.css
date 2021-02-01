@@ -1,13 +1,7 @@
 body {
-  /* height: 100%;
-  background-image: url("./images/05.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
   background: #ffafbd;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right,  #ffc3a0, #ffafbd);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right,  #ffc3a0, #ffafbd); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 .form-form {
@@ -139,12 +133,8 @@ tr td{
 }
 
 .cards{
-  width: 20%;
   text-align: center;
-  background-color: #6f7579;
-  color: azure;
-  padding: 20px;
-  margin: 30px;
+  margin: auto;
 }
 
 .rbc-calendar{

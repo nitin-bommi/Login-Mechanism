@@ -64,19 +64,18 @@ class BasicRegister extends Component {
               <Form.Group controlId="lname">
                 <Form.Control type="text" id="lastname" className="item" name="lastName" placeholder="Last name" onChange={this.handleChange} />
               </Form.Group>
-              <Form.Group controlId="password1">
-                <Form.Control type="password" id="password" className="item" name="password" placeholder="Password" onChange={this.handleChange} />
-              </Form.Group>
-              <Form.Group controlId="password2">
-                <Form.Control type="password" id="confirmpassword" className="item" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
-              </Form.Group>
               <Form.Group controlId="email">
                 <Form.Control type="email" id="email" className="item" name="email" placeholder="Email" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="phone">
                 <Form.Control type="tel" id="phone" className="item" name="phonenumber" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone number"  onChange={this.handleChange} />
               </Form.Group>
-              
+              <Form.Group controlId="password1">
+                <Form.Control type="password" id="password" className="item" name="password" placeholder="Password" onChange={this.handleChange} />
+              </Form.Group>
+              <Form.Group controlId="password2">
+                <Form.Control type="password" id="confirmpassword" className="item" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
+              </Form.Group>
               <Form.Group controlId="submitbutton">
                 <Button type="submit" onClick={this.handleSubmit} className="create-account">Next</Button>
               </Form.Group>

@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
 import {Link} from 'react-router-dom';
 
 class ProfessorDashboard extends React.Component {
@@ -61,11 +64,16 @@ class ProfessorDashboard extends React.Component {
         }
         return (
             <div>
-                <div className="heading"><h1>Welcome to Student Dashboard</h1>
-                    <div className="center">
-                        <Button variant="secondary" onClick={logout}>Logout</Button> 
-                        <Link to="/pcalendar"><Button variant="secondary">Calendar</Button></Link> 
-                    </div>
+                <Navbar bg="dark" variant="dark">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/pcalendar">Calender</Nav.Link>
+                    </Nav>
+                    <Form inline>
+                        <Button variant="secondary" onClick={logout}>Logout</Button>
+                    </Form>
+                </Navbar>
+                <div className="heading">
+                    <h1>Welcome to Professor Dashboard</h1>
                 </div>
                 
                 <div className="studentdetails center">
