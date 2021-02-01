@@ -69,7 +69,7 @@ class StudentDashboard extends React.Component {
             <div>
                 <Navbar bg="dark" variant="dark">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/scalendar">Calender</Nav.Link>
+                        <Nav.Link href="/scalendar">Calendar</Nav.Link>
                     </Nav>
                     <Form inline>
                         <Button variant="secondary" onClick={logout}>Logout</Button>
