@@ -80,7 +80,7 @@ class StudentDashboard extends React.Component {
                 </div>
                 
                 <div className="studentdetails center">
-                    <h2 className="center-text">Details</h2>
+                    <h2 className="center-text">Student Details</h2>
                     <table className="center">
                         <tr>
                             <td>Student ID:</td>

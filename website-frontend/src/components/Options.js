@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 // import Col from 'react-bootstrap/Col';
 import face from '../images/face.png';
-import passwordimage from '../images/password.jpg';
+import passwordimage from '../images/password.png';
 
 
 class Options extends Component {
@@ -11,12 +11,15 @@ class Options extends Component {
   render() {  
     return (
         <div>
-          <table>
+          <div className="heading">
+            <h1>Select Mode of Login</h1>
+          </div>
+          <table class="table-center">
             <tr>
               <td>
                 <Link className="text-link d-inline p-2" to="/passwordlogin">
                   <Card style={{ width: '18rem' }} className="text-center">
-                    <Card.Img variant="top" src= {passwordimage} />
+                    <Card.Img class="rounded" variant="top" src= {passwordimage} />
                     <Card.Body>
                       <Card.Title>Login with password</Card.Title>
                     </Card.Body>

@@ -65,7 +65,7 @@ class CheckID extends Component {
           <div className="form-form">
             <Form>
               <h3 className="form-heading">
-                Checking ID
+                Enter your ID
               </h3>
               <Form.Group controlId="userid">
                 <Form.Control type="text" className="item" id="userid" placeholder="User ID" name="userid" pattern="(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)" onChange={this.handleChange} />

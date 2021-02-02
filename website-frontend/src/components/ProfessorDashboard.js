@@ -77,7 +77,7 @@ class ProfessorDashboard extends React.Component {
                 </div>
                 
                 <div className="studentdetails center">
-                    <h2 className="center-text">Details</h2>
+                    <h2 className="center-text">Professor Details</h2>
                     <table className="center">
                         <tr>
                             <td>Professor ID:</td>
