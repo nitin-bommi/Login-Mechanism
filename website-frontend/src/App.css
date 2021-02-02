@@ -12,8 +12,15 @@ body {
   padding: 50px 70px;  
   border-radius: 15px;
   box-shadow: 10px 10px 5px #bd6170;
-  margin-top: 120px;
+  margin-top: 100px;
   margin-bottom: 100px;
+}
+
+.form-form-nobg {
+  width: 40%;
+  margin: auto;
+  padding: 50px 70px;  
+  margin-top: 50px;
 }
 
 @media screen and (max-width:800px) {
@@ -66,7 +73,8 @@ body {
   box-shadow: 0 0 6px #bd6170;
 }
 
-.form-form .create-account{
+.form-form .create-account,
+.form-form-nobg .create-account{
   align-items: center;
   width: 100%;
   border-radius: 5px;
@@ -130,7 +138,7 @@ video{
   padding: 20px;
   margin: auto;
   margin-bottom: 50px;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 tr td{

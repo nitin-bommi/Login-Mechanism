@@ -65,22 +65,21 @@ class FaceLogin extends Component {
 
 	render(){
         let buttonname=(
-            <div>
-                <button id="submit" onClick={this.handleSubmit} >
-                    Sign In
+            <div className="form-form-nobg">
+                <button id="submit" className="create-account" onClick={this.handleSubmit} >
+                    Login
                 </button>
             </div>
-            
         )
-
 		let verify = (
             <div>
                 <Sketch setup={this.setup} draw={this.draw}/>
-                {buttonname}
+                {/* {buttonname} */}
             </div>
-		)
+        )
     	return (<div>
             {verify}
+            {buttonname}
     		</div>
 		)
 	}

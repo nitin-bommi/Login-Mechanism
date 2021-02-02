@@ -19,7 +19,7 @@ class Options extends Component {
               <td>
                 <Link className="text-link d-inline p-2" to="/passwordlogin">
                   <Card style={{ width: '18rem' }} className="text-center">
-                    <Card.Img class="rounded" variant="top" src= {passwordimage} />
+                    <Card.Img variant="top" src= {passwordimage} />
                     <Card.Body>
                       <Card.Title>Login with password</Card.Title>
                     </Card.Body>

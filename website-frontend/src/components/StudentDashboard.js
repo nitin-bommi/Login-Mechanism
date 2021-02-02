@@ -75,12 +75,11 @@ class StudentDashboard extends React.Component {
                         <Button variant="secondary" onClick={logout}>Logout</Button>
                     </Form>
                 </Navbar>
-                <div className="heading">
+                <div className="heading m-4">
                     <h1>Welcome to Student Dashboard</h1>
                 </div>
                 
                 <div className="studentdetails center">
-                    <h2 className="center-text">Student Details</h2>
                     <table className="center">
                         <tr>
                             <td>Student ID:</td>

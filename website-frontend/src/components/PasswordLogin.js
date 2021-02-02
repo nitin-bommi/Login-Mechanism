@@ -45,14 +45,11 @@ class PasswordLogin extends Component {
 
           <div className="form-form">
             <Form onSubmit={this.handleSubmit}>
-              <h3 className="form-heading">
-                Password Login
-              </h3>
               <Form.Group controlId="password">
                 <Form.Control type="password" className="item" id="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="submitbutton">
-                  <Button type="submit" className="create-account">Check Password</Button>
+                  <Button type="submit" className="create-account">Login</Button>
               </Form.Group>
             </Form>
           </div>

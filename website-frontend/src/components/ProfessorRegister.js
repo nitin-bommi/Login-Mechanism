@@ -58,9 +58,9 @@ class ProfessorRegister extends Component {
           <div className="form-form">
             {this.state.alert && <p>User data saved successfully</p>}
             <Form onSubmit={this.handleSubmit}>
-              <h3 className="form-heading">
-                Professor Register
-              </h3>         
+              <h4 className="form-heading">
+                Professor Additional Information
+              </h4>         
               <Form.Group controlId="gender">
                 <Form.Control as="select" id="gender" className="item-2" name="gender" onChange={this.handleChange}>
                   <option>Select Gender</option>
