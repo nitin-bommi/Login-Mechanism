@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import {Link} from 'react-router-dom';
 
 class ProfessorDashboard extends React.Component {
     constructor(props){
@@ -66,7 +65,7 @@ class ProfessorDashboard extends React.Component {
             <div>
                 <Navbar bg="dark" variant="dark">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/pcalendar">Calender</Nav.Link>
+                        <Nav.Link href="/pcalendar">Calendar</Nav.Link>
                     </Nav>
                     <Form inline>
                         <Button variant="secondary" onClick={logout}>Logout</Button>

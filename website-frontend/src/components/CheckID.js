@@ -14,40 +14,7 @@ class CheckID extends Component {
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
-  handleChange(e) {
-    this.setState({[e.target.name]: e.target.value})
-  }
-  async handleSubmit(e){
-    e.preventDefault();
-    let details={
-      userid: this.state.userid.toLowerCase()
-    }
-    try {
-      const res = await axios.post('http://localhost:8080/api/checkid',details);
-      const data = res.data;
-      localStorage.setItem("userid", data.token)
-      if(data.success){
-        window.location.replace("/options")
-        // console.log("TRUE");
-      }else{
-        // eslint-disable-next-line no-restricted-globals
-        if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){
-          window.location.replace("/basicregister");
-        }else{
-          if(localStorage.getItem("userid")){
-            localStorage.removeItem('userid');
-            window.location.replace("/");
-          }
-        }
-        // console.log("FALSE");
-      }
-      // console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-    
-    
-  }
+
   componentDidMount(){
     if(localStorage.getItem("userid")){
       window.location.replace('/options');
@@ -55,8 +22,45 @@ class CheckID extends Component {
       this.setState({ notLoggedIn: true })
     }
   }
-  
 
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value})
+  }
+  
+  async handleSubmit(e){
+    e.preventDefault();
+    if(this.state.userid===""){
+      alert("ID must not be left blank");
+    }else if(/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/.test(this.state.userid)){
+      let details={
+        userid: this.state.userid.toLowerCase()
+      }
+      try {
+        const res = await axios.post('http://localhost:8080/api/checkid',details);
+        const data = res.data;
+        localStorage.setItem("userid", data.token)
+        if(data.success){
+          window.location.replace("/options")
+        }else{
+          // eslint-disable-next-line no-restricted-globals
+          if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){
+            window.location.replace("/basicregister");
+          }else{
+            if(localStorage.getItem("userid")){
+              localStorage.removeItem('userid');
+              window.location.replace("/");
+            }
+          } 
+        }
+        // console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }else{
+      alert("Invalid input");
+    }
+  }
+  
   render() {
     let notLoggedIn=this.state.notLoggedIn;
     return (
@@ -68,7 +72,7 @@ class CheckID extends Component {
                 Enter your ID
               </h3>
               <Form.Group controlId="userid">
-                <Form.Control type="text" className="item" id="userid" placeholder="User ID" name="userid" pattern="(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)" onChange={this.handleChange} />
+                <Form.Control type="text" className="item" placeholder="User ID" name="userid" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="checkbutton">
                   <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>

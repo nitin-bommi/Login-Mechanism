@@ -9,40 +9,52 @@ class PasswordLogin extends Component {
     this.state={
       userid: "",
       password: "",
-      alert: false
+      counter: 0,
     }
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
+
   handleChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
+
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("userid");
-    const config = {
-      headers:{
-        "x-access-token":  token
+    if(this.state.counter < 3){
+      const token = localStorage.getItem("userid");
+      const config = {
+        headers:{
+          "x-access-token":  token
+        }
+      }
+      if(this.state.password!==""){
+        const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password}, config);
+        if(res.data.success){
+          console.log(res.data.result.role);
+          if(res.data.result.role === 'Student')
+            window.location.replace("/studentDashboard");
+          else
+            window.location.replace("/professorDashboard");
+        }else{
+          alert(res.data.message);
+          this.setState({ counter: this.state.counter + 1 }); 
+        }
+      }else{
+        alert("Password must not be blank")
+      }
+    }else{
+      alert("Incorrect password entered too many times, please enter ID again");
+      if(localStorage.getItem("userid")){
+        localStorage.removeItem('userid');
+        window.location.replace("/");
       }
     }
-    const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password}, config);
-    if(res.data.success){
-      console.log(res.data.result.role);
-      if(res.data.result.role === 'Student')
-        window.location.replace("/studentDashboard");
-      else
-        window.location.replace("/professorDashboard");
-    }else{
-      this.setState({alert: true});
-      setTimeout(() => {
-        this.setState({alert: false});
-      }, 3000);
-    }
   }
+
   render() {  
     return (
         <div>
-
           <div className="form-form">
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="password">

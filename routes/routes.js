@@ -27,9 +27,14 @@ router.get('/userdetails', requireAuth, async (req, res)=>{
 router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
-        const userid= await req.body.userid;
+        const userid = await req.body.userid;
         let role;
-        let userDetails= await User.findOne({userid: userid}).exec();
+        if(userid===""){
+            res.status(400).json({ success: false, message: "ID should not be blank "})
+        }else if(!/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/.test(this.state.userid)){
+            res.status(400).json({ success: false, message: "Invalid input"})
+        }
+        let userDetails = await User.findOne({userid: userid}).exec();
         console.log(userid);
         if(/^\d{5}$/.test(userid)){
             role='Professor';
@@ -56,16 +61,16 @@ router.post('/checkid',async (req, res)=>{
     }catch(error){
         console.log(error);
     }
-
 })
 
 // If ID is present, login with password.
 router.post('/passwordlogin', requireAuth, async (req, res)=>{
     try{
-        const userid= await req.decoded.userid;
+        // Get userid decoded from token in header
+        const userid = await req.decoded.userid;
         //Gets password from body
-        const password=await req.body.password;
-        let userDetails=await User.findOne({userid: userid}).exec();      
+        const password = await req.body.password;
+        let userDetails = await User.findOne({userid: userid}).exec();      
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.status(400).json({
@@ -75,7 +80,7 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
         userDetails.comparePassword(password, (error, match) => {
             if(error) throw error;
             if(!match) {
-              res.json({success: false,message: "Incorrect password"});
+              res.json({success: false, message: "Incorrect password"});
             }else{        
                 res.status(200).json({ 
                     success: true,
