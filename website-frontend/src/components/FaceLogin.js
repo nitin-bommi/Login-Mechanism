@@ -74,12 +74,28 @@ class FaceLogin extends Component {
 		let verify = (
             <div>
                 <Sketch setup={this.setup} draw={this.draw}/>
+                <div className="form-form-nobg">
+                    <button id="submit" className="create-account" onClick={this.handleSubmit} >
+                        Login
+                    </button>
+                </div>
                 {/* {buttonname} */}
             </div>
         )
-    	return (<div>
-            {verify}
-            {buttonname}
+    	return (
+            <div>
+            {/* {verify} */}
+            {/* {buttonname} */}
+                <div>
+                    <div className="form-form-nobg">
+                        <Sketch setup={this.setup} draw={this.draw}/>
+
+                        <button id="submit" className="create-account" onClick={this.handleSubmit} >
+                            Login
+                        </button>
+                    </div>
+                    {/* {buttonname} */}
+                </div>
     		</div>
 		)
 	}
