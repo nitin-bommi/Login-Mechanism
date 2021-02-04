@@ -115,6 +115,9 @@ class StudentRegister extends Component {
                   <option>2018</option>
                 </Form.Control>
               </Form.Group>
+              <Form.Group controlId="date">
+                <Form.Control type="date" id="dateOfBirth" className="item-2" name="dob" onChange={this.handleChange} />
+              </Form.Group>
               <Form.Group controlId="submitbutton">
                 <Button type="submit" className="create-account">Submit</Button>
               </Form.Group>
