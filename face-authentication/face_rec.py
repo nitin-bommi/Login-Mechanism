@@ -71,7 +71,7 @@ def read_img(path):
     height = int(h * ratio)
     return cv2.resize(img, (width, height))
 
-def store_image(id, image_path, counter):
+def store_image(id, image_path):
     img = read_img(image_path)
     os.remove(image_path)
     img_enc = face_recognition.face_encodings(img)[0]

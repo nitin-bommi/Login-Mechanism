@@ -7,11 +7,11 @@ import StudentRegister from './components/StudentRegister';
 import StudentDashboard from './components/StudentDashboard';
 import ProfessorDashboard from './components/ProfessorDashboard';
 import Options from './components/Options';
-import FaceLogin from './components/FaceLogin';
-import FaceSignUp from './components/FaceSignUp';
 import StudentCalendar from './components/StudentCalendar';
 import ProfessorCalendar from './components/ProfessorCalendar';
 import ProfessorRegister from './components/ProfessorRegister';
+import FaceRecognition from './components/FaceRecognition';
+
 function App() {
   return (
     <Router>
@@ -23,11 +23,12 @@ function App() {
         <Route exact path="/professorregister" component={ProfessorRegister} />
         <Route exact path="/studentDashboard" component={StudentDashboard} />
         <Route exact path="/professorDashboard" component={ProfessorDashboard} />
-        <Route exact path="/faceLogin" component={FaceLogin} />
-        <Route exact path="/faceSignUp" component={FaceSignUp} />
+        
         <Route exact path="/options" component={Options} />
         <Route exact path="/scalendar" component={StudentCalendar} />
         <Route exact path="/pcalendar" component={ProfessorCalendar} />
+        <Route exact path="/faceLogin" render={(props) => <FaceRecognition login={true} {...props} />} />
+        <Route exact path="/faceSignUp" render={(props) => <FaceRecognition login={false} {...props} />} />
       </Switch>
     </Router>
   );

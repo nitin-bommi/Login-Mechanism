@@ -14,7 +14,7 @@ class Options extends Component {
           <div className="heading">
             <h1>Select Mode of Login</h1>
           </div>
-          <table class="table-center">
+          <table className="table-center">
             <tr>
               <td>
                 <Link className="text-link d-inline p-2" to="/passwordlogin">
