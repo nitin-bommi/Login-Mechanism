@@ -31,7 +31,7 @@ router.post('/checkid',async (req, res)=>{
         let role;
         if(userid===""){
             res.status(400).json({ success: false, message: "ID should not be blank "})
-        }else if(!/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/.test(this.state.userid)){
+        }else if(!/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/.test(req.body.userid)){
             res.status(400).json({ success: false, message: "Invalid input"})
         }
         let userDetails = await User.findOne({userid: userid}).exec();

@@ -94,10 +94,6 @@ class StudentDashboard extends React.Component {
                             <td>{this.state.phone}</td>
                         </tr>
                         <tr>
-                            <td>Phone:</td>
-                            <td>{this.state.phone}</td>
-                        </tr>
-                        <tr>
                             <td>Email:</td>
                             <td>{this.state.email}</td>
                         </tr>
