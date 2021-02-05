@@ -52,10 +52,6 @@ body {
   text-decoration: inherit;
 }
 
-.option-cards{
-  border-radius: 20px;
-}
-
 .form-form .item{
   width: 100%;
   border-radius: 5px;
@@ -64,6 +60,7 @@ body {
   -webkit-box-shadow: 0 0 6px #bd6170;
   box-shadow: 0 0 6px #bd6170;
 }
+
 .form-form .item-2{
   width: 100%;
   border-radius: 5px;
