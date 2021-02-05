@@ -99,7 +99,7 @@ class FaceRecognition extends Component {
     
     	return (
             <div>
-                <div>                
+                <div className="camera">                
                     <Webcam
                         audio={false}
                         height={320}
@@ -108,6 +108,8 @@ class FaceRecognition extends Component {
                         screenshotFormat="image/jpeg"
                         videoConstraints={videoConstraints}
                     />
+                </div>
+                <div>
                     {/* {loginbutton} */}
                     { this.props.login ? loginbutton : signupbutton }
                 

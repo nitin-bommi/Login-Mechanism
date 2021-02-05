@@ -67,7 +67,7 @@ class StudentDashboard extends React.Component {
         }
         return (
             <div>
-                <Navbar bg="dark" variant="dark">
+                <Navbar bg="dark" variant="dark" className="mynav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/scalendar">Calendar</Nav.Link>
                     </Nav>
@@ -82,47 +82,47 @@ class StudentDashboard extends React.Component {
                 <div className="studentdetails center">
                     <table className="center">
                         <tr>
-                            <td>Student ID:</td>
+                            <td><b>Student ID:</b></td>
                             <td>{this.state.userid}</td>
                         </tr>
                         <tr>
-                            <td>Name:</td>
+                            <td><b>Name:</b></td>
                             <td>{this.state.firstName} {this.state.lastName}</td>
                         </tr>
                         <tr>
-                            <td>Phone:</td>
+                            <td><b>Phone:</b></td>
                             <td>{this.state.phone}</td>
                         </tr>
                         <tr>
-                            <td>Email:</td>
+                            <td><b>Email:</b></td>
                             <td>{this.state.email}</td>
                         </tr>
                         <tr>
-                            <td>Gender:</td>
+                            <td><b>Gender:</b></td>
                             <td>{this.state.gender}</td>
                         </tr>
                         <tr>
-                            <td>Course:</td>
+                            <td><b>Course:</b></td>
                             <td>{this.state.course}</td>
                         </tr>
                         <tr>
-                            <td>School:</td>
+                            <td><b>School:</b></td>
                             <td>{this.state.school}</td>
                         </tr>
                         <tr>
-                            <td>Department:</td>
+                            <td><b>Department:</b></td>
                             <td>{this.state.department}</td>
                         </tr>
                         <tr>
-                            <td>Semester:</td>
+                            <td><b>Semester:</b></td>
                             <td>{this.state.semester}</td>
                         </tr>
                         <tr>
-                            <td>Year of Joining:</td>
+                            <td><b>Year of Joining:</b></td>
                             <td>{this.state.yearOfJoin}</td>
                         </tr>
                         <tr>
-                            <td>Date of Birth:</td>
+                            <td><b>Date of Birth:</b></td>
                             <td>{this.state.dateOfBirth}</td>
                         </tr>
                     </table>    

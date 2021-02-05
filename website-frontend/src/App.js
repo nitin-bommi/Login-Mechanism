@@ -22,8 +22,7 @@ function App() {
         <Route exact path="/studentregister" component={StudentRegister} />
         <Route exact path="/professorregister" component={ProfessorRegister} />
         <Route exact path="/studentDashboard" component={StudentDashboard} />
-        <Route exact path="/professorDashboard" component={ProfessorDashboard} />
-        
+        <Route exact path="/professorDashboard" component={ProfessorDashboard} />    
         <Route exact path="/options" component={Options} />
         <Route exact path="/scalendar" component={StudentCalendar} />
         <Route exact path="/pcalendar" component={ProfessorCalendar} />
