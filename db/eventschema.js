@@ -17,5 +17,6 @@ var eventSchema = new mongoose.Schema({
     end: Date,
     allDay: Boolean,
 })    
+
 var Event = mongoose.model('Event', eventSchema);
 module.exports = Event;
