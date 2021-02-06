@@ -46,7 +46,7 @@ class ProfessorRegister extends Component {
         this.setState({alert: false});
       }, 3000);
     }
-    
+
     }catch(error){
       console.log(error);
     }
@@ -60,7 +60,7 @@ class ProfessorRegister extends Component {
             <Form onSubmit={this.handleSubmit}>
               <h4 className="form-heading">
                 Professor Additional Information
-              </h4>         
+              </h4>
               <Form.Group controlId="gender">
                 <Form.Control as="select" id="gender" className="item-2" name="gender" onChange={this.handleChange}>
                   <option>Select Gender</option>
@@ -69,8 +69,8 @@ class ProfessorRegister extends Component {
                   <option>Other</option>
                 </Form.Control>
               </Form.Group>
-              <Form.Group controlId="destination">
-                <Form.Control as="select" id="destination" className="item-2" name="destination" onChange={this.handleChange}>
+              <Form.Group controlId="designation">
+                <Form.Control as="select" id="designation" className="item-2" name="designation" onChange={this.handleChange}>
                   <option>Select Designation</option>
                   <option>Assistant Professor</option>
                   <option>Associate Professor</option>
@@ -82,7 +82,7 @@ class ProfessorRegister extends Component {
                   <option>Select School</option>
                   <option>School of Computer and Information Sciences</option>
                 </Form.Control>
-              </Form.Group>              
+              </Form.Group>
               <Form.Group controlId="department">
                 <Form.Control as="select" id="department" className="item-2" name="department" onChange={this.handleChange}>
                   <option>Select Department</option>
@@ -108,7 +108,7 @@ class ProfessorRegister extends Component {
         </div>
       );
   }
-    
+
 }
 
 export default ProfessorRegister;

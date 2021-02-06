@@ -24,13 +24,13 @@ class StudentDashboard extends React.Component {
         yearOfJoin: null,
         dateOfBirth: null
       }
-      
+
     }
-    
+
     componentDidMount(){
       const token = localStorage.getItem("userid");
-      console.log(this.state);
-      console.log(token);
+      // console.log(this.state);
+      // console.log(token);
       const config = {
         headers:{
           "x-access-token":  token
@@ -38,21 +38,21 @@ class StudentDashboard extends React.Component {
       }
        axios.get("http://localhost:8080/api/userdetails/", config)
        .then((res)=>{
-            console.log(res.data);
-            console.log(res.data.userDetails.userid);
+            // console.log(res.data);
+            // console.log(res.data.userDetails.userid);
             const {userid, firstName, lastName, phone, email, gender, course, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
-            this.setState({ userid: userid, 
+            this.setState({ userid: userid,
                 firstName: firstName,
                 lastName: lastName,
                 phone: phone,
                 email: email,
                 gender: gender,
                 school: school,
-                department: department, 
+                department: department,
                 semester: semester,
                 course: course,
                 dateOfBirth: (new Date(dateOfBirth)).toDateString(),
-                yearOfJoin: yearOfJoin 
+                yearOfJoin: yearOfJoin
             });
        }).catch((error)=>{
             console.log(error);
@@ -78,7 +78,7 @@ class StudentDashboard extends React.Component {
                 <div className="heading m-4">
                     <h1>Welcome to Student Dashboard</h1>
                 </div>
-                
+
                 <div className="studentdetails center">
                     <table className="center">
                         <tr>
@@ -125,8 +125,8 @@ class StudentDashboard extends React.Component {
                             <td><b>Date of Birth:</b></td>
                             <td>{this.state.dateOfBirth}</td>
                         </tr>
-                    </table>    
-                </div>         
+                    </table>
+                </div>
             </div>
         );
     }

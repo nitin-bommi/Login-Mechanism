@@ -12,6 +12,8 @@ const requireAuth = async(req, res, next) => {
                 if (err) {
                     console.log(err);
                     console.log(err.message);
+                      res.redirect('/');
+
                 } else {
                     // res.json({ decoded });
                     console.log(decodedToken);
@@ -21,11 +23,13 @@ const requireAuth = async(req, res, next) => {
             });
         } else {
             console.log('Token not found');
+            res.redirect('/');
+
         }
     } catch(err) {
         console.error(err.message)
     }
-    
+
 };
 
 module.exports = { requireAuth };

@@ -7,12 +7,15 @@ const { requireAuth } = require('../middlewares/authToken');
 router.get('/', (req, res)=>{
     res.send("Hi, it works");
 })
-
+//Get role route
+router.get('/getRole', requireAuth, (req, res)=>{
+  res.json({role: req.decoded.role});
+})
 //Gets all user details to be displayed from database based on ID.
 router.get('/userdetails', requireAuth, async (req, res)=>{
     try{
         const userid = req.decoded.userid;
-        let userDetails= await User.findOne({userid: userid}, { password:0 }).exec(); 
+        let userDetails= await User.findOne({userid: userid}, { password:0 }).exec();
         res.status(200).json({ userDetails });
     }catch(error){
         res.json({
@@ -51,13 +54,13 @@ router.post('/checkid',async (req, res)=>{
             })
         }else{
             // if there is no error, you have the result
-            res.json({ 
+            res.json({
                 success: true,
                 result: userDetails.userid,
                 message: "ID is found.",
                 token: token
-            }) 
-        }                          
+            })
+        }
     }catch(error){
         console.log(error);
     }
@@ -70,7 +73,7 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
         const userid = await req.decoded.userid;
         //Gets password from body
         const password = await req.body.password;
-        let userDetails = await User.findOne({userid: userid}).exec();      
+        let userDetails = await User.findOne({userid: userid}).exec();
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.status(400).json({
@@ -81,13 +84,13 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
             if(error) throw error;
             if(!match) {
               res.json({success: false, message: "Incorrect password"});
-            }else{        
-                res.status(200).json({ 
+            }else{
+                res.status(200).json({
                     success: true,
                     result: {
                         userid: userDetails.userid,
                         role: userDetails.role,
-                    }  
+                    }
                 })
             }
         });
@@ -102,7 +105,7 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
         const userid= await req.decoded.userid;
         const role = await req.decoded.role;
-        
+
         console.log(userid);
         console.log(role);
         const { firstName, lastName, email, password, phonenumber } = await req.body;
@@ -115,15 +118,15 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
             password: password,
             phone: phonenumber
         })
-        
-        
+
+
         await userDetails.save();
         res.status(200).json({
             success: true,
             results: userDetails,
             message: "Insertion success"
         })
-        
+
     }catch(err){
         console.log(err);
         res.status(200).json({
@@ -147,7 +150,7 @@ router.post('/student_registration',requireAuth, async (req, res) => {
         userDetails.course=course;
         userDetails.yearOfJoin = yearOfJoin;
         await userDetails.save();
-        res.status(200).json({ 
+        res.status(200).json({
             success: true,
             results: userDetails,
             message: "Insertion success"
@@ -173,7 +176,7 @@ router.post('/professor_registration', requireAuth, async (req, res) => {
         userDetails.dateOfBirth=dob;
         userDetails.yearOfJoin=yearOfJoin;
         await userDetails.save();
-        res.status(200).json({ 
+        res.status(200).json({
             success: true,
             results: userDetails,
             message: "Insertion success"

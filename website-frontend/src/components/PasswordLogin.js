@@ -8,7 +8,7 @@ class PasswordLogin extends Component {
     super(props);
     this.state={
       userid: "",
-      password: "",
+      password: "Amma@123",
       counter: 0,
     }
     this.handleChange=this.handleChange.bind(this);
@@ -32,13 +32,18 @@ class PasswordLogin extends Component {
         const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password}, config);
         if(res.data.success){
           console.log(res.data.result.role);
-          if(res.data.result.role === 'Student')
-            window.location.replace("/studentDashboard");
-          else
+          if(res.data.result.role === 'Student'){
+
+                window.location.replace("/studentDashboard");
+
+          }else{
+            // this.props.handleLogin("professor");
             window.location.replace("/professorDashboard");
+          }
+
         }else{
           alert(res.data.message);
-          this.setState({ counter: this.state.counter + 1 }); 
+          this.setState({ counter: this.state.counter + 1 });
         }
       }else{
         alert("Password must not be blank")
@@ -52,24 +57,24 @@ class PasswordLogin extends Component {
     }
   }
 
-  render() {  
+  render() {
     return (
         <div>
           <div className="form-form">
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="password">
-                <Form.Control type="password" className="item" id="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
+                <Form.Control type="password" className="item" id="password" name="password" value="Amma@123" placeholder="Enter Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="submitbutton">
                   <Button type="submit" className="create-account">Login</Button>
               </Form.Group>
             </Form>
           </div>
-        
+
         </div>
       );
   }
-    
+
 }
 
 export default PasswordLogin;

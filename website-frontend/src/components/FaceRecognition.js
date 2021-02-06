@@ -15,7 +15,7 @@ class FaceRecognition extends Component {
         this.webcam = webcam;
     }
 
-	
+
 
     stop(){
     	const tracks = document.querySelector("video").srcObject.getTracks();
@@ -26,7 +26,7 @@ class FaceRecognition extends Component {
 
     handleSubmit = async e=>{
         e.preventDefault();
-        
+
         const image64 = this.webcam.getScreenshot();
         // console.log(image64);
         // console.log("Image length " + image64.length);
@@ -42,7 +42,7 @@ class FaceRecognition extends Component {
         }else{
             url=url+'face_sign_up';
         }
-        
+
         const response = await axios.post(url, {'image64':image64}, config);
         console.log(response.data.success);
         if(this.props.login){
@@ -55,7 +55,7 @@ class FaceRecognition extends Component {
                     window.location.replace('/studentDashboard')
                 else
                     window.location.replace('/professorDashboard')
-            } else {    
+            } else {
                 alert("Face not recognised! Try Again!");
                 this.setState({tries: this.state.tries +1});
                 if(this.state.tries === 3){
@@ -73,7 +73,7 @@ class FaceRecognition extends Component {
                 alert("Face not detected! Registration failed! Try Again!");
                 //window.location.reload();
             }
-        }    
+        }
     }
 
 	render(){
@@ -96,10 +96,10 @@ class FaceRecognition extends Component {
                 </button>
             </div>
         )
-    
+
     	return (
             <div>
-                <div className="camera">                
+                <div className="camera">
                     <Webcam
                         audio={false}
                         height={320}
@@ -112,8 +112,8 @@ class FaceRecognition extends Component {
                 <div>
                     {/* {loginbutton} */}
                     { this.props.login ? loginbutton : signupbutton }
-                
-                    
+
+
                 </div>
     		</div>
 		)
