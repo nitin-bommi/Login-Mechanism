@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const requireAuth = async(req, res, next) => {
     try {
-        const token = await req.headers['x-access-token'];
-        //const token = req.cookies.jwt;
+        //const token = await req.headers['x-access-token'];
+        const token = await req.cookie('token');
 
         // check json web token exists & is verified
         if (token) {
@@ -12,7 +12,7 @@ const requireAuth = async(req, res, next) => {
                 if (err) {
                     console.log(err);
                     console.log(err.message);
-                      res.redirect('/');
+                    //  res.redirect('/');
 
                 } else {
                     // res.json({ decoded });
@@ -23,7 +23,7 @@ const requireAuth = async(req, res, next) => {
             });
         } else {
             console.log('Token not found');
-            res.redirect('/');
+            //res.redirect('/');
 
         }
     } catch(err) {

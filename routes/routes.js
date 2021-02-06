@@ -44,7 +44,8 @@ router.post('/checkid',async (req, res)=>{
         }else{
             role='Student';
         }
-        const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "3d" });
+        const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "1d" });
+        res.cookie('token',token, {maxAge: 86400000, httpOnly: true});
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.json({
