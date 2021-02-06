@@ -15,7 +15,6 @@ def register():
         img_data = request.get_json()['image64']
         if not os.path.exists('encodings'):
             os.makedirs('encodings')
-        # counter = request.get_json()['counter']
         with open('images/'+id+'.jpg', "wb") as fh:
             fh.write(base64.b64decode(img_data[22:]))
         img_path = 'images/'+id+'.jpg'
