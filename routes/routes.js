@@ -38,7 +38,7 @@ router.post('/checkid',async (req, res)=>{
             res.status(400).json({ success: false, message: "Invalid input"})
         }
         let userDetails = await User.findOne({userid: userid}).exec();
-        console.log(userid);
+  
         if(/^\d{5}$/.test(userid)){
             role='Professor';
         }else{
