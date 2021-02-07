@@ -8,7 +8,7 @@ class PasswordLogin extends Component {
     super(props);
     this.state={
       userid: "",
-      password: "Amma@123",
+      password: "",
       counter: 0,
     }
     this.handleChange=this.handleChange.bind(this);
@@ -63,7 +63,7 @@ class PasswordLogin extends Component {
           <div className="form-form">
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="password">
-                <Form.Control type="password" className="item" id="password" name="password" value="Amma@123" placeholder="Enter Password" onChange={this.handleChange} />
+                <Form.Control type="password" className="item" id="password" name="password"  placeholder="Enter Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="submitbutton">
                   <Button type="submit" className="create-account">Login</Button>
