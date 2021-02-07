@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import Cookies from 'js-cookie';
 import FormControl from 'react-bootstrap/FormControl';
 import {Link} from 'react-router-dom';
 
@@ -28,7 +29,7 @@ class StudentDashboard extends React.Component {
     }
 
     componentDidMount(){
-      const token = localStorage.getItem("userid");
+      const token = Cookies.get('token');
       // console.log(this.state);
       // console.log(token);
       const config = {
@@ -60,7 +61,7 @@ class StudentDashboard extends React.Component {
     }
     render() {
         const logout = ()=>{
-            if(localStorage.getItem("userid")){
+            if(Cookies.get('token')){
                 localStorage.removeItem('userid');
                 window.location.replace("/");
             }

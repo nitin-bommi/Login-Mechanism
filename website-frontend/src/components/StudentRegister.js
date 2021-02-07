@@ -2,6 +2,7 @@ import { Component} from 'react';
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Cookies from 'js-cookie';
 class StudentRegister extends Component {
   constructor(props){
     super(props);
@@ -25,20 +26,16 @@ class StudentRegister extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("userid");
+    const token = Cookies.get('token');
     // console.log(this.state);
     const {course, gender, school, department, semester, yearOfJoin, dob} = this.state;
     let data={
       gender, school, department, semester, dob, course, yearOfJoin
     }
     console.log(token);
-    const config = {
-      headers:{
-        "x-access-token":  token
-      }
-    }
+
     try {
-     const res = await axios.post("http://localhost:8080/api/student_registration/", data,config);
+     const res = await axios.post("http://localhost:8080/api/student_registration/", data);
     console.log(res.data);
     if(res.data.success){
       this.setState({alert: true});
@@ -47,7 +44,7 @@ class StudentRegister extends Component {
         this.setState({alert: false});
       }, 3000);
     }
-    
+
     }catch(error){
       console.log(error);
     }
@@ -56,12 +53,12 @@ class StudentRegister extends Component {
   render() {
     return (
         <div>
-          <div className="form-form">            
+          <div className="form-form">
             {this.state.alert && <p>User data saved successfully</p>}
             <Form onSubmit={this.handleSubmit}>
               <h4 className="form-heading">
                 Student Additional Information
-              </h4>         
+              </h4>
               <Form.Group controlId="gender">
                 <Form.Control as="select" id="gender" className="item-2" name="gender" onChange={this.handleChange}>
                   <option>Select Gender</option>
@@ -85,7 +82,7 @@ class StudentRegister extends Component {
                   <option>Select School</option>
                   <option>School of Computer and Information Sciences</option>
                 </Form.Control>
-              </Form.Group>              
+              </Form.Group>
               <Form.Group controlId="department">
                 <Form.Control as="select" id="department" className="item-2" name="department" onChange={this.handleChange}>
                   <option>Select Department</option>
@@ -126,7 +123,7 @@ class StudentRegister extends Component {
         </div>
       );
   }
-    
+
 }
 
 export default StudentRegister;

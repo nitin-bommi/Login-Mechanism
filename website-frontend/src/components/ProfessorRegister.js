@@ -2,6 +2,7 @@ import { Component} from 'react';
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Cookies from 'js-cookie';
 class ProfessorRegister extends Component {
   constructor(props){
     super(props);
@@ -24,7 +25,7 @@ class ProfessorRegister extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("userid");
+    const token = Cookies.get('token');
     // console.log(this.state);
     const { gender, school, department, designation, yearOfJoin, dob} = this.state;
     let data={

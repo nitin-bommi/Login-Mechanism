@@ -3,7 +3,7 @@ import { Component} from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import Cookies from 'js-cookie';
 class CheckID extends Component {
   constructor(props){
     super(props);
@@ -16,7 +16,7 @@ class CheckID extends Component {
   }
 
   componentDidMount(){
-    if(localStorage.getItem("userid")){
+    if(Cookies.get('token')){
       window.location.replace('/options');
     }else{
       this.setState({ notLoggedIn: true })
@@ -26,7 +26,7 @@ class CheckID extends Component {
   handleChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
-  
+
   async handleSubmit(e){
     e.preventDefault();
     if(this.state.userid===""){
@@ -36,9 +36,9 @@ class CheckID extends Component {
         userid: this.state.userid.toLowerCase()
       }
       try {
-        const res = await axios.post('http://localhost:8080/api/checkid',details);
+
+        const res = await axios.post('http://localhost:8080/api/checkid',details, {withCredentials: true});
         const data = res.data;
-        localStorage.setItem("userid", data.token)
         if(data.success){
           window.location.replace("/options")
         }else{
@@ -46,11 +46,11 @@ class CheckID extends Component {
           if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){
             window.location.replace("/basicregister");
           }else{
-            if(localStorage.getItem("userid")){
-              localStorage.removeItem('userid');
+            if(Cookies.get('token')){
+              Cookies.remove('token');
               window.location.replace("/");
             }
-          } 
+          }
         }
         // console.log(res);
       } catch (error) {
@@ -60,7 +60,7 @@ class CheckID extends Component {
       alert("Invalid input");
     }
   }
-  
+
   render() {
     let notLoggedIn=this.state.notLoggedIn;
     return (
@@ -84,13 +84,13 @@ class CheckID extends Component {
               <p><Link className='text-link' to="/faceSignUp">Sign Up with face</Link></p>
             </div> */}
           </div>
-        : 
+        :
           null
       }
       </div>
     );
   }
-    
+
 }
 
 export default CheckID;

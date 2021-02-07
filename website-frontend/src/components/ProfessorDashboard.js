@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -21,11 +22,11 @@ class ProfessorDashboard extends React.Component {
         yearOfJoin: null,
         dateOfBirth: null
       }
-      
+
     }
-    
+
     componentDidMount(){
-      const token = localStorage.getItem("userid");
+      const token = Cookies.get('token');
       console.log(this.state);
       console.log(token);
       const config = {
@@ -38,17 +39,17 @@ class ProfessorDashboard extends React.Component {
             console.log(res.data);
             console.log(res.data.userDetails.userid);
             const {userid, firstName, lastName, phone, email, gender, designation, school, department, dateOfBirth, yearOfJoin}=res.data.userDetails;
-            this.setState({ userid: userid, 
+            this.setState({ userid: userid,
                 firstName: firstName,
                 lastName: lastName,
                 phone: phone,
                 email: email,
                 gender: gender,
                 school: school,
-                department: department, 
+                department: department,
                 designation: designation,
                 dateOfBirth: (new Date(dateOfBirth)).toLocaleDateString(),
-                yearOfJoin: yearOfJoin 
+                yearOfJoin: yearOfJoin
             });
        }).catch((error)=>{
             console.log(error);
@@ -56,7 +57,7 @@ class ProfessorDashboard extends React.Component {
     }
     render() {
         const logout = ()=>{
-            if(localStorage.getItem("userid")){
+            if(Cookies.get('token')){
                 localStorage.removeItem('userid');
                 window.location.replace("/");
             }
@@ -74,7 +75,7 @@ class ProfessorDashboard extends React.Component {
                 <div className="heading m-4">
                     <h1>Welcome to Professor Dashboard</h1>
                 </div>
-                
+
                 <div className="studentdetails center">
                     <table className="center">
                         <tr>
@@ -117,8 +118,8 @@ class ProfessorDashboard extends React.Component {
                             <td><b>Date of Birth:</b></td>
                             <td>{this.state.dateOfBirth}</td>
                         </tr>
-                    </table>    
-                </div>         
+                    </table>
+                </div>
             </div>
         );
     }

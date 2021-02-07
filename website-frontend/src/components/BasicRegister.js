@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import Cookies from 'js-cookie';
 class BasicRegister extends Component {
   constructor(props){
     super(props);
@@ -12,18 +12,20 @@ class BasicRegister extends Component {
       lastName: "",
       password: "",
       confirmPassword: "",
-      email: "", 
+      email: "",
       phonenumber: ""
     }
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
   }
   handleChange(e) {
+    // console.log(Cookies.get('token'));
     this.setState({[e.target.name]: e.target.value})
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = localStorage.getItem("userid");
+    // const token = localStorage.getItem("userid");
+    const token = Cookies.get('token');
     console.log(this.state);
     const {firstName, lastName, password, email, phonenumber} = this.state;
     let data={
@@ -34,13 +36,10 @@ class BasicRegister extends Component {
         phonenumber
     }
     console.log(token);
-    const config = {
-      headers:{
-        "x-access-token":  token
-      }
-    }
+
     try {
-      const res = await axios.post("http://localhost:8080/api/basic_registration/", data,config);
+
+      const res = await axios.post("http://localhost:8080/api/basic_registration/", data);
       console.log(res.data);
       if(res.data.results.role==='Student')
         window.location.replace('/studentregister');
@@ -84,7 +83,7 @@ class BasicRegister extends Component {
         </div>
       );
   }
-    
+
 }
 
 export default BasicRegister;

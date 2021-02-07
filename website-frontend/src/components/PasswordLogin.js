@@ -2,6 +2,7 @@ import { Component} from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Cookies from 'js-cookie';
 
 class PasswordLogin extends Component {
   constructor(props){
@@ -22,7 +23,7 @@ class PasswordLogin extends Component {
   async handleSubmit(e){
     e.preventDefault();
     if(this.state.counter < 3){
-      const token = localStorage.getItem("userid");
+      const token = Cookies.get('token');
       const config = {
         headers:{
           "x-access-token":  token
@@ -50,8 +51,8 @@ class PasswordLogin extends Component {
       }
     }else{
       alert("Incorrect password entered too many times, please enter ID again");
-      if(localStorage.getItem("userid")){
-        localStorage.removeItem('userid');
+      if(Cookies.get('token')){
+        Cookies.remove('token');
         window.location.replace("/");
       }
     }
