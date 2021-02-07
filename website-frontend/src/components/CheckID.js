@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 class CheckID extends Component {
   constructor(props){
     super(props);
@@ -16,8 +17,16 @@ class CheckID extends Component {
   }
 
   componentDidMount(){
-    if(Cookies.get('token')){
-      window.location.replace('/options');
+    const token = Cookies.get('token')
+    if(token){
+
+      const decoded = jwt_decode(token);
+      if(decoded.role == "Student"){
+          window.location.replace('/studentDashboard');
+      }else if(decoded.role == "Professor"){
+        window.location.replace('/professorDashboard');
+      }
+
     }else{
       this.setState({ notLoggedIn: true })
     }

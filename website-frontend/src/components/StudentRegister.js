@@ -51,7 +51,9 @@ class StudentRegister extends Component {
   }
 
   render() {
+
     return (
+      
         <div>
           <div className="form-form">
             {this.state.alert && <p>User data saved successfully</p>}

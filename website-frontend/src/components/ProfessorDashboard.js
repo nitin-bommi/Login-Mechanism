@@ -28,16 +28,10 @@ class ProfessorDashboard extends React.Component {
     componentDidMount(){
       const token = Cookies.get('token');
       console.log(this.state);
-      console.log(token);
-      const config = {
-        headers:{
-          "x-access-token":  token
-        }
-      }
-       axios.get("http://localhost:8080/api/userdetails/", config)
+
+       axios.get("http://localhost:8080/api/userdetails/")
        .then((res)=>{
-            console.log(res.data);
-            console.log(res.data.userDetails.userid);
+
             const {userid, firstName, lastName, phone, email, gender, designation, school, department, dateOfBirth, yearOfJoin}=res.data.userDetails;
             this.setState({ userid: userid,
                 firstName: firstName,
@@ -58,7 +52,7 @@ class ProfessorDashboard extends React.Component {
     render() {
         const logout = ()=>{
             if(Cookies.get('token')){
-                localStorage.removeItem('userid');
+              Cookies.remove('token');
                 window.location.replace("/");
             }
         }

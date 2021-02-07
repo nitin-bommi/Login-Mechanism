@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import FormControl from 'react-bootstrap/FormControl';
 import {Link} from 'react-router-dom';
 
+
 class StudentDashboard extends React.Component {
     constructor(props){
       super(props);
@@ -30,14 +31,8 @@ class StudentDashboard extends React.Component {
 
     componentDidMount(){
       const token = Cookies.get('token');
-      // console.log(this.state);
-      // console.log(token);
-      const config = {
-        headers:{
-          "x-access-token":  token
-        }
-      }
-       axios.get("http://localhost:8080/api/userdetails/", config)
+
+       axios.get("http://localhost:8080/api/userdetails/")
        .then((res)=>{
             // console.log(res.data);
             // console.log(res.data.userDetails.userid);
@@ -62,11 +57,12 @@ class StudentDashboard extends React.Component {
     render() {
         const logout = ()=>{
             if(Cookies.get('token')){
-                localStorage.removeItem('userid');
+                Cookies.remove('token');
                 window.location.replace("/");
             }
         }
         return (
+
             <div>
                 <Navbar expand="md" variant="light">
                     <Nav className="mr-auto">
@@ -129,6 +125,7 @@ class StudentDashboard extends React.Component {
                     </table>
                 </div>
             </div>
+          
         );
     }
 }
