@@ -22,8 +22,9 @@ def verify_image(id, image_path):
         return False
     img = cv2.imread(image_path)
     os.remove(image_path)
-    img_enc = face_recognition.face_encodings(img)
-    print(img_enc)
-    result = face_recognition.compare_faces(face_encodings_for_id, img_enc)
-    print(result)
+    try:
+        img_enc = face_recognition.face_encodings(img)
+        result = face_recognition.compare_faces(face_encodings_for_id, img_enc)
+    except:
+        return False
     return result
