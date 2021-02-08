@@ -21,7 +21,7 @@ router.get('/logout', requireAuth,(req, res)=>{
 router.get('/userdetails', requireAuth, async (req, res)=>{
     try{
         const userid = req.decoded.userid;
-        let userDetails= await User.findOne({userid: userid}, { password:0 }).exec();
+        let userDetails = await User.findOne({userid: userid}, { password:0 }).exec();
         res.status(200).json({ userDetails });
     }catch(error){
         res.json({
@@ -37,21 +37,15 @@ router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
         const userid = await req.body.userid;
-        let role;
+        
         if(userid===""){
             res.status(400).json({ success: false, message: "ID should not be blank "})
         }else if(!/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/.test(req.body.userid)){
             res.status(400).json({ success: false, message: "Invalid input"})
         }
         let userDetails = await User.findOne({userid: userid}).exec();
-
-        if(/^\d{5}$/.test(userid)){
-            role='Professor';
-        }else{
-            role='Student';
-        }
-        const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "1d" });
-        res.cookie('token',token, {maxAge: 86400000, httpOnly: true});
+        const token = jwt.sign({ userid: userid }, process.env.JWT_SECRET, { expiresIn: 3600 });
+        res.cookie('token',token, {maxAge: 3600000, httpOnly: true});
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.json({
@@ -87,11 +81,15 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
                 message: "ID not found, please register."
             })
         };
+        const role = userDetails.role;
         userDetails.comparePassword(password, (error, match) => {
             if(error) throw error;
             if(!match) {
               res.json({success: false, message: "Incorrect password"});
             }else{
+                res.clearCookie('token');
+                const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "1d" });
+                res.cookie('token',token, {maxAge: 86400000, httpOnly: true});
                 res.status(200).json({
                     success: true,
                     result: {
@@ -111,8 +109,12 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
         const userid= await req.decoded.userid;
-        const role = await req.decoded.role;
-
+        let role;
+        if(/^\d{5}$/.test(userid)){
+            role='Professor';
+        }else{
+            role='Student';
+        }
         console.log(userid);
         console.log(role);
         const { firstName, lastName, email, password, phonenumber } = await req.body;
@@ -125,8 +127,6 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
             password: password,
             phone: phonenumber
         })
-
-
         await userDetails.save();
         res.status(200).json({
             success: true,

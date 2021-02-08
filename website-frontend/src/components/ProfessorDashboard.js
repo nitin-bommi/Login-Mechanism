@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -40,7 +39,7 @@ class ProfessorDashboard extends React.Component {
                 school: school,
                 department: department,
                 designation: designation,
-                dateOfBirth: (new Date(dateOfBirth)).toLocaleDateString(),
+                dateOfBirth: (new Date(dateOfBirth)).toDateString(),
                 yearOfJoin: yearOfJoin
             });
        }).catch((error)=>{

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../db/userschema');
+const jwt = require("jsonwebtoken");
 const { requireAuth } = require('../middlewares/authToken');
-const axios=require('axios');
+const axios = require('axios');
 
 router.post('/face_sign_in', requireAuth, async(req,res)=>{
     try{
         const userid = await req.decoded.userid;
-        const role = await req.decoded.role;
+        let userDetails = await User.findOne({userid: userid}).exec();
+        const role = userDetails.role;
         const image64 = await req.body.image64;
         console.log(image64.length);
         const response = await axios.post("http://localhost:5000/verify", {'id': userid, 'image64':image64});
@@ -15,6 +17,9 @@ router.post('/face_sign_in', requireAuth, async(req,res)=>{
         console.log(response.data.success);
         console.log(response.data.message);
         if(response.data.success){
+            res.clearCookie('token');
+            const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "1d" });
+            res.cookie('token',token, {maxAge: 86400000, httpOnly: true});
             res.status(200).json({
                 message: "Face has been verified, user is valid",
                 result: { role },
@@ -56,4 +61,4 @@ router.post('/face_sign_up', requireAuth, async(req,res)=>{
     }
 })
 
-module.exports= router;
+module.exports = router;

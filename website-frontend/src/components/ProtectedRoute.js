@@ -1,5 +1,6 @@
 import React from 'react';
 import {getUserRole} from '../utils.js';
+import {logout} from '../utils.js'
 
 class ProtectedRoute extends React.Component {
   constructor(props){
@@ -13,6 +14,7 @@ class ProtectedRoute extends React.Component {
     const tokenRole =  await getUserRole();
     const isAuthenticated = (role===tokenRole);
     if(!isAuthenticated){
+      await logout();
       window.location.replace('/unauthorized');
     }else{
       console.log(role);

@@ -7,5 +7,5 @@ export async function getUserRole(){
 }
 
 export async function logout(){
-  const res = await axios.get('http://localhost:8080/api/logout/', {withCredentials: true});
+   await axios.get('http://localhost:8080/api/logout/', {withCredentials: true});
 }
