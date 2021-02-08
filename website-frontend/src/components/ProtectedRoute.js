@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode';
+import {getUserRole, logout} from '../utils.js';
 
-const ProtectedRoute = ({ component: Component, role, ...rest }) => {
+const ProtectedRoute =   ({ component: Component, role, ...rest })  =>  {
+  const [roleValue, setRoleValue] = useState("");
+  const [tempRole, setTempRole] = useState("");
+  async function fetchData(){
+    let tokenRole;
+    console.log("fetch");
+    tokenRole = await getUserRole();
+    setTempRole(tokenRole);
+  }
+  useEffect(()=>{
+    fetchData();
+    setRoleValue(tempRole);
+    return () => {
+      setRoleValue("")// This worked for me
+    };
+  }, [tempRole]);
   return (
-    <Route {...rest} render={
-      props => {
+     <Route {...rest} render= {
+       (props)  =>  {
         let flag = 0;
 
-        const token = Cookies.get('token');
-        if (token) {
-          const roleValue = jwt_decode(token).role;
+        console.log(roleValue);
+        if (roleValue) {
           if(roleValue===role){
-              flag = 1;
+              // flag = 1;
               return <Component {...rest} {...props}/>;
           }
         }

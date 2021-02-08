@@ -3,8 +3,7 @@ import { Component} from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode';
+import {getUserRole, logout} from '../utils.js';
 class CheckID extends Component {
   constructor(props){
     super(props);
@@ -16,17 +15,12 @@ class CheckID extends Component {
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    const token = Cookies.get('token')
-    if(token){
-
-      const decoded = jwt_decode(token);
-      if(decoded.role === "Student"){
+  async componentDidMount(){
+    const role = await getUserRole();
+      if(role === "Student"){
           window.location.replace('/studentDashboard');
-      }else if(decoded.role === "Professor"){
+      }else if(role === "Professor"){
         window.location.replace('/professorDashboard');
-      }
-
     }else{
       this.setState({ notLoggedIn: true })
     }
@@ -55,8 +49,8 @@ class CheckID extends Component {
           if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){
             window.location.replace("/basicregister");
           }else{
-            if(Cookies.get('token')){
-              Cookies.remove('token');
+            if(await getUserRole()){
+              logout();
               window.location.replace("/");
             }
           }

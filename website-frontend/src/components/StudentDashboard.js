@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import Cookies from 'js-cookie';
+import {getUserRole, logout} from '../utils.js';
 
 
 
@@ -55,9 +55,9 @@ class StudentDashboard extends React.Component {
       this.getUserData();
     }
     render() {
-        const logout = ()=>{
-            if(Cookies.get('token')){
-                Cookies.remove('token');
+        const Logout = async  ()=>{
+            if(await getUserRole()){
+                logout();
                 window.location.replace("/");
             }
         }
@@ -70,7 +70,7 @@ class StudentDashboard extends React.Component {
                         <Nav.Link href="/scalendar">Calendar</Nav.Link>
                     </Nav>
                     <Form inline>
-                        <Button variant="secondary" onClick={logout}>Logout</Button>
+                        <Button variant="secondary" onClick={Logout}>Logout</Button>
                     </Form>
                 </Navbar>
                 <div className="heading m-4">
