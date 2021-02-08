@@ -7,10 +7,14 @@ const { requireAuth } = require('../middlewares/authToken');
 router.get('/', (req, res)=>{
     res.send("Hi, it works");
 })
+router.get('/getUserRole', requireAuth, (req, res)=>{
+   res.json({role: req.decoded.role});
+})
 
-//Get role route
-router.get('/getRole', requireAuth, (req, res)=>{
-  res.json({role: req.decoded.role});
+//Logout
+router.get('/logout', requireAuth,(req, res)=>{
+  res.clearCookie('token');
+  res.sendStatus(200);
 })
 
 //Gets all user details to be displayed from database based on ID.
@@ -47,7 +51,7 @@ router.post('/checkid',async (req, res)=>{
             role='Student';
         }
         const token = jwt.sign({ userid: userid, role: role }, process.env.JWT_SECRET, { expiresIn: "1d" });
-        res.cookie('token',token, {maxAge: 86400000, httpOnly: false});
+        res.cookie('token',token, {maxAge: 86400000, httpOnly: true});
         // if any error while executing above query, throw error
         if (!userDetails) {
             res.json({

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-
+import {getUserRole, logout} from "../utils";
 class ProfessorDashboard extends React.Component {
     constructor(props){
       super(props);
@@ -26,8 +26,6 @@ class ProfessorDashboard extends React.Component {
     }
 
     componentDidMount(){
-      const token = Cookies.get('token');
-      console.log(this.state);
 
        axios.get("http://localhost:8080/api/userdetails/")
        .then((res)=>{
@@ -50,9 +48,9 @@ class ProfessorDashboard extends React.Component {
        })
     }
     render() {
-        const logout = ()=>{
-            if(Cookies.get('token')){
-              Cookies.remove('token');
+        const Logout = async ()=>{
+            if(await getUserRole()){
+                logout();
                 window.location.replace("/");
             }
         }
@@ -63,7 +61,7 @@ class ProfessorDashboard extends React.Component {
                         <Nav.Link href="/pcalendar">Calendar</Nav.Link>
                     </Nav>
                     <Form inline>
-                        <Button variant="secondary" onClick={logout}>Logout</Button>
+                        <Button variant="secondary" onClick={Logout}>Logout</Button>
                     </Form>
                 </Navbar>
                 <div className="heading m-4">
@@ -72,6 +70,7 @@ class ProfessorDashboard extends React.Component {
 
                 <div className="studentdetails center">
                     <table className="center">
+                    <tbody>
                         <tr>
                             <td><b>Professor ID:</b></td>
                             <td>{this.state.userid}</td>
@@ -112,6 +111,7 @@ class ProfessorDashboard extends React.Component {
                             <td><b>Date of Birth:</b></td>
                             <td>{this.state.dateOfBirth}</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

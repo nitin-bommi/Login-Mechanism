@@ -2,7 +2,6 @@ import { Component} from 'react';
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Cookies from 'js-cookie';
 class ProfessorRegister extends Component {
   constructor(props){
     super(props);
@@ -25,20 +24,15 @@ class ProfessorRegister extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = Cookies.get('token');
-    // console.log(this.state);
+
     const { gender, school, department, designation, yearOfJoin, dob} = this.state;
     let data={
       gender, school, department, designation, dob,  yearOfJoin
     }
-    console.log(token);
-    const config = {
-      headers:{
-        "x-access-token":  token
-      }
-    }
+  
+
     try {
-     const res = await axios.post("http://localhost:8080/api/professor_registration/", data,config);
+     const res = await axios.post("http://localhost:8080/api/professor_registration/", data);
     console.log(res.data);
     if(res.data.success){
       this.setState({alert: true});

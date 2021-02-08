@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Webcam from 'react-webcam';
-import Cookies from 'js-cookie';
 const axios = require('axios');
 
 
@@ -30,9 +29,6 @@ class FaceRecognition extends Component {
         e.preventDefault();
 
         const image64 = this.webcam.getScreenshot();
-        // console.log(image64);
-        // console.log("Image length " + image64.length);
-        const token = Cookies.get('token');
 
         let url="http://localhost:8080/face_auth/";
         if(this.props.login){

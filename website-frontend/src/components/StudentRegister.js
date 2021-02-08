@@ -2,7 +2,7 @@ import { Component} from 'react';
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Cookies from 'js-cookie';
+
 class StudentRegister extends Component {
   constructor(props){
     super(props);
@@ -26,13 +26,12 @@ class StudentRegister extends Component {
   }
   async handleSubmit(e){
     e.preventDefault();
-    const token = Cookies.get('token');
-    // console.log(this.state);
+
     const {course, gender, school, department, semester, yearOfJoin, dob} = this.state;
     let data={
       gender, school, department, semester, dob, course, yearOfJoin
     }
-    console.log(token);
+
 
     try {
      const res = await axios.post("http://localhost:8080/api/student_registration/", data);
@@ -53,7 +52,7 @@ class StudentRegister extends Component {
   render() {
 
     return (
-      
+
         <div>
           <div className="form-form">
             {this.state.alert && <p>User data saved successfully</p>}

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Cookies from 'js-cookie';
+import {getUserRole} from '../utils';
 class BasicRegister extends Component {
   constructor(props){
     super(props);
@@ -25,7 +25,7 @@ class BasicRegister extends Component {
   async handleSubmit(e){
     e.preventDefault();
     // const token = localStorage.getItem("userid");
-    const token = Cookies.get('token');
+    const token = await getUserRole();
     console.log(this.state);
     const {firstName, lastName, password, email, phonenumber} = this.state;
     let data={
@@ -58,22 +58,22 @@ class BasicRegister extends Component {
                 Register
               </h3>
               <Form.Group controlId="fname">
-                <Form.Control type="text" id="firstname" className="item" name="firstName" placeholder="First Name" onChange={this.handleChange} />
+                <Form.Control type="text" className="item" name="firstName" placeholder="First Name" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="lname">
-                <Form.Control type="text" id="lastname" className="item" name="lastName" placeholder="Last name" onChange={this.handleChange} />
+                <Form.Control type="text"  className="item" name="lastName" placeholder="Last name" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="email">
-                <Form.Control type="email" id="email" className="item" name="email" placeholder="Email" onChange={this.handleChange} />
+                <Form.Control type="email" className="item" name="email" placeholder="Email" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="phone">
-                <Form.Control type="tel" id="phone" className="item" name="phonenumber" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone number"  onChange={this.handleChange} />
+                <Form.Control type="tel"  className="item" name="phonenumber" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone number"  onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="password1">
-                <Form.Control type="password" id="password" className="item" name="password" placeholder="Password" onChange={this.handleChange} />
+                <Form.Control type="password" className="item" name="password" placeholder="Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="password2">
-                <Form.Control type="password" id="confirmpassword" className="item" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
+                <Form.Control type="password"  className="item" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="submitbutton">
                 <Button type="submit" onClick={this.handleSubmit} className="create-account">Next</Button>

@@ -2,7 +2,7 @@ import { Component} from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Cookies from 'js-cookie';
+import {getUserRole, logout} from '../utils.js';
 
 class PasswordLogin extends Component {
   constructor(props){
@@ -23,14 +23,10 @@ class PasswordLogin extends Component {
   async handleSubmit(e){
     e.preventDefault();
     if(this.state.counter < 3){
-      const token = Cookies.get('token');
-      const config = {
-        headers:{
-          "x-access-token":  token
-        }
-      }
+
+
       if(this.state.password!==""){
-        const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password}, config);
+        const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password});
         if(res.data.success){
           console.log(res.data.result.role);
           if(res.data.result.role === 'Student'){
@@ -51,8 +47,8 @@ class PasswordLogin extends Component {
       }
     }else{
       alert("Incorrect password entered too many times, please enter ID again");
-      if(Cookies.get('token')){
-        Cookies.remove('token');
+      if(await getUserRole()){
+        logout();
         window.location.replace("/");
       }
     }
@@ -64,7 +60,7 @@ class PasswordLogin extends Component {
           <div className="form-form">
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="password">
-                <Form.Control type="password" className="item" id="password" name="password"  placeholder="Enter Password" onChange={this.handleChange} />
+                <Form.Control type="password" className="item" name="password"  placeholder="Enter Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="submitbutton">
                   <Button type="submit" className="create-account">Login</Button>
