@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-
+import {getUserRole, logout} from "../utils";
 class ProfessorDashboard extends React.Component {
     constructor(props){
       super(props);
@@ -48,9 +48,9 @@ class ProfessorDashboard extends React.Component {
        })
     }
     render() {
-        const logout = ()=>{
-            if(Cookies.get('token')){
-              Cookies.remove('token');
+        const Logout = async ()=>{
+            if(await getUserRole()){
+                logout();
                 window.location.replace("/");
             }
         }
@@ -61,7 +61,7 @@ class ProfessorDashboard extends React.Component {
                         <Nav.Link href="/pcalendar">Calendar</Nav.Link>
                     </Nav>
                     <Form inline>
-                        <Button variant="secondary" onClick={logout}>Logout</Button>
+                        <Button variant="secondary" onClick={Logout}>Logout</Button>
                     </Form>
                 </Navbar>
                 <div className="heading m-4">

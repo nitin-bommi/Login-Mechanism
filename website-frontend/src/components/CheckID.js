@@ -15,7 +15,7 @@ class CheckID extends Component {
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  async componentDidMount(){
+   async componentDidMount(){
     const role = await getUserRole();
       if(role === "Student"){
           window.location.replace('/studentDashboard');
@@ -43,7 +43,7 @@ class CheckID extends Component {
         const res = await axios.post('http://localhost:8080/api/checkid',details, {withCredentials: true});
         const data = res.data;
         if(data.success){
-          window.location.replace("/options")
+          window.location.href = "/options";
         }else{
           // eslint-disable-next-line no-restricted-globals
           if(confirm("ID not found in database, do you wish to register as a new user? Please proceed carefully as this ID will be saved in database and then more details will be registered.")){

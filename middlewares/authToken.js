@@ -13,6 +13,9 @@ const requireAuth = async(req, res, next) => {
                 if (err) {
                     console.log(err);
                     console.log(err.message);
+                    res.clearCookie('token');
+                    res.sendStatus(200);
+                    next();
                     //  res.redirect('/');
 
                 } else {

@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/options" component={Options} />
         <Route exact path="/faceLogin" render={(props) => <FaceRecognition login={true} {...props} />} />
         <Route exact path="/faceSignUp" render={(props) => <FaceRecognition login={false} {...props} />} />
-        <ProtectedRoute exact path="/studentDashboard"  component={StudentDashboard} role="Student"/>
+        <ProtectedRoute exact path="/studentDashboard"  component={StudentDashboard}  role="Student"/>
         <ProtectedRoute exact path="/professorDashboard" component={ProfessorDashboard}  role="Professor"/>
         <ProtectedRoute exact path="/scalendar" role="Student" component={StudentCalendar} />
         <ProtectedRoute exact path="/pcalendar" role="Professor" component={ProfessorCalendar} />
