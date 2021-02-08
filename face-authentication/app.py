@@ -13,8 +13,8 @@ def register():
     try:
         id = request.get_json()['id']
         img_data = request.get_json()['image64']
-        if not os.path.exists('encodings'):
-            os.makedirs('encodings')
+        if not os.path.exists('images'):
+            os.makedirs('images')
         with open('images/'+id+'.jpg', "wb") as fh:
             fh.write(base64.b64decode(img_data[22:]))
         img_path = 'images/'+id+'.jpg'
@@ -39,8 +39,8 @@ def register():
 def verify():
     id = request.get_json()['id']
     img_data = request.get_json()['image64']
-    if not os.path.exists('encodings'):
-        os.makedirs('encodings')
+    if not os.path.exists('images'):
+        os.makedirs('images')
     with open('images/'+id+'.jpg', "wb") as fh:
         fh.write(base64.b64decode(img_data[22:]))
     img_path = 'images/'+id+'.jpg'
