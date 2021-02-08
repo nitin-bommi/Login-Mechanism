@@ -64,7 +64,7 @@ class PasswordLogin extends Component {
           <div className="form-form">
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="password">
-                <Form.Control type="password" className="item" id="password" name="password"  placeholder="Enter Password" onChange={this.handleChange} />
+                <Form.Control type="password" className="item" name="password"  placeholder="Enter Password" onChange={this.handleChange} />
               </Form.Group>
               <Form.Group controlId="submitbutton">
                   <Button type="submit" className="create-account">Login</Button>

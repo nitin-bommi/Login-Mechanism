@@ -5,8 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import Cookies from 'js-cookie';
-import FormControl from 'react-bootstrap/FormControl';
-import {Link} from 'react-router-dom';
+
 
 
 class StudentDashboard extends React.Component {
@@ -29,30 +28,31 @@ class StudentDashboard extends React.Component {
 
     }
 
+    getUserData(){
+             axios.get("http://localhost:8080/api/userdetails/")
+             .then((res)=>{
+                  // console.log(res.data);
+                  // console.log(res.data.userDetails.userid);
+                  const {userid, firstName, lastName, phone, email, gender, course, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
+                  this.setState({ userid: userid,
+                      firstName: firstName,
+                      lastName: lastName,
+                      phone: phone,
+                      email: email,
+                      gender: gender,
+                      school: school,
+                      department: department,
+                      semester: semester,
+                      course: course,
+                      dateOfBirth: (new Date(dateOfBirth)).toDateString(),
+                      yearOfJoin: yearOfJoin
+                  });
+             }).catch((error)=>{
+                  console.log(error);
+             })
+    }
     componentDidMount(){
-      const token = Cookies.get('token');
-
-       axios.get("http://localhost:8080/api/userdetails/")
-       .then((res)=>{
-            // console.log(res.data);
-            // console.log(res.data.userDetails.userid);
-            const {userid, firstName, lastName, phone, email, gender, course, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
-            this.setState({ userid: userid,
-                firstName: firstName,
-                lastName: lastName,
-                phone: phone,
-                email: email,
-                gender: gender,
-                school: school,
-                department: department,
-                semester: semester,
-                course: course,
-                dateOfBirth: (new Date(dateOfBirth)).toDateString(),
-                yearOfJoin: yearOfJoin
-            });
-       }).catch((error)=>{
-            console.log(error);
-       })
+      this.getUserData();
     }
     render() {
         const logout = ()=>{
@@ -61,6 +61,7 @@ class StudentDashboard extends React.Component {
                 window.location.replace("/");
             }
         }
+
         return (
 
             <div>
@@ -78,6 +79,7 @@ class StudentDashboard extends React.Component {
 
                 <div className="studentdetails center">
                     <table className="center">
+                    <tbody>
                         <tr>
                             <td><b>Student ID:</b></td>
                             <td>{this.state.userid}</td>
@@ -122,10 +124,11 @@ class StudentDashboard extends React.Component {
                             <td><b>Date of Birth:</b></td>
                             <td>{this.state.dateOfBirth}</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
-          
+
         );
     }
 }

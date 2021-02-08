@@ -1,6 +1,6 @@
 /* jshint esversion: 6 */
 import './App.css';
-import React, { useState } from 'react';
+import React  from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import CheckID from './components/CheckID';
 import BasicRegister from './components/BasicRegister';
@@ -36,7 +36,7 @@ function App() {
         <ProtectedRoute exact path="/scalendar" role="Student" component={StudentCalendar} />
         <ProtectedRoute exact path="/pcalendar" role="Professor" component={ProfessorCalendar} />
         <Route exact path="/unauthorized" component={Unauthorized}/>
-      <Route path="*" component={PageNotFound}/>
+        <Route path="*" component={PageNotFound}/>
       </Switch>
     </Router>
   );

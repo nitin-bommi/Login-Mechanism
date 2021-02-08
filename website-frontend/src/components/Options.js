@@ -7,14 +7,15 @@ import passwordimage from '../images/password.png';
 
 
 class Options extends Component {
-  
-  render() {  
+
+  render() {
     return (
         <div>
           <div className="heading">
             <h1>Select Mode of Login</h1>
           </div>
           <table className="table-center">
+            <tbody>
             <tr>
               <td>
                 <Link className="text-link d-inline p-2" to="/passwordlogin">
@@ -37,11 +38,12 @@ class Options extends Component {
                 </Link>
               </td>
             </tr>
+            </tbody>
           </table>
         </div>
       );
   }
-    
+
 }
 
 export default Options;

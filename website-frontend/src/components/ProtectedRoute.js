@@ -11,14 +11,15 @@ const ProtectedRoute = ({ component: Component, role, ...rest }) => {
 
         const token = Cookies.get('token');
         if (token) {
-
           const roleValue = jwt_decode(token).role;
           if(roleValue===role){
               flag = 1;
               return <Component {...rest} {...props}/>;
           }
         }
-      if(flag == 0) {
+
+      if(flag === 0) {
+
           return <Redirect to={
             {
               pathname: '/unauthorized',

@@ -7,10 +7,7 @@ const { requireAuth } = require('../middlewares/authToken');
 router.get('/', (req, res)=>{
     res.send("Hi, it works");
 })
-//Get role route
-router.get('/getRole', requireAuth, (req, res)=>{
-  res.json({role: req.decoded.role});
-})
+
 //Gets all user details to be displayed from database based on ID.
 router.get('/userdetails', requireAuth, async (req, res)=>{
     try{

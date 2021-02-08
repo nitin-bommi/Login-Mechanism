@@ -26,8 +26,6 @@ class ProfessorDashboard extends React.Component {
     }
 
     componentDidMount(){
-      const token = Cookies.get('token');
-      console.log(this.state);
 
        axios.get("http://localhost:8080/api/userdetails/")
        .then((res)=>{
@@ -72,6 +70,7 @@ class ProfessorDashboard extends React.Component {
 
                 <div className="studentdetails center">
                     <table className="center">
+                    <tbody>
                         <tr>
                             <td><b>Professor ID:</b></td>
                             <td>{this.state.userid}</td>
@@ -112,6 +111,7 @@ class ProfessorDashboard extends React.Component {
                             <td><b>Date of Birth:</b></td>
                             <td>{this.state.dateOfBirth}</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -21,9 +21,9 @@ class CheckID extends Component {
     if(token){
 
       const decoded = jwt_decode(token);
-      if(decoded.role == "Student"){
+      if(decoded.role === "Student"){
           window.location.replace('/studentDashboard');
-      }else if(decoded.role == "Professor"){
+      }else if(decoded.role === "Professor"){
         window.location.replace('/professorDashboard');
       }
 
