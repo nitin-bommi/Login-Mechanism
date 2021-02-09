@@ -28,7 +28,11 @@ class PasswordLogin extends Component {
       if(this.state.password!==""){
         const res = await axios.post("http://localhost:8080/api/passwordlogin/", {password: this.state.password});
         if(res.data.success){
-          console.log(res.data.result.role);
+          //If token is not found in cookie and server throws an error
+          //Then redirect to checkid page
+          if(res.data.error === "token"){
+            window.location.replace('/');
+          }
           if(res.data.result.role === 'Student'){
 
                 window.location.replace("/studentDashboard");

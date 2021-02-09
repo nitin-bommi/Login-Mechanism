@@ -21,7 +21,7 @@ class BasicRegister extends Component {
     this.handleSubmit=this.handleSubmit.bind(this);
   }
 
-  handleValidation=()=>{ 
+  handleValidation=()=>{
     let errors = {};
     let formIsValid = true;
 
@@ -33,7 +33,7 @@ class BasicRegister extends Component {
        if(!this.state.firstName.match(/^[a-zA-Z]+$/)){
           formIsValid = false;
           errors["firstName"] = "Only letters";
-       }        
+       }
     }
 
     //Last Name
@@ -44,7 +44,7 @@ class BasicRegister extends Component {
         if(!this.state.lastName.match(/^[a-zA-Z]+$/)){
           formIsValid = false;
           errors["lastName"] = "Only letters";
-        }        
+        }
     }
     //Email
     if(this.state.email === ""){
@@ -56,7 +56,7 @@ class BasicRegister extends Component {
           formIsValid = false;
           errors["email"] = "Email is not valid";
         }
-    } 
+    }
 
     //Phone number
     if(this.state.phoneNumber === ""){
@@ -68,7 +68,7 @@ class BasicRegister extends Component {
           formIsValid = false;
           errors["phoneNumber"] = "Phone number is not valid";
         }
-    } 
+    }
 
     //Password
     if(this.state.password === ""){
@@ -79,7 +79,7 @@ class BasicRegister extends Component {
           formIsValid = false;
           errors["password"] = "Password must be minimum 8 characters";
         }
-    } 
+    }
     //Confirm Password
     if(this.state.confirmPassword === ""){
       formIsValid = false;
@@ -89,7 +89,7 @@ class BasicRegister extends Component {
           formIsValid = false;
           errors["confirmPassword"] = "Password and confirm password must match";
         }
-    } 
+    }
 
     this.setState({errors: errors});
     return formIsValid;
@@ -97,11 +97,13 @@ class BasicRegister extends Component {
 
   handleChange(e) {
     this.setState({[e.target.name]: e.target.value})
-     
+
   }
 
   async handleSubmit(e){
     e.preventDefault();
+    let errors = {};
+    let formIsValid = true;
     // const token = localStorage.getItem("userid");
     const token = await getUserRole();
     if(this.handleValidation()){
@@ -119,6 +121,13 @@ class BasicRegister extends Component {
       try {
         const res = await axios.post("http://localhost:8080/api/basic_registration/", data);
         console.log(res.data);
+        if(res.data.error === "email"){
+          formIsValid = false;
+          errors["email"] = "User with that email already exists!";
+          this.setState({errors: errors});
+          return formIsValid;
+        }
+
         if(res.data.results.role==='Student')
           window.location.replace('/studentregister');
         else
@@ -130,7 +139,7 @@ class BasicRegister extends Component {
     }else{
       alert("Form has errors");
     }
-    
+
   }
   render() {
     return (

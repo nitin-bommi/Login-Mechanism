@@ -37,7 +37,7 @@ router.post('/checkid',async (req, res)=>{
     try{
         //ID is input in the body.
         const userid = await req.body.userid;
-        
+
         if(userid===""){
             res.status(400).json({ success: false, message: "ID should not be blank "})
         }else if(!/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/.test(req.body.userid)){
@@ -72,12 +72,20 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
     try{
         // Get userid decoded from token in header
         const userid = await req.decoded.userid;
+        //Somehow token is not there in the cookie
+        if(!userid){
+          return res.status(200).json({
+            success: true,
+            error: "token"
+          })
+        }
         //Gets password from body
         const password = await req.body.password;
         let userDetails = await User.findOne({userid: userid}).exec();
+        console.log(!userDetails);
         // if any error while executing above query, throw error
         if (!userDetails) {
-            res.status(400).json({
+            return res.status(400).json({
                 message: "ID not found, please register."
             })
         };
@@ -118,6 +126,15 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
         console.log(userid);
         console.log(role);
         const { firstName, lastName, email, password, phoneNumber } = await req.body;
+        //Checking if other users has the same Email
+        const oldUser = await User.find({email}).exec();
+        if(oldUser!=""){
+          console.log("Old User is "+oldUser);
+          //Email already exists
+          return res.status(200).json({
+              error: "email"
+          });
+        }
         const userDetails=new User({
             userid: userid,
             role: role,
