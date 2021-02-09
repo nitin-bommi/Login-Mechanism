@@ -16,7 +16,7 @@ var userSchema = new mongoose.Schema({
     userid: {
         type: String,
         match: [/(^\d{2}[a-zA-Z]{4}\d{2}$|^\d{5}$)/g,'ID must be valid'],
-        unique: true,
+        unique: [true,'ID already exists'],
         required: true
     },
     role:{
@@ -57,7 +57,7 @@ var userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid email address!`
             },
         required: [true, 'User email required'], 
-        unique: true
+        unique: [true, 'Email already exists']
     },
     profilePicturePath: String, //store the path to profilepic
     gender:{

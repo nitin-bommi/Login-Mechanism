@@ -108,7 +108,7 @@ router.post('/passwordlogin', requireAuth, async (req, res)=>{
 //If ID is not present, then register basic details.
 router.post('/basic_registration', requireAuth, async (req, res) => {
     try{
-        const userid= await req.decoded.userid;
+        const userid = await req.decoded.userid;
         let role;
         if(/^\d{5}$/.test(userid)){
             role='Professor';
@@ -117,7 +117,7 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
         }
         console.log(userid);
         console.log(role);
-        const { firstName, lastName, email, password, phonenumber } = await req.body;
+        const { firstName, lastName, email, password, phoneNumber } = await req.body;
         const userDetails=new User({
             userid: userid,
             role: role,
@@ -125,7 +125,7 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
             lastName: lastName,
             email: email,
             password: password,
-            phone: phonenumber
+            phone: phoneNumber
         })
         await userDetails.save();
         res.status(200).json({
@@ -136,7 +136,7 @@ router.post('/basic_registration', requireAuth, async (req, res) => {
 
     }catch(err){
         console.log(err);
-        res.status(200).json({
+        res.status(400).json({
             error: err,
             message: "Insertion failed"
         })
