@@ -96,13 +96,8 @@ class BasicRegister extends Component {
   }
 
   handleChange(e) {
-    if(!e.target.value || e.target.value === ""){
-      let errors = this.state.errors;
-      errors[e.target.name] = "Cannot be empty";        
-      this.setState({errors});      
-    }else{
-      this.setState({[e.target.name]: e.target.value})
-    }      
+    this.setState({[e.target.name]: e.target.value})
+     
   }
 
   async handleSubmit(e){
