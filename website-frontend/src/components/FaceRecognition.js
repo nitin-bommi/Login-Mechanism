@@ -41,6 +41,11 @@ class FaceRecognition extends Component {
         console.log(response.data.success);
         if(this.props.login){
             if(response.data.success){
+							//If token is not found in cookie and server throws an error
+							//Then redirect to checkid page
+							if(response.data.error === "token"){
+								window.location.replace('/');
+							}
                 this.stop();
                 console.log(response.data.image);
                 console.log(response.data.imagebody);
