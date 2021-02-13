@@ -14,7 +14,7 @@ class Options extends Component {
     };
   }
   async componentDidMount() {
-    const tokenRole = await getUserRole();
+    //const tokenRole = await getUserRole();
     const role = await getUserRole();
     if (role === "Student") {
       window.location.replace("/studentDashboard");

@@ -34,7 +34,7 @@ class StudentDashboard extends React.Component {
                   // console.log(res.data);
                   // console.log(res.data.userDetails.userid);
                   const {userid, firstName, lastName, phone, email, gender, course, school, department, semester, dateOfBirth, yearOfJoin}=res.data.userDetails;
-                  this.setState({ userid: userid,
+                  this.setState({ userid: userid.toUpperCase(),
                       firstName: firstName,
                       lastName: lastName,
                       phone: phone,

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Webcam from 'react-webcam';
+import {getUserRole} from '../utils';
 const axios = require('axios');
-
 
 class FaceRecognition extends Component {
 
@@ -9,11 +9,23 @@ class FaceRecognition extends Component {
 		super(props);
         this.state={
             tries: 0,
+            notLoggedIn: false
         }
 	}
 
     setRef = (webcam) => {
         this.webcam = webcam;
+    }
+
+    async componentDidMount(){
+        const role = await getUserRole();
+          if(role === "Student"){
+              window.location.replace('/studentDashboard');
+          }else if(role === "Professor"){
+            window.location.replace('/professorDashboard');
+        }else{
+          this.setState({ notLoggedIn: true })
+        }
     }
 
 
@@ -76,6 +88,8 @@ class FaceRecognition extends Component {
     }
 
 	render(){
+        let notLoggedIn = this.state.notLoggedIn;
+
         const videoConstraints = {
             height: 320,
             width: 400,
@@ -98,22 +112,25 @@ class FaceRecognition extends Component {
 
     	return (
             <div>
-                <div className="camera">
-                    <Webcam
-                        audio={false}
-                        height={320}
-                        width={400}
-                        ref={this.setRef}
-                        screenshotFormat="image/jpeg"
-                        videoConstraints={videoConstraints}
-                    />
-                </div>
+              { notLoggedIn ?
                 <div>
-                    {/* {loginbutton} */}
-                    { this.props.login ? loginbutton : signupbutton }
-
-
+                    <div className="camera">
+                        <Webcam
+                            audio={false}
+                            height={320}
+                            width={400}
+                            ref={this.setRef}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={videoConstraints}
+                        />
+                    </div>
+                    <div>
+                        { this.props.login ? loginbutton : signupbutton }
+                    </div>
                 </div>
+              : 
+                null
+              }
     		</div>
 		)
 	}

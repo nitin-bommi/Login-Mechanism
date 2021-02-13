@@ -70,15 +70,58 @@ var userSchema = new mongoose.Schema({
     },
     school: {
         type: String,
-        enum: ['School of Computer and Information Sciences']
+        enum: [
+            'School of Mathematics and Statistics',
+            'School of Physics',
+            'School of Chemistry',
+            'School of Life Sciences',
+            'School of Computer and Information Sciences',
+            'School of Social Sciences',
+            'School of Humanities',
+            'School of Engg. Sciences and Technology',
+            'School of Management Studies',
+            'Sarojini Naidu School of Arts and Communication',
+            'School of Economics',
+            'School of Medical Sciences'
+        ]
     },
     department: {
         type: String,
-        
+        enum: [
+            'School of Mathematics and Statistics',
+            'School of Physics',
+            'School of Chemistry',
+            'Department of Biochemistry',
+            'Department of Plant Sciences',
+            'Department of Animal Biology',
+            'Department of Biotechnology and Bioinformatics',
+            'Department of Systems and Computational Biology',
+            'School of Computer and Information Sciences',
+            'Department of History',
+            'Department of Sociology',
+            'Department of Political Science',
+            'Department of Anthrolpology',
+            'Department of Education and Education Technology',
+            'Department of English',
+            'Department of Philosophy',
+            'Department of Hindi',
+            'Department of Telugu',
+            'Department of Urdu',
+            'Department of Sanskrit Studies',
+            'School of Engg. Sciences and Technology',
+            'School of Management Studies',
+            'Department of Communication',
+            'Department of Dance',
+            'Department of Fine Arts',
+            'Department of Theatre Arts',
+            'Department of Music',
+            'School of Economics',
+            'School of Medical Sciences'
+        ]
     }, 
     course: {
         type: String,
-        enum: ["IMTech", "MTech", "MCA", "MSc", "IMSc"],
+        enum: ["IMTech", "MTech", "MCA", "MSc", "IMSc", "PhD", "MA", "IMA"],
     },
     yearOfJoin: {
         type: Number,
@@ -95,6 +138,20 @@ var userSchema = new mongoose.Schema({
     },
     designation: {
         type: String,
+        enum: [
+            'Professor',
+            'Senior Professor',
+            'Assistant Professor',
+            'Associate Professor',
+            'Professor and Dean',
+            'Dean',
+            'Emeritus Professor',
+            'Adhoc/Guest Faculty',
+            'Adjunct Faculty/Visiting Faculty',
+            'Honorary Professor',
+            'Re-employed',
+            'Head of Department'
+        ]
     }
 
 },schemaOptions);

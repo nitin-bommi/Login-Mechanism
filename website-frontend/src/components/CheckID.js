@@ -64,36 +64,30 @@ class CheckID extends Component {
     }
   }
 
-  render() {
-    let notLoggedIn=this.state.notLoggedIn;
-    return (
-      <div>
-      { notLoggedIn ?
-          <div className="form-form">
-            <Form>
-              <h3 className="form-heading">
-                Enter your ID
-              </h3>
-              <Form.Group controlId="userid">
-                <Form.Control type="text" className="item" placeholder="User ID" name="userid" onChange={this.handleChange} />
-              </Form.Group>
-              <Form.Group controlId="checkbutton">
-                  <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
-              </Form.Group>
-            </Form>
-            {/* <div className="others">
-              <p><Link className='text-link' to="/passwordlogin">CheckPassword</Link></p>
-              <p><Link className='text-link' to="/basicregister">Basic Register</Link></p>
-              <p><Link className='text-link' to="/faceSignUp">Sign Up with face</Link></p>
-            </div> */}
-          </div>
-        :
-          null
-      }
-      </div>
+  render() {  
+    let notLoggedIn = this.state.notLoggedIn;
+    return (      
+        <div>
+          { notLoggedIn ?
+            <div className="form-form">
+              <Form>
+                <h3 className="form-heading">
+                  Enter your ID
+                </h3>
+                <Form.Group controlId="userid">
+                  <Form.Control type="text" className="item" placeholder="User ID" name="userid" onChange={this.handleChange} />
+                </Form.Group>
+                <Form.Group controlId="checkbutton">
+                    <Button type="submit" onClick={this.handleSubmit} className="create-account">Check ID</Button>
+                </Form.Group>
+              </Form>
+            </div>
+          : 
+            null
+          }
+        </div>
     );
   }
-
 }
 
 export default CheckID;

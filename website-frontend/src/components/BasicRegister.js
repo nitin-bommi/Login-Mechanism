@@ -14,11 +14,22 @@ class BasicRegister extends Component {
       confirmPassword: "",
       email: "",
       phoneNumber: "",
-      fields: {},
+      notLoggedIn: false,
       errors: {}
     }
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
+  }
+
+  async componentDidMount(){
+    const role = await getUserRole();
+      if(role === "Student"){
+          window.location.replace('/studentDashboard');
+      }else if(role === "Professor"){
+        window.location.replace('/professorDashboard');
+    }else{
+      this.setState({ notLoggedIn: true })
+    }
   }
 
   handleValidation=()=>{
@@ -142,42 +153,47 @@ class BasicRegister extends Component {
 
   }
   render() {
+    let notLoggedIn = this.state.notLoggedIn;
     return (
         <div>
-          <div className="form-form">
-            <Form onSubmit={this.handleSubmit}>
-              <h3 className="form-heading">
-                Register
-              </h3>
-              <Form.Group controlId="fname">
-                <Form.Control type="text" className="item" name="firstName" placeholder="First Name" onChange={this.handleChange} isInvalid={!!this.state.errors.firstName}/>
-                <Form.Control.Feedback type="invalid">{this.state.errors["firstName"]} </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="lname">
-                <Form.Control type="text"  className="item" name="lastName" placeholder="Last name" onChange={this.handleChange} isInvalid={!!this.state.errors.lastName} />
-                <Form.Control.Feedback type="invalid">{this.state.errors["lastName"]} </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="email">
-                <Form.Control type="email" className="item" name="email" placeholder="Email" onChange={this.handleChange} isInvalid={!!this.state.errors.email} />
-                <Form.Control.Feedback type="invalid">{this.state.errors["email"]} </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="phone">
-                <Form.Control type="tel"  className="item" name="phoneNumber" placeholder="Phone number"  onChange={this.handleChange} isInvalid={!!this.state.errors.phoneNumber} />
-                <Form.Control.Feedback type="invalid">{this.state.errors["phoneNumber"]} </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="password1">
-                <Form.Control type="password" className="item" name="password" placeholder="Password" onChange={this.handleChange} isInvalid={!!this.state.errors.password} />
-                <Form.Control.Feedback type="invalid">{this.state.errors["password"]} </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="password2">
-                <Form.Control type="password"  className="item" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} isInvalid={!!this.state.errors.confirmPassword} />
-                <Form.Control.Feedback type="invalid">{this.state.errors["confirmPassword"]} </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="submitbutton">
-                <Button type="submit" className="create-account">Next</Button>
-              </Form.Group>
-            </Form>
-          </div>
+          { notLoggedIn ?
+            <div className="form-form">
+              <Form onSubmit={this.handleSubmit}>
+                <h3 className="form-heading">
+                  Register
+                </h3>
+                <Form.Group controlId="fname">
+                  <Form.Control type="text" className="item" name="firstName" placeholder="First Name" onChange={this.handleChange} isInvalid={!!this.state.errors.firstName}/>
+                  <Form.Control.Feedback type="invalid">{this.state.errors["firstName"]} </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="lname">
+                  <Form.Control type="text"  className="item" name="lastName" placeholder="Last name" onChange={this.handleChange} isInvalid={!!this.state.errors.lastName} />
+                  <Form.Control.Feedback type="invalid">{this.state.errors["lastName"]} </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="email">
+                  <Form.Control type="email" className="item" name="email" placeholder="Email" onChange={this.handleChange} isInvalid={!!this.state.errors.email} />
+                  <Form.Control.Feedback type="invalid">{this.state.errors["email"]} </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="phone">
+                  <Form.Control type="tel"  className="item" name="phoneNumber" placeholder="Phone number"  onChange={this.handleChange} isInvalid={!!this.state.errors.phoneNumber} />
+                  <Form.Control.Feedback type="invalid">{this.state.errors["phoneNumber"]} </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="password1">
+                  <Form.Control type="password" className="item" name="password" placeholder="Password" onChange={this.handleChange} isInvalid={!!this.state.errors.password} />
+                  <Form.Control.Feedback type="invalid">{this.state.errors["password"]} </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="password2">
+                  <Form.Control type="password"  className="item" name="confirmPassword" placeholder="Confirm Password" onChange={this.handleChange} isInvalid={!!this.state.errors.confirmPassword} />
+                  <Form.Control.Feedback type="invalid">{this.state.errors["confirmPassword"]} </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group controlId="submitbutton">
+                  <Button type="submit" className="create-account">Next</Button>
+                </Form.Group>
+              </Form>
+            </div>
+          : 
+            null
+          }
         </div>
       );
   }
