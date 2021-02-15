@@ -65,7 +65,7 @@ class StudentDashboard extends React.Component {
         return (
 
             <div>
-                <Navbar expand="md" variant="light">
+                <Navbar bg="dark" variant="dark">
                     <Nav className="mr-auto">
                         <Nav.Link href="/scalendar">Calendar</Nav.Link>
                     </Nav>

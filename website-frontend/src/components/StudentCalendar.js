@@ -3,6 +3,11 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
+import {getUserRole, logout} from '../utils.js';
 // Setup the localizer by providing the moments Object
 // to the correct localizer.
 const localizer = momentLocalizer(moment); 
@@ -31,8 +36,22 @@ class StudentCalendar extends Component {
     }
 
     render() {
-        
+      const Logout = async  ()=>{
+        if(await getUserRole()){
+            logout();
+            window.location.replace("/");
+        }
+    }
         return (
+          <div>
+                <Navbar bg="dark" variant="dark">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/scalendar">Calendar</Nav.Link>
+                    </Nav>
+                    <Form inline>
+                        <Button variant="secondary" onClick={Logout}>Logout</Button>
+                    </Form>
+                </Navbar>
             <div className="rbc-calendar">
                 <Calendar
                   popup
@@ -40,7 +59,9 @@ class StudentCalendar extends Component {
                   events={ this.state.eventslist}
                   startAccessor="start" 
                   endAccessor="end" 
+                  style={{  }}
                 />
+            </div>
             </div>
         );
       }
