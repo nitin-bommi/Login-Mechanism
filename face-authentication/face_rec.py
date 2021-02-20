@@ -15,6 +15,7 @@ def store_image(id, image_path):
     return True
 
 def verify_image(id, image_path):
+    tolerence = 0.4
     try:
         face_encodings_for_id = np.load('encodings/'+id+'.npy', allow_pickle=True)
     except:
@@ -24,7 +25,7 @@ def verify_image(id, image_path):
     os.remove(image_path)
     try:
         img_enc = face_recognition.face_encodings(img)
-        result = face_recognition.compare_faces(face_encodings_for_id, img_enc)
+        result = face_recognition.compare_faces(face_encodings_for_id, img_enc, tolerence)
     except:
         return False
     return result
