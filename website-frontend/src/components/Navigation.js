@@ -59,7 +59,6 @@ class Navigation extends Component {
               </Nav>
             </>
           )}
-
           <Form inline>
             <Button variant="secondary" onClick={Logout}>
               Logout

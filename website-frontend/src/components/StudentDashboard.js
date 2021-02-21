@@ -96,6 +96,9 @@ class StudentDashboard extends React.Component {
         <div className="studentdetails center">
           <table className="center">
             <tbody>
+              <form action="/api/enable2FA" method="POST">
+                <input type="checkbox" name="check" />
+              </form>
               <tr>
                 <td>
                   <b>Student ID:</b>
