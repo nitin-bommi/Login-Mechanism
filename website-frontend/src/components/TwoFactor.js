@@ -37,7 +37,7 @@ class TwoFactor extends Component {
       ascii: this.state.ascii,
       otp: this.state.otp,
     });
-    if (res.data.authenticated == true) {
+    if (res.data.authenticated === true) {
       const role = await getUserRole();
       if (role === "Student") {
         window.location.replace("/studentDashboard");
@@ -54,8 +54,8 @@ class TwoFactor extends Component {
     return (
       <div>
         <h1> Scan this QR code: </h1>
-        {this.state.error != "" && <h3>{this.state.error}</h3>}
-        <img src={image} />
+        {this.state.error !== "" && <h3>{this.state.error}</h3>}
+        <img src={image} alt="User QR code"/>
 
         <form onSubmit={this.handleSubmit}>
           <label for="otp">Enter OTP: </label>

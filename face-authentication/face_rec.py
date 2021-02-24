@@ -15,7 +15,7 @@ def store_image(id, image_path):
     return True
 
 def verify_image(id, image_path):
-    tolerence = 0.4
+    tolerence = 0.1
     try:
         face_encodings_for_id = np.load('encodings/'+id+'.npy', allow_pickle=True)
     except:

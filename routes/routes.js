@@ -10,25 +10,30 @@ const qrcode = require("qrcode");
 router.get("/", (req, res) => {
   res.send("Hi, it works");
 });
+
 router.get("/getUserDetails", requireAuth, (req, res) => {
   res.json({ role: req.decoded.role, userid: req.decoded.userid });
 });
+
 //Get the ascii value for 2FA
 router.get("/ascii", requireAuth, async (req, res) => {
   const user = await User.find({ userid: req.decoded.userid }).exec();
   console.log(user[0].secondLevel);
   res.json({ ascii: user[0].secondLevel.ascii });
 });
+
 //Logout
 router.get("/logout", requireAuth, (req, res) => {
   res.clearCookie("token");
   res.sendStatus(200);
 });
+
 //Update 2FA enabled flag
 router.post("/enable2FA", requireAuth, async (req, res) => {
   const user = req.decoded.userid;
   await User.findOneAndUpdate({ userid: user }, { enabled: true }).exec();
 });
+
 router.post("/2fa", (req, res) => {
   const { otp, ascii } = req.body;
   const result = gValidate(otp, ascii);
@@ -202,12 +207,12 @@ router.post("/basic_registration", requireAuth, async (req, res) => {
     //save to images folder
     var base64Data = data.replace(/^data:image\/png;base64,/, "");
     fs.writeFile(
-      "../website-frontend/src/images/qr-codes" + userid + ".png",
+      "../website-frontend/src/images/qr-codes/" + userid + ".png",
       base64Data,
       "base64",
       function (err, res) {
         if (err) throw err;
-        console.log("qr codesaved");
+        console.log("qr code saved");
       }
     );
     await userDetails.save();
