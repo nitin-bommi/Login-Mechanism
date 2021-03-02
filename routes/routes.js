@@ -203,18 +203,18 @@ router.post("/basic_registration", requireAuth, async (req, res) => {
       },
     });
 
-    const data = await qrcode.toDataURL(secret.otpauth_url);
-    //save to images folder
-    var base64Data = data.replace(/^data:image\/png;base64,/, "");
-    fs.writeFile(
-      "../website-frontend/src/images/qr-codes/" + userid + ".png",
-      base64Data,
-      "base64",
-      function (err, res) {
-        if (err) throw err;
-        console.log("qr code saved");
-      }
-    );
+    // const data = await qrcode.toDataURL(secret.otpauth_url);
+    // //save to images folder
+    // var base64Data = data.replace(/^data:image\/png;base64,/, "");
+    // fs.writeFile(
+    //   "../website-frontend/src/images/qr-codes/" + userid + ".png",
+    //   base64Data,
+    //   "base64",
+    //   function (err, res) {
+    //     if (err) throw err;
+    //     console.log("qr code saved");
+    //   }
+    // );
     await userDetails.save();
     res.status(200).json({
       success: true,
